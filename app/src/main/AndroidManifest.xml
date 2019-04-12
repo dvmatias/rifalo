@@ -12,7 +12,7 @@
 		tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
 		<!-- Activity Splash -->
-		<activity android:name=".SplashActivity"
+		<activity android:name=".screens.splash.SplashActivity"
 			android:theme="@style/NoActionBar">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
