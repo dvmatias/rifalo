@@ -7,4 +7,13 @@
 	android:theme="@style/NoActionBar"
 	tools:context=".SplashActivity">
 
+	<!-- Background Image. -->
+	<ImageView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:adjustViewBounds="true"
+		android:src="@drawable/screen_splash_bgr"
+		android:scaleType="centerCrop"
+		android:contentDescription="@null"/>
+
 </android.support.constraint.ConstraintLayout>
