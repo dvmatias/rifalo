@@ -30,4 +30,6 @@ class MyApplication : Application() {
 			.build()
 	}
 
+	fun getApplicationComponent(): ApplicationComponent = applicationComponent
+
 }
