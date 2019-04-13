@@ -1,4 +1,4 @@
-package com.matias.rifalo
+package com.bluespark.rifalo
 
 import org.junit.Test
 
