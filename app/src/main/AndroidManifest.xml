@@ -29,6 +29,9 @@
 		<activity
 			android:name=".screens.auth.AuthActivity"
 			android:theme="@style/ActivityAuthTheme" />
+
+		<!-- Activity Auth -->
+		<activity android:name=".screens.main.MainActivity" />
 	</application>
 
 </manifest>

@@ -47,7 +47,7 @@ class SplashPresenterImpl(
 	 */
 	private var credentialsListener = object : SplashCheckCredentialsInteractor.Listener {
 		override fun onUserSignedIn() {
-			Log.d("ASDA", "MABEL onUserSignedIn()")
+			view?.flowGoToMainScreen()
 		}
 
 		override fun onUserNotLoggedIn() {

@@ -3,6 +3,7 @@ package com.bluespark.raffleit.screens.auth
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.Constants
@@ -10,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_auth.*
 
@@ -48,6 +50,23 @@ class AuthActivity : AppCompatActivity(), View.OnClickListener {
 		startActivityForResult(signInIntent, Constants.RC_SIGN_IN)
 	}
 
+	private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+		try {
+			val account = completedTask.getResult(ApiException::class.java)
+
+			// Signed in successfully, show auth
+//			updateUI(account) TODO
+			Log.w(TAG, "signInResult:success")
+
+		} catch (e: ApiException) {
+			// The ApiException status code indicates the detailed failure reason.
+			// Please refer to the GoogleSignInStatusCodes class reference for more information.
+			Log.w(TAG, "signInResult:failed code=" + e.statusCode)
+//			updateUI(null) TODO
+		}
+
+	}
+
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		super.onActivityResult(requestCode, resultCode, data)
 
@@ -56,7 +75,7 @@ class AuthActivity : AppCompatActivity(), View.OnClickListener {
 			// The Task returned from this call is always completed, no need to attach
 			// a listener.
 			val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-//			handleSignInResult(task)
+			handleSignInResult(task)
 		}
 
 	}
