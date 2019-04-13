@@ -1,6 +1,7 @@
 package com.matias.rifalo.common.injection.presentation
 
 import com.matias.rifalo.common.mvp.BaseView
+import com.matias.rifalo.screens.splash.SplashCheckCredentialsInteractor
 import com.matias.rifalo.screens.splash.SplashCheckNetworkInteractor
 import com.matias.rifalo.screens.splash.SplashContract
 import com.matias.rifalo.screens.splash.SplashPresenterImpl
@@ -11,7 +12,15 @@ import dagger.Provides
 class PresenterModule {
 
 	@Provides
-	fun getSplashPresenterImpl(view: BaseView, checkNetworkInteractor: SplashCheckNetworkInteractor): SplashPresenterImpl =
-		SplashPresenterImpl(view as SplashContract.View, checkNetworkInteractor)
+	fun getSplashPresenterImpl(
+		view: BaseView,
+		checkNetworkInteractor: SplashCheckNetworkInteractor,
+		checkCredentialsInteractor: SplashCheckCredentialsInteractor
+	): SplashPresenterImpl =
+		SplashPresenterImpl(
+			view as SplashContract.View,
+			checkNetworkInteractor,
+			checkCredentialsInteractor
+		)
 
 }

@@ -1,10 +1,9 @@
 package com.matias.rifalo.screens.splash
 
+import android.util.Log
 import com.matias.rifalo.common.utils.managers.InternetConnectivityManager
 
 class SplashCheckNetworkInteractor(var internetConnectivityManager: InternetConnectivityManager) {
-
-	private lateinit var listener: Listener
 
 	interface Listener {
 		fun onInternetConnected()
@@ -12,11 +11,16 @@ class SplashCheckNetworkInteractor(var internetConnectivityManager: InternetConn
 	}
 
 	fun execute(listener: SplashCheckNetworkInteractor.Listener) {
+		Log.d(TAG, "MABEL execute()")
 		val isInternetConnected = internetConnectivityManager.checkInternetConnectionStatus()
 		when(isInternetConnected) {
 			true -> listener.onInternetConnected()
 			false -> listener.onInternetNotConnected()
 		}
+	}
+
+	companion object {
+		private val TAG = SplashCheckNetworkInteractor::class.java.simpleName
 	}
 
 }

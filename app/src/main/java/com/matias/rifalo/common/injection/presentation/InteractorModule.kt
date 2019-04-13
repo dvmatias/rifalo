@@ -1,6 +1,7 @@
 package com.matias.rifalo.common.injection.presentation
 
 import com.matias.rifalo.common.utils.managers.InternetConnectivityManager
+import com.matias.rifalo.screens.splash.SplashCheckCredentialsInteractor
 import com.matias.rifalo.screens.splash.SplashCheckNetworkInteractor
 import dagger.Module
 import dagger.Provides
@@ -12,5 +13,9 @@ class InteractorModule {
 	fun getSplashCheckNetworkInteractor(internetConnectivityManager: InternetConnectivityManager)
 			: SplashCheckNetworkInteractor =
 		SplashCheckNetworkInteractor(internetConnectivityManager)
+
+	@Provides
+	fun getSplashCheckCredentialsInteractor(): SplashCheckCredentialsInteractor =
+		SplashCheckCredentialsInteractor()
 
 }

@@ -4,8 +4,9 @@ import android.util.Log
 import com.matias.rifalo.common.mvp.BasePresenterImpl
 
 class SplashPresenterImpl(
-	view: SplashContract.View,
-	private var checkNetworkInteractor: SplashCheckNetworkInteractor
+	view: SplashContract.View?,
+	private var checkNetworkInteractor: SplashCheckNetworkInteractor,
+	private var checkCredentialsInteractor: SplashCheckCredentialsInteractor
 ) : BasePresenterImpl<SplashContract.View>(),
 	SplashContract.Presenter {
 
@@ -18,14 +19,12 @@ class SplashPresenterImpl(
 	 */
 
 	override fun actionCheckInternetConnection() {
-		Log.d(SplashPresenterImpl::class.java.simpleName, "MABEL actionCheckInternetConnection()")
 		checkNetworkInteractor.execute(networkListener)
 	}
 
 	override fun actionCheckCredentials() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		checkCredentialsInteractor.execute(credentialsListener)
 	}
-
 
 	/**
 	 * [SplashCheckNetworkInteractor.Listener] interface implementation.
@@ -33,11 +32,21 @@ class SplashPresenterImpl(
 	private var networkListener = object : SplashCheckNetworkInteractor.Listener {
 		override fun onInternetConnected() {
 			Log.d(SplashPresenterImpl::class.java.simpleName, "MABEL Internet Connected!")
+			actionCheckCredentials()
 		}
 
 		override fun onInternetNotConnected() {
 			Log.d(SplashPresenterImpl::class.java.simpleName, "MABEL Internet Not Connected!")
+			view?.viewShowNoInternetDialog()
 		}
 
 	}
+
+	/**
+	 * [SplashCheckCredentialsInteractor.Listener] interface implementation.
+	 */
+	private var credentialsListener = object : SplashCheckCredentialsInteractor.Listener {
+		// TODO
+	}
+
 }
