@@ -1,6 +1,5 @@
 package com.matias.rifalo.screens.splash
 
-import com.matias.rifalo.common.mvp.BaseInteractor
 import com.matias.rifalo.common.mvp.BasePresenter
 import com.matias.rifalo.common.mvp.BaseView
 
@@ -14,7 +13,8 @@ interface SplashContract {
 		fun flowGoToMainScreen()
 	}
 
-	interface Presenter<V : SplashContract.View> : BasePresenter<V> {
+	interface Presenter : BasePresenter<View> {
+		fun actionCheckInternetConnection()
 		fun actionCheckCredentials()
 	}
 

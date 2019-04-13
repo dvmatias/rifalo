@@ -24,6 +24,7 @@ class SplashActivity : BaseActivityImpl(), SplashContract.View {
 
 	override fun onResume() {
 		super.onResume()
+		presenter.actionCheckInternetConnection()
 	}
 
 	/**
