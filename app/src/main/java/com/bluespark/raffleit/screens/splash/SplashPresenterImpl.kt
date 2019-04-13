@@ -19,8 +19,7 @@ class SplashPresenterImpl(
 	 */
 
 	override fun actionCheckInternetConnection() {
-		view?.flowGoToAuthScreen() // TODO remove this. The app should check user's auth status.
-//		checkNetworkInteractor.execute(networkListener)
+		checkNetworkInteractor.execute(networkListener)
 	}
 
 	override fun actionCheckCredentials() {
@@ -47,7 +46,14 @@ class SplashPresenterImpl(
 	 * [SplashCheckCredentialsInteractor.Listener] interface implementation.
 	 */
 	private var credentialsListener = object : SplashCheckCredentialsInteractor.Listener {
-		// TODO
+		override fun onUserSignedIn() {
+			Log.d("ASDA", "MABEL onUserSignedIn()")
+		}
+
+		override fun onUserNotLoggedIn() {
+			view?.flowGoToAuthScreen()
+		}
+
 	}
 
 }

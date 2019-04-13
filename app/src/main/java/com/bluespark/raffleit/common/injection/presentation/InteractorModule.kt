@@ -1,5 +1,6 @@
 package com.bluespark.raffleit.common.injection.presentation
 
+import android.content.Context
 import com.bluespark.raffleit.common.utils.managers.InternetConnectivityManager
 import com.bluespark.raffleit.screens.splash.SplashCheckCredentialsInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
@@ -15,7 +16,7 @@ class InteractorModule {
 		SplashCheckNetworkInteractor(internetConnectivityManager)
 
 	@Provides
-	fun getSplashCheckCredentialsInteractor(): SplashCheckCredentialsInteractor =
-		SplashCheckCredentialsInteractor()
+	fun getSplashCheckCredentialsInteractor(context: Context): SplashCheckCredentialsInteractor =
+		SplashCheckCredentialsInteractor(context)
 
 }

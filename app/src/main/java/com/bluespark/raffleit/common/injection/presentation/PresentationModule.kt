@@ -1,5 +1,6 @@
 package com.bluespark.raffleit.common.injection.presentation
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import com.bluespark.raffleit.common.mvp.BaseView
 import dagger.Module
@@ -16,5 +17,8 @@ class PresentationModule(
 
 	@Provides
 	fun getActivity(): AppCompatActivity = activity
+
+	@Provides
+	fun getContext(): Context = activity
 
 }
