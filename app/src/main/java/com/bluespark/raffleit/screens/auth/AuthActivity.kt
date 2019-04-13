@@ -77,6 +77,6 @@ class AuthActivity : AppCompatActivity(), View.OnClickListener {
 			val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
 			handleSignInResult(task)
 		}
-
 	}
+
 }
