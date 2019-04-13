@@ -2,23 +2,24 @@ package com.bluespark.raffleit.screens.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.Constants
+import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_auth.*
+import javax.inject.Inject
 
 
-class AuthActivity : AppCompatActivity(), View.OnClickListener {
+class AuthActivity : BaseActivityImpl(), View.OnClickListener {
 
-	private lateinit var mGoogleSignInClient: GoogleSignInClient
+	@Inject
+	lateinit var mGoogleSignInClient: GoogleSignInClient
 
 	companion object {
 		private val TAG = AuthActivity::class.java.simpleName
@@ -33,16 +34,10 @@ class AuthActivity : AppCompatActivity(), View.OnClickListener {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_auth)
-		// Configure sign-in to request the user's ID, email address, and basic
-		// profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-		val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-			.requestEmail()
-			.build()
-		// Build a GoogleSignInClient with the options specified by gso.
-		mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+		// Inject this view.
+		getPresentationComponent().inject(this)
 
 		btn_sign_in_google.setOnClickListener(this)
-
 	}
 
 	private fun signIn() {
