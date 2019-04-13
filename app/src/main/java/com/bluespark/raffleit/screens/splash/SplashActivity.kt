@@ -1,9 +1,11 @@
 package com.bluespark.raffleit.screens.splash
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
+import com.bluespark.raffleit.screens.auth.AuthActivity
 import javax.inject.Inject
 
 class SplashActivity : BaseActivityImpl(), SplashContract.View {
@@ -43,8 +45,9 @@ class SplashActivity : BaseActivityImpl(), SplashContract.View {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
-	override fun flowGoToRegisterScreen() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	override fun flowGoToAuthScreen() {
+		val goToAuthScreenIntent = Intent(this, AuthActivity::class.java)
+		startActivity(goToAuthScreenIntent)
 	}
 
 	override fun flowGoToMainScreen() {

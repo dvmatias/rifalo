@@ -19,7 +19,8 @@ class SplashPresenterImpl(
 	 */
 
 	override fun actionCheckInternetConnection() {
-		checkNetworkInteractor.execute(networkListener)
+		view?.flowGoToAuthScreen() // TODO remove this. The app should check user's auth status.
+//		checkNetworkInteractor.execute(networkListener)
 	}
 
 	override fun actionCheckCredentials() {

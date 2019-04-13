@@ -9,12 +9,19 @@
 	</style>
 
 	<!-- Activity Splash Theme. -->
-	<style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+	<style name="ActivitySplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
 		<item name="android:statusBarColor">@color/color_transparent</item>
 		<item name="android:background">@color/color_primary</item>
+	</style>
 
+	<!-- Activity Auth Theme. -->
+	<style name="ActivityAuthTheme" parent="Theme.AppCompat.Light.NoActionBar">
+		<item name="android:windowActionBar">false</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:statusBarColor">@color/color_primary</item>
+		<item name="android:background">@color/color_white</item>
 	</style>
 
 </resources>
