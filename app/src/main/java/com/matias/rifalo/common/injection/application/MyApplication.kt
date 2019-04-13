@@ -26,7 +26,10 @@ class MyApplication : Application() {
 		applicationComponent = DaggerApplicationComponent
 			.builder()
 			.applicationModule(ApplicationModule(this))
+			.networkingModule(NetworkingModule(this))
 			.build()
 	}
+
+	fun getApplicationComponent(): ApplicationComponent = applicationComponent
 
 }
