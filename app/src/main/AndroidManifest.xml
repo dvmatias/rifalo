@@ -3,6 +3,8 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="com.matias.rifalo">
 
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 	<application
 		android:name=".common.injection.application.MyApplication"
 		android:allowBackup="true"
@@ -13,7 +15,8 @@
 		tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
 		<!-- Activity Splash -->
-		<activity android:name=".screens.splash.SplashActivity"
+		<activity
+			android:name=".screens.splash.SplashActivity"
 			android:theme="@style/NoActionBar">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
