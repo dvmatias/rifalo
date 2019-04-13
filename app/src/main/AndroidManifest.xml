@@ -4,7 +4,7 @@
 	package="com.matias.rifalo">
 
 	<application
-		android:name=".common.MyApplication"
+		android:name=".common.injection.application.MyApplication"
 		android:allowBackup="true"
 		android:icon="@mipmap/ic_launcher"
 		android:label="@string/app_name"

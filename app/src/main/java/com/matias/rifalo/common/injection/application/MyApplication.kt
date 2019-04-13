@@ -1,4 +1,4 @@
-package com.matias.rifalo.common
+package com.matias.rifalo.common.injection.application
 
 import android.app.Application
 
@@ -14,10 +14,19 @@ import android.app.Application
 
 class MyApplication : Application() {
 
+	private lateinit var applicationComponent: ApplicationComponent
+
 	override fun onCreate() {
 		super.onCreate()
-
-//		setup() TODO setup applicationComponent.
+		setup()
 	}
-	
+
+	@Suppress("DEPRECATION")
+	private fun setup() {
+		applicationComponent = DaggerApplicationComponent
+			.builder()
+			.applicationModule(ApplicationModule(this))
+			.build()
+	}
+
 }
