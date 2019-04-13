@@ -25,12 +25,12 @@
 			</intent-filter>
 		</activity>
 
-		<!-- Activity Auth -->
+		<!-- Activity Sign In -->
 		<activity
-			android:name=".screens.auth.AuthActivity"
-			android:theme="@style/ActivityAuthTheme" />
+			android:name=".screens.singin.SignInActivity"
+			android:theme="@style/ActivitySignInTheme" />
 
-		<!-- Activity Auth -->
+		<!-- Activity Main -->
 		<activity android:name=".screens.main.MainActivity" />
 	</application>
 

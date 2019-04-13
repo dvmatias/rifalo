@@ -48,7 +48,7 @@ class SplashPresenterImpl(
 		}
 
 		override fun onUserNotLoggedIn() {
-			view?.flowGoToAuthScreen()
+			view?.flowGoToSignInScreen()
 		}
 
 	}

@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
-import com.bluespark.raffleit.screens.auth.AuthActivity
+import com.bluespark.raffleit.screens.singin.SignInActivity
 import com.bluespark.raffleit.screens.main.MainActivity
 import javax.inject.Inject
 
@@ -51,9 +51,9 @@ class SplashActivity : BaseActivityImpl(), SplashContract.View {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
-	override fun flowGoToAuthScreen() {
-		val goToAuthScreenIntent = Intent(this, AuthActivity::class.java)
-		startActivity(goToAuthScreenIntent)
+	override fun flowGoToSignInScreen() {
+		val goToSignInScreenIntent = Intent(this, SignInActivity::class.java)
+		startActivity(goToSignInScreenIntent)
 		finish()
 	}
 
