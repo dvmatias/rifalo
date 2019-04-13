@@ -10,6 +10,11 @@ import javax.inject.Inject
 
 class SplashActivity : BaseActivityImpl(), SplashContract.View {
 
+	companion object {
+		@Suppress("unused")
+		private val TAG = SplashActivity::class.java.simpleName
+	}
+
 	@Inject
 	lateinit var presenter: SplashPresenterImpl
 
@@ -48,6 +53,7 @@ class SplashActivity : BaseActivityImpl(), SplashContract.View {
 	override fun flowGoToAuthScreen() {
 		val goToAuthScreenIntent = Intent(this, AuthActivity::class.java)
 		startActivity(goToAuthScreenIntent)
+		finish()
 	}
 
 	override fun flowGoToMainScreen() {
