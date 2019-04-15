@@ -62,7 +62,6 @@ class SignInActivity : BaseActivityImpl(), View.OnClickListener {
 			// The ApiException status code indicates the detailed failure reason.
 			// Please refer to the GoogleSignInStatusCodes class reference for more information.
 			Log.w(TAG, "signInResult:failed code=" + e.statusCode)
-//			updateUI(null) TODO
 		}
 
 	}
@@ -79,7 +78,8 @@ class SignInActivity : BaseActivityImpl(), View.OnClickListener {
 	}
 
 	private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
-		Log.d(TAG, "firebaseAuthWithGoogle:" + account?.id!!)
+		val accountId = account?.id!!
+		Log.d(TAG, "firebaseAuthWithGoogle(): $accountId")
 
 		val credential = GoogleAuthProvider.getCredential(account.idToken, null)
 		mAuth.signInWithCredential(credential)
@@ -91,6 +91,12 @@ class SignInActivity : BaseActivityImpl(), View.OnClickListener {
 					Log.d(TAG, "signInWithCredential:success")
 					val user = mAuth.currentUser
 					//						updateUI(user)
+//					This code clears which account is connected to the app. To sign in again, the user must choose their account again.
+//					mGoogleSignInClient.signOut()
+//						.addOnCompleteListener(this) {
+//							finish()
+//						}
+
 				} else {
 					// If sign in fails, display a message to the user.
 					Log.w(TAG, "signInWithCredential:failure", task.exception)
