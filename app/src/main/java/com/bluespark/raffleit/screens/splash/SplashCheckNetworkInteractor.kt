@@ -1,5 +1,6 @@
 package com.bluespark.raffleit.screens.splash
 
+import android.os.Handler
 import android.util.Log
 import com.bluespark.raffleit.common.utils.managers.InternetConnectivityManager
 
@@ -12,11 +13,13 @@ class SplashCheckNetworkInteractor(var internetConnectivityManager: InternetConn
 
 	fun execute(listener: SplashCheckNetworkInteractor.Listener) {
 		Log.d(TAG, "MABEL execute()")
-		val isInternetConnected = internetConnectivityManager.checkInternetConnectionStatus()
-		when(isInternetConnected) {
-			true -> listener.onInternetConnected()
-			false -> listener.onInternetNotConnected()
-		}
+		Handler().postDelayed({
+			val isInternetConnected = internetConnectivityManager.checkInternetConnectionStatus()
+			when(isInternetConnected) {
+				true -> listener.onInternetConnected()
+				false -> listener.onInternetNotConnected()
+			}
+		}, 1500)
 	}
 
 	companion object {

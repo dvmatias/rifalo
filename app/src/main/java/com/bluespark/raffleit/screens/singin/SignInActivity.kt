@@ -12,6 +12,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import javax.inject.Inject
 
@@ -20,6 +22,8 @@ class SignInActivity : BaseActivityImpl(), View.OnClickListener {
 
 	@Inject
 	lateinit var mGoogleSignInClient: GoogleSignInClient
+
+	private lateinit var mAuth: FirebaseAuth
 
 	companion object {
 		private val TAG = SignInActivity::class.java.simpleName
@@ -38,6 +42,9 @@ class SignInActivity : BaseActivityImpl(), View.OnClickListener {
 		getPresentationComponent().inject(this)
 
 		btn_sign_in_google.setOnClickListener(this)
+
+		mAuth = FirebaseAuth.getInstance()
+
 	}
 
 	private fun signIn() {
@@ -48,11 +55,9 @@ class SignInActivity : BaseActivityImpl(), View.OnClickListener {
 	private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
 		try {
 			val account = completedTask.getResult(ApiException::class.java)
-
+			firebaseAuthWithGoogle(account)
 			// Signed in successfully, show auth
-//			updateUI(account) TODO
 			Log.w(TAG, "signInResult:success")
-
 		} catch (e: ApiException) {
 			// The ApiException status code indicates the detailed failure reason.
 			// Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -64,7 +69,6 @@ class SignInActivity : BaseActivityImpl(), View.OnClickListener {
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		super.onActivityResult(requestCode, resultCode, data)
-
 		// Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
 		if (requestCode == Constants.RC_SIGN_IN) {
 			// The Task returned from this call is always completed, no need to attach
@@ -72,6 +76,26 @@ class SignInActivity : BaseActivityImpl(), View.OnClickListener {
 			val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
 			handleSignInResult(task)
 		}
+	}
+
+	private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
+		Log.d(TAG, "firebaseAuthWithGoogle:" + account?.id!!)
+
+		val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+		mAuth.signInWithCredential(credential)
+			.addOnCompleteListener(
+				this
+			) { task ->
+				if (task.isSuccessful) {
+					// Sign in success, update UI with the signed-in user's information
+					Log.d(TAG, "signInWithCredential:success")
+					val user = mAuth.currentUser
+					//						updateUI(user)
+				} else {
+					// If sign in fails, display a message to the user.
+					Log.w(TAG, "signInWithCredential:failure", task.exception)
+				}
+			}
 	}
 
 }
