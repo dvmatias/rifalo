@@ -29,7 +29,7 @@
 				android:src="@drawable/img_sign_in_app_name" />
 		</FrameLayout>
 
-		<!-- Container - Custom Sign In -->
+		<!-- Container - Login -->
 		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
 				android:inputType="textPassword"
 				tools:ignore="Autofill" />
 
-			<!-- Get Help Button -->
+			<!-- Get Help Text Button -->
 			<TextView
 				android:id="@+id/tv_get_help"
 				android:layout_width="match_parent"
@@ -115,7 +115,7 @@
 				android:background="@color/color_white" />
 		</LinearLayout>
 
-		<!-- Container - Google and Facebook Buttons -->
+		<!-- Container - Sign In -->
 		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -150,6 +150,7 @@
 			android:layout_height="@dimen/dimen_1dp"
 			android:background="@color/color_white" />
 
+		<!-- Sign Up Text Button -->
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
