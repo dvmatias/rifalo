@@ -1,10 +1,15 @@
 package com.bluespark.raffleit.screens.main
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import com.bluespark.raffleit.R
+import com.bluespark.raffleit.common.mvp.BaseActivityImpl
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivityImpl() {
+
+	@Inject
+	lateinit var mGoogleSignInClient: GoogleSignInClient
 
 	companion object {
 		@Suppress("unused")
@@ -14,5 +19,12 @@ class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
+		// Inject this view.
+		getPresentationComponent().inject(this)
+
+		mGoogleSignInClient.signOut()
+			.addOnCompleteListener(this) {
+				finish()
+			}
 	}
 }

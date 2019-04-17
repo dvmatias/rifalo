@@ -3,16 +3,93 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:background="@drawable/bgr_sign_in_activity"
 	tools:context=".screens.singin.SignInActivity">
 
 	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="match_parent"
+		android:background="@color/color_transparent"
 		android:orientation="vertical">
 
-		<com.google.android.gms.common.SignInButton
-			android:id="@+id/btn_sign_in_google"
+		<View
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content" />
+			android:layout_height="0dp"
+			android:layout_weight="@integer/integer_one" />
+
+		<!-- "OR" Separator -->
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/dimen_36dp"
+			android:layout_marginTop="@dimen/dimen_18dp"
+			android:layout_marginEnd="@dimen/dimen_36dp"
+			android:layout_marginBottom="@dimen/dimen_18dp"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
+
+			<View
+				android:layout_width="0dp"
+				android:layout_height="@dimen/dimen_1dp"
+				android:layout_weight="@integer/integer_one"
+				android:background="@color/color_white" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingStart="@dimen/dimen_10dp"
+				android:paddingEnd="@dimen/dimen_10dp"
+				android:text="@string/text_sign_in_activity_or"
+				android:textColor="@color/color_white"
+				android:textSize="@dimen/text_14sp"
+				android:textStyle="bold" />
+
+			<View
+				android:layout_width="0dp"
+				android:layout_height="@dimen/dimen_1dp"
+				android:layout_weight="@integer/integer_one"
+				android:background="@color/color_white" />
+		</LinearLayout>
+
+		<!-- Container - Google and Facebook Buttons -->
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/dimen_36dp"
+			android:layout_marginEnd="@dimen/dimen_36dp"
+			android:layout_marginBottom="@dimen/dimen_36dp">
+
+			<!-- Facebook Sign In Button -->
+			<include
+				android:id="@+id/btn_sign_in_facebook"
+				layout="@layout/view_sign_in_facebook_btn"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentTop="true"
+				android:layout_marginBottom="@dimen/dimen_16dp" />
+
+			<!-- Google Sign In Button -->
+			<include
+				android:id="@+id/btn_sign_in_google"
+				layout="@layout/view_sign_in_google_btn"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/btn_sign_in_facebook" />
+		</RelativeLayout>
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="@color/color_white" />
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/bgr_sign_up_btn_sign_in_activity"
+			android:padding="16dp"
+			android:text="Don't have an account? Sign up"
+			android:textAlignment="center"
+			android:textColor="@color/color_white"
+			android:textSize="14sp" />
 	</LinearLayout>
 </android.support.constraint.ConstraintLayout>

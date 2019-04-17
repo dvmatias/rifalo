@@ -1,3 +1,9 @@
 <resources>
+
 	<string name="app_name">Rifalo</string>
+
+	<string name="text_sign_in_activity_or">OR</string>
+	<string name="title_sign_in_facebook_btn">SIGN IN FACEBOOK</string>
+	<string name="title_sign_in_google_btn">SIGN IN WITH GOOGLE</string>
+
 </resources>

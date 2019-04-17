@@ -20,8 +20,7 @@
 	<style name="ActivitySignInTheme" parent="Theme.AppCompat.Light.NoActionBar">
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
-		<item name="android:statusBarColor">@color/color_primary</item>
-		<item name="android:background">@color/color_white</item>
+		<item name="android:statusBarColor">@color/color_transparent</item>
 	</style>
 
 </resources>
