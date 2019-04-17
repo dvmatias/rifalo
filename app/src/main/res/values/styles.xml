@@ -3,38 +3,38 @@
 	<!-- Base application theme. -->
 	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 		<!-- Customize your theme here. -->
+		<item name="colorAccent">@color/color_accent</item>
 		<item name="colorPrimary">@color/color_primary</item>
 		<item name="colorPrimaryDark">@color/color_primary_dark</item>
-		<item name="colorAccent">@color/color_accent</item>
 	</style>
 
 	<!-- Activity Splash Theme. -->
 	<style name="ActivitySplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+		<item name="android:background">@color/color_primary</item>
+		<item name="android:statusBarColor">@color/color_transparent</item>
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
-		<item name="android:statusBarColor">@color/color_transparent</item>
-		<item name="android:background">@color/color_primary</item>
 	</style>
 
 	<!-- Activity Sign In Theme. -->
 	<style name="ActivitySignInTheme" parent="Theme.AppCompat.Light.NoActionBar">
+		<item name="android:statusBarColor">@color/color_transparent</item>
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
-		<item name="android:statusBarColor">@color/color_transparent</item>
 	</style>
 
 	<!-- Edit Text Login Theme. -->
 	<style name="EditTextLoginTheme" parent="Base.V7.Widget.AppCompat.EditText">
+		<item name="android:background">@drawable/bgr_sign_in_activity_edit_text</item>
 		<item name="android:colorControlActivated">@color/color_transparent</item>
 		<item name="android:colorControlNormal">@color/color_transparent</item>
-		<item name="android:textColorHint">@color/color_white</item>
-		<item name="android:background">@drawable/bgr_sign_in_activity_edit_text</item>
 		<item name="android:layout_marginStart">@dimen/dimen_8dp</item>
 		<item name="android:layout_marginEnd">@dimen/dimen_8dp</item>
-		<item name="android:textColor">@color/color_white</item>
-		<item name="android:paddingStart">@dimen/dimen_16dp</item>
-		<item name="android:paddingEnd">@dimen/dimen_16dp</item>
 		<item name="android:maxLength">25</item>
+		<item name="android:paddingEnd">@dimen/dimen_16dp</item>
+		<item name="android:paddingStart">@dimen/dimen_16dp</item>
+		<item name="android:textColor">@color/color_white</item>
+		<item name="android:textColorHint">@color/color_white</item>
 	</style>
 
 </resources>
