@@ -6,6 +6,8 @@
 
 	<color name="color_facebook">#3B5997</color>
 	<color name="color_login_btn_bgr">#f1c044</color>
+	<color name="color_sign_in_edit_text_bgr">#33FFFFFF</color>
+	<color name="color_sign_in_edit_text_stroke">#AFFFFFFF</color>
 
 	<color name="color_transparent">#00000000</color>
 	<color name="color_white">#FFFFFFFF</color>

@@ -12,22 +12,76 @@
 		android:background="@color/color_transparent"
 		android:orientation="vertical">
 
-		<View
+		<ImageView
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
-			android:layout_weight="@integer/integer_one" />
+			android:layout_weight="@integer/integer_one"
+			android:adjustViewBounds="true"
+			android:contentDescription="@null"
+			android:scaleType="center"
+			android:src="@drawable/img_sign_in_app_name"
+			android:layout_gravity="bottom"/>
 
 		<!-- Container - Custom Sign In -->
 		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/dimen_28dp"
-			android:layout_marginEnd="@dimen/dimen_28dp">
+			android:paddingStart="@dimen/dimen_28dp"
+			android:paddingEnd="@dimen/dimen_28dp">
+
+			<!-- User Name Input -->
+			<EditText
+				android:id="@+id/et_user_name"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/dimen_sign_ing_components_height"
+				android:layout_below="@id/et_user_name"
+				android:layout_marginStart="@dimen/dimen_8dp"
+				android:layout_marginEnd="@dimen/dimen_8dp"
+				android:background="@drawable/bgr_sign_in_activity_edit_text"
+				android:hint="@string/hint_sign_in_username"
+				android:inputType="textPassword"
+				android:paddingStart="@dimen/dimen_16dp"
+				android:paddingEnd="@dimen/dimen_16dp"
+				android:textColorHint="@color/color_white"
+				tools:ignore="Autofill" />
+
+			<!-- User Password Input -->
+			<EditText
+				android:id="@+id/et_user_password"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/dimen_sign_ing_components_height"
+				android:layout_below="@id/et_user_name"
+				android:layout_marginStart="@dimen/dimen_8dp"
+				android:layout_marginTop="@dimen/dimen_14dp"
+				android:layout_marginEnd="@dimen/dimen_8dp"
+				android:background="@drawable/bgr_sign_in_activity_edit_text"
+				android:hint="@string/hint_sign_in_password"
+				android:inputType="textPassword"
+				android:paddingStart="@dimen/dimen_16dp"
+				android:paddingEnd="@dimen/dimen_16dp"
+				android:textColorHint="@color/color_white"
+				tools:ignore="Autofill" />
+
+			<!-- Get Help Button -->
+			<TextView
+				android:id="@+id/tv_get_help"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/et_user_password"
+				android:layout_marginTop="@dimen/dimen_10dp"
+				android:padding="@dimen/dimen_4dp"
+				android:text="@string/text_sign_in_activity_get_help"
+				android:textAlignment="center"
+				android:textColor="@color/color_white"
+				android:textSize="@dimen/text_14sp" />
 
 			<!-- Login Button -->
 			<include
 				android:id="@+id/btn_login"
-				layout="@layout/view_login_btn" />
+				layout="@layout/view_login_btn"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/tv_get_help" />
 		</RelativeLayout>
 
 		<!-- "OR" Separator -->
@@ -35,9 +89,9 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/dimen_36dp"
-			android:layout_marginTop="@dimen/dimen_10dp"
+			android:layout_marginTop="@dimen/dimen_16dp"
 			android:layout_marginEnd="@dimen/dimen_36dp"
-			android:layout_marginBottom="@dimen/dimen_10dp"
+			android:layout_marginBottom="@dimen/dimen_16dp"
 			android:gravity="center_vertical"
 			android:orientation="horizontal">
 
@@ -68,9 +122,9 @@
 		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/dimen_36dp"
 			android:paddingStart="@dimen/dimen_28dp"
-			android:paddingEnd="@dimen/dimen_28dp"
-			android:layout_marginBottom="@dimen/dimen_36dp">
+			android:paddingEnd="@dimen/dimen_28dp">
 
 			<!-- Facebook Sign In Button -->
 			<include
@@ -92,17 +146,17 @@
 
 		<View
 			android:layout_width="match_parent"
-			android:layout_height="1dp"
+			android:layout_height="@dimen/dimen_1dp"
 			android:background="@color/color_white" />
 
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:background="@drawable/bgr_sign_up_btn_sign_in_activity"
-			android:padding="16dp"
-			android:text="Don't have an account? Sign up"
+			android:padding="@dimen/dimen_16dp"
+			android:text="@string/text_sign_in_activity_sign_up"
 			android:textAlignment="center"
 			android:textColor="@color/color_white"
-			android:textSize="14sp" />
+			android:textSize="@dimen/text_14sp" />
 	</LinearLayout>
 </android.support.constraint.ConstraintLayout>

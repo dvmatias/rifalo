@@ -6,7 +6,7 @@
 
 	<android.support.v7.widget.CardView
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/dimen_50dp"
+		android:layout_height="@dimen/dimen_sign_ing_components_height"
 		android:layout_margin="@dimen/dimen_8dp"
 		android:clickable="true"
 		android:focusable="true"
@@ -28,16 +28,17 @@
 				android:layout_centerVertical="true"
 				android:layout_marginStart="@dimen/dimen_24dp"
 				android:contentDescription="@null"
-				android:src="@drawable/ic_sign_in_btn_google_36dp" />
+				android:src="@drawable/ic_sign_in_btn_google_24dp" />
 
 			<TextView
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
-				android:layout_marginStart="@dimen/dimen_12dp"
+				android:textAlignment="center"
+				android:layout_marginEnd="@dimen/dimen_24dp"
 				android:layout_toEndOf="@id/iv_btn_logo"
 				android:text="@string/title_sign_in_google_btn"
-				android:textSize="@dimen/text_18sp"
+				android:textSize="@dimen/text_16sp"
 				android:textStyle="bold" />
 		</RelativeLayout>
 	</android.support.v7.widget.CardView>
