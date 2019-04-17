@@ -5,6 +5,7 @@
 	<color name="color_accent">#D81B60</color>
 
 	<color name="color_facebook">#3B5997</color>
+	<color name="color_login_btn_bgr">#f1c044</color>
 
 	<color name="color_transparent">#00000000</color>
 	<color name="color_white">#FFFFFFFF</color>
