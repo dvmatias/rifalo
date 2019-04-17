@@ -12,7 +12,7 @@
 		android:focusable="true"
 		android:foreground="?android:attr/selectableItemBackground"
 		app:cardBackgroundColor="@color/color_white"
-		app:cardCornerRadius="@dimen/dimen_4dp"
+		app:cardCornerRadius="@dimen/dimen_sign_ing_components_corner_radius"
 		app:cardElevation="@dimen/dimen_3dp">
 
 		<RelativeLayout
@@ -38,7 +38,7 @@
 				android:layout_marginEnd="@dimen/dimen_24dp"
 				android:layout_toEndOf="@id/iv_btn_logo"
 				android:text="@string/title_sign_in_google_btn"
-				android:textSize="@dimen/text_16sp"
+				android:textSize="@dimen/text_sign_ing_components"
 				android:textStyle="bold" />
 		</RelativeLayout>
 	</android.support.v7.widget.CardView>

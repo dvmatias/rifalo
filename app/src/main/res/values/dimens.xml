@@ -19,6 +19,7 @@
 	<dimen name="dimen_18dp">18dp</dimen>
 	<dimen name="dimen_20dp">20dp</dimen>
 	<dimen name="dimen_22dp">22dp</dimen>
+	<dimen name="dimen_23dp">23dp</dimen>
 	<dimen name="dimen_24dp">24dp</dimen>
 	<dimen name="dimen_26dp">26dp</dimen>
 	<dimen name="dimen_28dp">28dp</dimen>
@@ -41,8 +42,6 @@
 	<dimen name="dimen_62dp">62dp</dimen>
 	<dimen name="dimen_64dp">64dp</dimen>
 
-	<dimen name="dimen_sign_ing_components_height">42dp</dimen>
-
 	<integer name="integer_one">1</integer>
 	<integer name="integer_two">2</integer>
 	<integer name="integer_three">3</integer>
@@ -62,5 +61,10 @@
 	<dimen name="text_22sp">22sp</dimen>
 	<dimen name="text_24sp">24sp</dimen>
 	<dimen name="text_26sp">26sp</dimen>
+
+	<!-- Sign In Activity -->
+	<dimen name="dimen_sign_ing_components_height">@dimen/dimen_46dp</dimen>
+	<dimen name="dimen_sign_ing_components_corner_radius">@dimen/dimen_23dp</dimen>
+	<dimen name="text_sign_ing_components">@dimen/text_16sp</dimen>
 
 </resources>
