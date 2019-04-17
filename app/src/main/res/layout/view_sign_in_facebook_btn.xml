@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent" >
+	android:layout_height="match_parent">
 
 	<android.support.v7.widget.CardView
 		android:layout_width="match_parent"
@@ -34,10 +34,10 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
-				android:textAlignment="center"
 				android:layout_marginEnd="@dimen/dimen_24dp"
 				android:layout_toEndOf="@id/iv_btn_logo"
 				android:text="@string/title_sign_in_facebook_btn"
+				android:textAlignment="center"
 				android:textColor="@color/color_white"
 				android:textSize="@dimen/text_sign_ing_components"
 				android:textStyle="bold" />
