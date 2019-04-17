@@ -28,7 +28,7 @@
 				android:layout_centerVertical="true"
 				android:layout_marginStart="@dimen/dimen_24dp"
 				android:contentDescription="@null"
-				android:src="@drawable/ic_sign_in_btn_facebook_36dp" />
+				android:src="@drawable/ic_sign_in_btn_facebook_24dp" />
 
 			<TextView
 				android:layout_width="match_parent"
