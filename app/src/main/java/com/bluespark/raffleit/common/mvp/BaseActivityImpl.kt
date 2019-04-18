@@ -3,8 +3,8 @@ package com.bluespark.raffleit.common.mvp
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
+import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.injection.application.ApplicationComponent
 import com.bluespark.raffleit.common.injection.application.MyApplication
 import com.bluespark.raffleit.common.injection.presentation.PresentationComponent
@@ -51,7 +51,7 @@ abstract class BaseActivityImpl : AppCompatActivity(), BaseView {
 								View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
 								View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
 								View.SYSTEM_UI_FLAG_IMMERSIVE
-				}, 1000
+				}, Constants.DELAY_CHECK_SYSTEM_UI_VISIBILITY
 			)
 	}
 
