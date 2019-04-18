@@ -1,5 +1,7 @@
 package com.bluespark.raffleit.common.injection.presentation
 
+import com.bluespark.raffleit.screens.main.MainActivity
+import com.bluespark.raffleit.screens.singin.SignInActivity
 import com.bluespark.raffleit.screens.splash.SplashActivity
 import dagger.Subcomponent
 
@@ -13,5 +15,7 @@ import dagger.Subcomponent
 interface PresentationComponent {
 
 	fun inject(activity: SplashActivity)
+	fun inject(activity: SignInActivity)
+	fun inject(activity: MainActivity)
 
 }

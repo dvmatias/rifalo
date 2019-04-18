@@ -1,6 +1,5 @@
 package com.bluespark.raffleit.screens.splash
 
-import android.util.Log
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
 
 class SplashPresenterImpl(
@@ -31,12 +30,10 @@ class SplashPresenterImpl(
 	 */
 	private var networkListener = object : SplashCheckNetworkInteractor.Listener {
 		override fun onInternetConnected() {
-			Log.d(SplashPresenterImpl::class.java.simpleName, "MABEL Internet Connected!")
 			actionCheckCredentials()
 		}
 
 		override fun onInternetNotConnected() {
-			Log.d(SplashPresenterImpl::class.java.simpleName, "MABEL Internet Not Connected!")
 			view?.viewShowNoInternetDialog()
 		}
 
@@ -46,7 +43,14 @@ class SplashPresenterImpl(
 	 * [SplashCheckCredentialsInteractor.Listener] interface implementation.
 	 */
 	private var credentialsListener = object : SplashCheckCredentialsInteractor.Listener {
-		// TODO
+		override fun onUserSignedIn() {
+			view?.flowGoToMainScreen()
+		}
+
+		override fun onUserNotLoggedIn() {
+			view?.flowGoToSignInScreen()
+		}
+
 	}
 
 }

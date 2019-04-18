@@ -9,7 +9,7 @@ interface SplashContract {
 		fun viewStartLoadingAnimation()
 		fun viewStopLoadingAnimation()
 		fun viewShowNoInternetDialog()
-		fun flowGoToRegisterScreen()
+		fun flowGoToSignInScreen()
 		fun flowGoToMainScreen()
 	}
 
