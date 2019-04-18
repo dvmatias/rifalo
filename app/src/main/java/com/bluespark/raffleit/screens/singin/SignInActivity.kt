@@ -63,10 +63,10 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 
 	private fun signIn() {
 		val signInIntent = googleSignInClient.signInIntent
-		startActivityForResult(signInIntent, Constants.RC_SIGN_IN)
+		startActivityForResult(signInIntent, Constants.RC_SIGN_IN_GOOGLE)
 	}
 
-	private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+	private fun handleSignInGoogleResult(completedTask: Task<GoogleSignInAccount>) {
 		try {
 			val account = completedTask.getResult(ApiException::class.java)
 			firebaseAuthWithGoogle(account)
@@ -83,11 +83,11 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		super.onActivityResult(requestCode, resultCode, data)
 		// Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-		if (requestCode == Constants.RC_SIGN_IN) {
+		if (requestCode == Constants.RC_SIGN_IN_GOOGLE) {
 			// The Task returned from this call is always completed, no need to attach
 			// a listener.
 			val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-			handleSignInResult(task)
+			handleSignInGoogleResult(task)
 		}
 	}
 
