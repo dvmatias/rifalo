@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<dimen name="dimen_1dp">1dp</dimen>
+	<dimen name="dimen_2dp">2dp</dimen>
+	<dimen name="dimen_3dp">3dp</dimen>
+	<dimen name="dimen_4dp">4dp</dimen>
+	<dimen name="dimen_5dp">5dp</dimen>
+	<dimen name="dimen_6dp">6dp</dimen>
+	<dimen name="dimen_7dp">7dp</dimen>
+	<dimen name="dimen_8dp">8dp</dimen>
+	<dimen name="dimen_9dp">9dp</dimen>
+	<dimen name="dimen_10dp">10dp</dimen>
+	<dimen name="dimen_11dp">11dp</dimen>
+	<dimen name="dimen_12dp">12dp</dimen>
+	<dimen name="dimen_13dp">13dp</dimen>
+	<dimen name="dimen_14dp">14dp</dimen>
+	<dimen name="dimen_16dp">16dp</dimen>
+	<dimen name="dimen_18dp">18dp</dimen>
+	<dimen name="dimen_20dp">20dp</dimen>
+	<dimen name="dimen_22dp">22dp</dimen>
+	<dimen name="dimen_23dp">23dp</dimen>
+	<dimen name="dimen_24dp">24dp</dimen>
+	<dimen name="dimen_26dp">26dp</dimen>
+	<dimen name="dimen_28dp">28dp</dimen>
+	<dimen name="dimen_30dp">30dp</dimen>
+	<dimen name="dimen_32dp">32dp</dimen>
+	<dimen name="dimen_34dp">34dp</dimen>
+	<dimen name="dimen_36dp">36dp</dimen>
+	<dimen name="dimen_38dp">38dp</dimen>
+	<dimen name="dimen_40dp">40dp</dimen>
+	<dimen name="dimen_42dp">42dp</dimen>
+	<dimen name="dimen_44dp">44dp</dimen>
+	<dimen name="dimen_46dp">46dp</dimen>
+	<dimen name="dimen_48dp">48dp</dimen>
+	<dimen name="dimen_50dp">50dp</dimen>
+	<dimen name="dimen_52dp">52dp</dimen>
+	<dimen name="dimen_54dp">54dp</dimen>
+	<dimen name="dimen_56dp">56dp</dimen>
+	<dimen name="dimen_58dp">58dp</dimen>
+	<dimen name="dimen_60dp">60dp</dimen>
+	<dimen name="dimen_62dp">62dp</dimen>
+	<dimen name="dimen_64dp">64dp</dimen>
+
+	<integer name="integer_one">1</integer>
+	<integer name="integer_two">2</integer>
+	<integer name="integer_three">3</integer>
+	<integer name="integer_four">4</integer>
+	<integer name="integer_five">5</integer>
+	<integer name="integer_six">6</integer>
+
+	<dimen name="text_10sp">10sp</dimen>
+	<dimen name="text_11sp">11sp</dimen>
+	<dimen name="text_12sp">12sp</dimen>
+	<dimen name="text_13sp">13sp</dimen>
+	<dimen name="text_14sp">14sp</dimen>
+	<dimen name="text_15sp">15sp</dimen>
+	<dimen name="text_16sp">16sp</dimen>
+	<dimen name="text_18sp">18sp</dimen>
+	<dimen name="text_20sp">20sp</dimen>
+	<dimen name="text_22sp">22sp</dimen>
+	<dimen name="text_24sp">24sp</dimen>
+	<dimen name="text_26sp">26sp</dimen>
+
+	<!-- Sign In Activity -->
+	<dimen name="dimen_sign_ing_components_height">@dimen/dimen_46dp</dimen>
+	<dimen name="dimen_sign_ing_components_corner_radius">@dimen/dimen_23dp</dimen>
+	<dimen name="text_sign_ing_components">@dimen/text_18sp</dimen>
+
+</resources>
