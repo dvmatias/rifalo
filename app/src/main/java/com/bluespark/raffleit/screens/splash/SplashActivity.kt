@@ -44,25 +44,25 @@ class SplashActivity : BaseActivityImpl(), SplashContract.View {
 	 * [SplashContract.View] implementation.
 	 */
 
-	override fun viewStartLoadingAnimation() {
+	override fun startLoadingAnimation() {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
-	override fun viewStopLoadingAnimation() {
+	override fun stopLoadingAnimation() {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
-	override fun viewShowNoInternetDialog() {
+	override fun showNoInternetDialog() {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
-	override fun flowGoToSignInScreen() {
+	override fun goToSignInScreen() {
 		val goToSignInScreenIntent = Intent(this, SignInActivity::class.java)
 		startActivity(goToSignInScreenIntent)
 		finish()
 	}
 
-	override fun flowGoToMainScreen() {
+	override fun goToMainScreen() {
 		val goToMainScreenIntent = Intent(this, MainActivity::class.java)
 		startActivity(goToMainScreenIntent)
 		finish()

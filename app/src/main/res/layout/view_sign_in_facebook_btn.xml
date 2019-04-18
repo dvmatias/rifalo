@@ -5,6 +5,7 @@
 	android:layout_height="match_parent">
 
 	<android.support.v7.widget.CardView
+		android:id="@+id/sign_in_facebook_btn"
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/dimen_sign_ing_components_height"
 		android:layout_margin="@dimen/dimen_8dp"

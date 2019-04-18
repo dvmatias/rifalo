@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
@@ -15,15 +16,20 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_sign_in.*
+import kotlinx.android.synthetic.main.view_login_btn.view.*
+import kotlinx.android.synthetic.main.view_sign_in_facebook_btn.view.*
+import kotlinx.android.synthetic.main.view_sign_in_google_btn.view.*
 import javax.inject.Inject
 
 
-class SignInActivity : BaseActivityImpl(), View.OnClickListener {
+class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickListener {
 
 	@Inject
-	lateinit var mGoogleSignInClient: GoogleSignInClient
+	lateinit var googleSignInClient: GoogleSignInClient
+	@Inject
+	lateinit var presenter: SignInPresenterImpl
 
-	private lateinit var mAuth: FirebaseAuth
+	private lateinit var firebaseAuth: FirebaseAuth
 
 	companion object {
 		private val TAG = SignInActivity::class.java.simpleName
@@ -31,7 +37,11 @@ class SignInActivity : BaseActivityImpl(), View.OnClickListener {
 
 	override fun onClick(v: View?) {
 		when (v?.id) {
-			btn_sign_in_google.id -> signIn()
+			tv_get_help.id -> onGetHelpClick()
+			login.login_btn.id -> onLoginClick()
+			facebook.sign_in_facebook_btn.id -> onSignInFacebookClick()
+			google.sign_in_google_btn.id -> onSignInGoogleClick()
+			tv_sign_up.id -> onSignUpClick()
 		}
 	}
 
@@ -41,13 +51,17 @@ class SignInActivity : BaseActivityImpl(), View.OnClickListener {
 		setContentView(R.layout.activity_sign_in)
 		getPresentationComponent().inject(this)
 
-		btn_sign_in_google.setOnClickListener(this)
+		tv_get_help.setOnClickListener(this)
+		login.login_btn.setOnClickListener(this)
+		facebook.sign_in_facebook_btn.setOnClickListener(this)
+		google.sign_in_google_btn.setOnClickListener(this)
+		tv_sign_up.setOnClickListener(this)
 
-		mAuth = FirebaseAuth.getInstance()
+		firebaseAuth = FirebaseAuth.getInstance()
 	}
 
 	private fun signIn() {
-		val signInIntent = mGoogleSignInClient.signInIntent
+		val signInIntent = googleSignInClient.signInIntent
 		startActivityForResult(signInIntent, Constants.RC_SIGN_IN)
 	}
 
@@ -81,17 +95,17 @@ class SignInActivity : BaseActivityImpl(), View.OnClickListener {
 		Log.d(TAG, "firebaseAuthWithGoogle(): $accountId")
 
 		val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-		mAuth.signInWithCredential(credential)
+		firebaseAuth.signInWithCredential(credential)
 			.addOnCompleteListener(
 				this
 			) { task ->
 				if (task.isSuccessful) {
 					// Sign in success, update UI with the signed-in user's information
 					Log.d(TAG, "signInWithCredential:success")
-					val user = mAuth.currentUser
+					val user = firebaseAuth.currentUser
 					//						updateUI(user)
 //					This code clears which account is connected to the app. To sign in again, the user must choose their account again.
-//					mGoogleSignInClient.signOut()
+//					googleSignInClient.signOut()
 //						.addOnCompleteListener(this) {
 //							finish()
 //						}
@@ -103,4 +117,38 @@ class SignInActivity : BaseActivityImpl(), View.OnClickListener {
 			}
 	}
 
+	/**
+	 * [SignInContract.View] implementation.
+	 */
+	override fun onGetHelpClick() {
+		Toast.makeText(this, "onGetHelpClick()", Toast.LENGTH_SHORT).show()
+	}
+
+	override fun onLoginClick() {
+		Toast.makeText(this, "onLoginClick()", Toast.LENGTH_SHORT).show()
+	}
+
+	override fun onSignInFacebookClick() {
+		Toast.makeText(this, "onSignInFacebookClick()", Toast.LENGTH_SHORT).show()
+	}
+
+	override fun onSignInGoogleClick() {
+		Toast.makeText(this, "onSignInGoogleClick()", Toast.LENGTH_SHORT).show()
+	}
+
+	override fun onSignUpClick() {
+		Toast.makeText(this, "onSignUpClick()", Toast.LENGTH_SHORT).show()
+	}
+
+	override fun showLoading(show: Boolean) {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+
+	override fun showNoInternetDialog(show: Boolean) {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+
+	override fun goToMainScreen() {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
 }

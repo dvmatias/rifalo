@@ -6,11 +6,13 @@ import com.bluespark.raffleit.common.mvp.BaseView
 interface SplashContract {
 
 	interface View : BaseView {
-		fun viewStartLoadingAnimation()
-		fun viewStopLoadingAnimation()
-		fun viewShowNoInternetDialog()
-		fun flowGoToSignInScreen()
-		fun flowGoToMainScreen()
+		// UI feedback
+		fun startLoadingAnimation()
+		fun stopLoadingAnimation()
+		fun showNoInternetDialog()
+		// Flow
+		fun goToSignInScreen()
+		fun goToMainScreen()
 	}
 
 	interface Presenter : BasePresenter<View> {

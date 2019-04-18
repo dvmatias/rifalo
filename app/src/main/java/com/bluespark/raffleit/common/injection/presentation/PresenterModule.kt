@@ -1,6 +1,8 @@
 package com.bluespark.raffleit.common.injection.presentation
 
 import com.bluespark.raffleit.common.mvp.BaseView
+import com.bluespark.raffleit.screens.singin.SignInContract
+import com.bluespark.raffleit.screens.singin.SignInPresenterImpl
 import com.bluespark.raffleit.screens.splash.SplashCheckCredentialsInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
 import com.bluespark.raffleit.screens.splash.SplashContract
@@ -22,5 +24,9 @@ class PresenterModule {
 			checkNetworkInteractor,
 			checkCredentialsInteractor
 		)
+
+	@Provides
+	fun getSignInPresenterImpl(view: BaseView): SignInPresenterImpl =
+		SignInPresenterImpl(view as SignInContract.View)
 
 }
