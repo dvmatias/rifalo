@@ -27,6 +27,7 @@
 				android:contentDescription="@null"
 				android:scaleType="center"
 				android:src="@drawable/img_sign_in_app_name" />
+
 		</FrameLayout>
 
 		<!-- Container - Login -->
@@ -61,9 +62,10 @@
 			<!-- Get Help Text Button -->
 			<TextView
 				android:id="@+id/tv_get_help"
-				android:layout_width="match_parent"
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_below="@id/et_user_password"
+				android:layout_centerHorizontal="true"
 				android:layout_marginTop="@dimen/dimen_10dp"
 				android:layout_marginBottom="@dimen/dimen_26dp"
 				android:padding="@dimen/dimen_4dp"
@@ -74,11 +76,12 @@
 
 			<!-- Login Button -->
 			<include
-				android:id="@+id/btn_login"
+				android:id="@+id/login"
 				layout="@layout/view_login_btn"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_below="@id/tv_get_help" />
+
 		</RelativeLayout>
 
 		<!-- "OR" Separator -->
@@ -113,6 +116,7 @@
 				android:layout_height="@dimen/dimen_1dp"
 				android:layout_weight="@integer/integer_one"
 				android:background="@color/color_white" />
+
 		</LinearLayout>
 
 		<!-- Container - Sign In -->
@@ -124,7 +128,7 @@
 
 			<!-- Facebook Sign In Button -->
 			<include
-				android:id="@+id/btn_sign_in_facebook"
+				android:id="@+id/facebook"
 				layout="@layout/view_sign_in_facebook_btn"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -132,11 +136,12 @@
 
 			<!-- Google Sign In Button -->
 			<include
-				android:id="@+id/btn_sign_in_google"
+				android:id="@+id/google"
 				layout="@layout/view_sign_in_google_btn"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_below="@id/btn_sign_in_facebook" />
+				android:layout_below="@id/facebook" />
+
 		</RelativeLayout>
 
 		<!-- Void (Transparent view to maintain separation according main parent height) -->
@@ -151,14 +156,23 @@
 			android:background="@color/color_white" />
 
 		<!-- Sign Up Text Button -->
-		<TextView
+		<FrameLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:background="@drawable/bgr_sign_up_btn_sign_in_activity"
-			android:padding="@dimen/dimen_16dp"
-			android:text="@string/text_sign_in_activity_sign_up"
-			android:textAlignment="center"
-			android:textColor="@color/color_white"
-			android:textSize="@dimen/text_14sp" />
+			android:padding="@dimen/dimen_16dp">
+
+			<TextView
+				android:id="@+id/tv_sign_up"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/text_sign_in_activity_sign_up"
+				android:layout_gravity="center"
+				android:textColor="@color/color_white"
+				android:textSize="@dimen/text_14sp" />
+
+		</FrameLayout>
+
 	</LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

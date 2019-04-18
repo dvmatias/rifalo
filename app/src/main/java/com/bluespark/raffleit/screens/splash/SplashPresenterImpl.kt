@@ -16,7 +16,6 @@ class SplashPresenterImpl(
 	/**
 	 * [SplashContract.Presenter] interface implementation.
 	 */
-
 	override fun actionCheckInternetConnection() {
 		checkNetworkInteractor.execute(networkListener)
 	}
@@ -34,7 +33,7 @@ class SplashPresenterImpl(
 		}
 
 		override fun onInternetNotConnected() {
-			view?.viewShowNoInternetDialog()
+			view?.showNoInternetDialog()
 		}
 
 	}
@@ -44,11 +43,11 @@ class SplashPresenterImpl(
 	 */
 	private var credentialsListener = object : SplashCheckCredentialsInteractor.Listener {
 		override fun onUserSignedIn() {
-			view?.flowGoToMainScreen()
+			view?.goToMainScreen()
 		}
 
 		override fun onUserNotLoggedIn() {
-			view?.flowGoToSignInScreen()
+			view?.goToSignInScreen()
 		}
 
 	}
