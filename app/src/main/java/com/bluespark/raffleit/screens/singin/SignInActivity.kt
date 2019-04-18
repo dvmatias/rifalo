@@ -61,11 +61,6 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		firebaseAuth = FirebaseAuth.getInstance()
 	}
 
-	private fun signIn() {
-		val signInIntent = googleSignInClient.signInIntent
-		startActivityForResult(signInIntent, Constants.RC_SIGN_IN_GOOGLE)
-	}
-
 	private fun handleSignInGoogleResult(completedTask: Task<GoogleSignInAccount>) {
 		try {
 			val account = completedTask.getResult(ApiException::class.java)
@@ -106,8 +101,7 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 					val user = firebaseAuth.currentUser
 					//						updateUI(user)
 
-
-
+					goToMainScreen()
 				} else {
 					// If sign in fails, display a message to the user.
 					Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -132,6 +126,8 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 
 	override fun onSignInGoogleClick() {
 		Toast.makeText(this, "onSignInGoogleClick()", Toast.LENGTH_SHORT).show()
+		val signInIntent = googleSignInClient.signInIntent
+		startActivityForResult(signInIntent, Constants.RC_SIGN_IN_GOOGLE)
 	}
 
 	override fun onSignUpClick() {
