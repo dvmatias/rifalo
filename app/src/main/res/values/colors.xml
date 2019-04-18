@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="color_primary">#008eff</color>
-	<color name="color_primary_dark">#00574B</color>
+	<color name="color_primary">#2196f3</color>
+	<color name="color_primary_dark">#2962ff</color>
 	<color name="color_accent">#D81B60</color>
 
+	<color name="color_facebook">#3B5997</color>
+	<color name="color_login_btn_bgr">#f1c044</color>
+	<color name="color_sign_in_edit_text_bgr">#33FFFFFF</color>
+	<color name="color_sign_in_edit_text_stroke">#89ffffff</color>
+	<color name="color_sign_in_edit_text_hint">#b0ffffff</color>
+
 	<color name="color_transparent">#00000000</color>
+	<color name="color_white">#FFFFFFFF</color>
 </resources>
