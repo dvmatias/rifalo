@@ -27,6 +27,7 @@
 				android:contentDescription="@null"
 				android:scaleType="center"
 				android:src="@drawable/img_sign_in_app_name" />
+
 		</FrameLayout>
 
 		<!-- Container - Login -->
@@ -80,6 +81,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_below="@id/tv_get_help" />
+
 		</RelativeLayout>
 
 		<!-- "OR" Separator -->
@@ -114,6 +116,7 @@
 				android:layout_height="@dimen/dimen_1dp"
 				android:layout_weight="@integer/integer_one"
 				android:background="@color/color_white" />
+
 		</LinearLayout>
 
 		<!-- Container - Sign In -->
@@ -138,6 +141,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_below="@id/facebook" />
+
 		</RelativeLayout>
 
 		<!-- Void (Transparent view to maintain separation according main parent height) -->
@@ -166,6 +170,9 @@
 				android:layout_gravity="center"
 				android:textColor="@color/color_white"
 				android:textSize="@dimen/text_14sp" />
+
 		</FrameLayout>
+
 	</LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

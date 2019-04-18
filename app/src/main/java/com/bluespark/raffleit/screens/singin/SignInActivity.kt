@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
+import com.bluespark.raffleit.screens.main.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -104,11 +105,8 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 					Log.d(TAG, "signInWithCredential:success")
 					val user = firebaseAuth.currentUser
 					//						updateUI(user)
-//					This code clears which account is connected to the app. To sign in again, the user must choose their account again.
-//					googleSignInClient.signOut()
-//						.addOnCompleteListener(this) {
-//							finish()
-//						}
+
+
 
 				} else {
 					// If sign in fails, display a message to the user.
@@ -149,6 +147,9 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 	}
 
 	override fun goToMainScreen() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		val goToMainScreenIntent = Intent(this, MainActivity::class.java)
+		startActivity(goToMainScreenIntent)
+		finish()
 	}
+
 }
