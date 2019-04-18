@@ -37,18 +37,13 @@ class SignInActivity : BaseActivityImpl(), View.OnClickListener {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		super.applyImmersiveFullScreen()
 		setContentView(R.layout.activity_sign_in)
-		// Inject this view.
 		getPresentationComponent().inject(this)
-		// Draw below status bar, android:statusBarColor attribute must be transparent.
-		window.decorView.systemUiVisibility =
-			View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
-		// TODO: uncomment
-//		btn_sign_in_google.setOnClickListener(this)
+		btn_sign_in_google.setOnClickListener(this)
 
 		mAuth = FirebaseAuth.getInstance()
-
 	}
 
 	private fun signIn() {
