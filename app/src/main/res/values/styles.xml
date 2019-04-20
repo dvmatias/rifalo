@@ -10,7 +10,6 @@
 
 	<!-- Activity Splash Theme. -->
 	<style name="ActivitySplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-		<item name="android:background">@color/color_primary</item>
 		<item name="android:statusBarColor">@color/color_transparent</item>
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>

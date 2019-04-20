@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.Constants
+import com.bluespark.raffleit.common.model.`object`.UserFirebase
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.bluespark.raffleit.screens.main.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -15,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.view_login_btn.view.*
@@ -97,10 +99,20 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 			) { task ->
 				if (task.isSuccessful) {
 					// Sign in success, update UI with the signed-in user's information
-					Log.d(TAG, "signInWithCredential:success")
 					val user = firebaseAuth.currentUser
-					//						updateUI(user)
-
+					val userFirebase: UserFirebase
+					user?.let {
+						userFirebase = UserFirebase(
+							user.uid,
+							user.providers!![0],
+							user.displayName,
+							user.email,
+							user.photoUrl,
+							user.phoneNumber,
+							user.isEmailVerified
+						)
+					}
+					// TODO Store user data.
 					goToMainScreen()
 				} else {
 					// If sign in fails, display a message to the user.
