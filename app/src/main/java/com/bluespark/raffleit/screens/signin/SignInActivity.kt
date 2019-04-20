@@ -1,4 +1,4 @@
-package com.bluespark.raffleit.screens.singin
+package com.bluespark.raffleit.screens.signin
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,7 @@ import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.bluespark.raffleit.common.utils.managers.FirebaseSignInGoogleManager
 import com.bluespark.raffleit.screens.main.MainActivity
+import com.bluespark.raffleit.screens.register.RegisterActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
@@ -132,7 +133,7 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 	}
 
 	override fun onSignUpClick() {
-		Toast.makeText(this, "onSignUpClick()", Toast.LENGTH_SHORT).show()
+		goToRegisterUserScreen()
 	}
 
 	override fun showLoading(show: Boolean) {
@@ -149,4 +150,8 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		finish()
 	}
 
+	override fun goToRegisterUserScreen() {
+		val goToRegisterUserScreenIntent = Intent(this, RegisterActivity::class.java)
+		startActivity(goToRegisterUserScreenIntent)
+	}
 }

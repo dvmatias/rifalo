@@ -47,8 +47,8 @@ class FirebaseSignInGoogleManager(
 			// The ApiException status code indicates the detailed failure reason.
 			// Please refer to the GoogleSignInStatusCodes class reference for more information.
 			Log.w(TAG, "signInResult:failed code=" + e.statusCode)
+			// TODO Manage result.
 		}
-
 	}
 
 	private fun firebaseAuthWithGoogle(activity: BaseActivityImpl, account: GoogleSignInAccount?) {
@@ -77,10 +77,9 @@ class FirebaseSignInGoogleManager(
 				} else {
 					// If sign in fails, display a message to the user.
 					Log.w(TAG, "signInWithCredential:failure", task.exception)
+					// TODO Manage result.
 					(activity as Listener).onGoogleSignInFail()
 				}
 			}
-
 	}
-
 }

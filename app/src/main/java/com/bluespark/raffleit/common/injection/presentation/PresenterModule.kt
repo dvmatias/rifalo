@@ -1,8 +1,8 @@
 package com.bluespark.raffleit.common.injection.presentation
 
 import com.bluespark.raffleit.common.mvp.BaseView
-import com.bluespark.raffleit.screens.singin.SignInContract
-import com.bluespark.raffleit.screens.singin.SignInPresenterImpl
+import com.bluespark.raffleit.screens.signin.SignInContract
+import com.bluespark.raffleit.screens.signin.SignInPresenterImpl
 import com.bluespark.raffleit.screens.splash.SplashCheckCredentialsInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
 import com.bluespark.raffleit.screens.splash.SplashContract

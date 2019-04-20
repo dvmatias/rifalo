@@ -1,7 +1,7 @@
 package com.bluespark.raffleit.common.injection.presentation
 
 import com.bluespark.raffleit.screens.main.MainActivity
-import com.bluespark.raffleit.screens.singin.SignInActivity
+import com.bluespark.raffleit.screens.signin.SignInActivity
 import com.bluespark.raffleit.screens.splash.SplashActivity
 import dagger.Subcomponent
 
