@@ -34,7 +34,8 @@
 		<activity android:name=".screens.main.MainActivity" />
 
 		<!-- Activity Register -->
-		<activity android:name=".screens.register.RegisterActivity" />
+		<activity android:name=".screens.register.RegisterActivity"
+			android:theme="@style/ActivityRegisterTheme" />
 	</application>
 
 </manifest>

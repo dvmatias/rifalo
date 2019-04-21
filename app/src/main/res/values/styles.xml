@@ -22,6 +22,13 @@
 		<item name="android:windowNoTitle">true</item>
 	</style>
 
+	<!-- Activity Sign In Theme. -->
+	<style name="ActivityRegisterTheme" parent="Theme.AppCompat.Light.NoActionBar">
+		<item name="android:statusBarColor">@color/color_primary</item>
+		<item name="android:windowActionBar">false</item>
+		<item name="android:windowNoTitle">true</item>
+	</style>
+
 	<!-- Edit Text Login Theme. -->
 	<style name="EditTextLoginTheme" parent="Base.V7.Widget.AppCompat.EditText">
 		<item name="android:background">@drawable/bgr_sign_in_activity_edit_text</item>
