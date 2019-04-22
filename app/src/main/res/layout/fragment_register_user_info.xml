@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:EditTextCustomView="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:padding="@dimen/dimen_28dp"
+	tools:context=".screens.register.fragments.RegisterUserInfoFragment">
+
+	<com.bluespark.raffleit.common.views.EditTextCustomView
+		android:id="@+id/etcv_user_email_name"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/dimen_14dp"
+		EditTextCustomView:hintText="@string/hint_user_email_name_etcv"
+		EditTextCustomView:titleColor="@color/color_white"
+		EditTextCustomView:titleText="@string/title_user_email_name_etcv" />
+
+	<com.bluespark.raffleit.common.views.EditTextCustomView
+		android:id="@+id/etcv_user_password_name"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/dimen_14dp"
+		EditTextCustomView:hintText="@string/hint_user_password_name_etcv"
+		EditTextCustomView:titleColor="@color/color_white"
+		EditTextCustomView:titleText="@string/title_user_password_name_etcv" />
+
+	<com.bluespark.raffleit.common.views.EditTextCustomView
+		android:id="@+id/etcv_user_password_confirmation_name"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/dimen_14dp"
+		EditTextCustomView:hintText="@string/hint_user_password_confirmation_name_etcv"
+		EditTextCustomView:titleColor="@color/color_white"
+		EditTextCustomView:titleText="@string/title_user_password_confirmation_name_etcv" />
+
+</LinearLayout>

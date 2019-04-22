@@ -3,6 +3,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:background="@drawable/bgr_degrade_activity"
 	tools:context=".screens.register.RegisterActivity">
 
 	<!-- Go Back Button -->
@@ -11,17 +12,18 @@
 		android:layout_width="wrap_content"
 		android:layout_height="@dimen/dimen_44dp"
 		android:layout_marginStart="@dimen/dimen_32dp"
-		android:layout_marginTop="@dimen/dimen_64dp"
+		android:layout_marginTop="@dimen/dimen_48dp"
 		android:drawableStart="@drawable/ic_arrow_back_24dp"
 		android:drawablePadding="@dimen/dimen_8dp"
 		android:gravity="center_vertical"
 		android:text="@string/label_go_back_register_activity_btn"
+		android:textColor="@color/color_white"
 		android:textSize="@dimen/text_18sp"
 		android:textStyle="bold" />
 
 	<!-- Fragments container -->
 	<android.support.v4.view.ViewPager
-		android:id="@+id/fragment_pager"
+		android:id="@+id/pager"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/iv_go_back_btn" />

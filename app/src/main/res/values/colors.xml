@@ -13,5 +13,8 @@
 	<color name="color_transparent">#00000000</color>
 	<color name="color_white">#FFFFFFFF</color>
 	<color name="color_black">#FF000000</color>
-	<color name="color_custom_view_edit_text_shape">#33FFFFFF</color>
+	<color name="color_custom_view_card_view_bgr">#FFFFFFFF</color>
+	<color name="color_custom_view_edit_text_shape">#33000000</color>
+	<color name="color_custom_view_edit_text_hint">@color/color_custom_view_edit_text_shape</color>
+	<color name="color_custom_view_edit_text_error">#ff1a1a</color>
 </resources>
