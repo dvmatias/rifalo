@@ -1,0 +1,32 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@color/color_transparent"
+	android:fitsSystemWindows="false">
+
+	<android.support.v7.widget.CardView
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/dimen_flow_button_height"
+		android:layout_margin="@dimen/dimen_4dp"
+		android:background="@color/color_primary"
+		android:clickable="true"
+		android:fitsSystemWindows="false"
+		android:focusable="true"
+		android:focusableInTouchMode="true"
+		android:foreground="?android:attr/selectableItemBackground"
+		app:cardCornerRadius="@dimen/dimen_flow_button_radius"
+		app:cardElevation="@dimen/dimen_flow_button_elevation">
+
+		<TextView
+			android:id="@+id/tv_label"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:text="@string/app_name"
+			android:textAllCaps="true"
+			android:textSize="@dimen/size_flow_button_label"
+			android:textStyle="bold" />
+
+	</android.support.v7.widget.CardView>
+</FrameLayout>

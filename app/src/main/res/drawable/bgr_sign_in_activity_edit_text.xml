@@ -12,5 +12,5 @@
 		android:left="@dimen/dimen_2dp"
 		android:right="@dimen/dimen_2dp"
 		android:top="@dimen/dimen_2dp" />
-	<corners android:radius="@dimen/dimen_sign_ing_components_corner_radius" />
+	<corners android:radius="@dimen/dimen_sign_in_components_corner_radius" />
 </shape>

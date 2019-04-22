@@ -17,4 +17,5 @@
 	<color name="color_custom_view_edit_text_shape">#33000000</color>
 	<color name="color_custom_view_edit_text_hint">@color/color_custom_view_edit_text_shape</color>
 	<color name="color_custom_view_edit_text_error">#ff1a1a</color>
+	<color name="color_sign_up_fragments_bgr">#3F000000</color>
 </resources>
