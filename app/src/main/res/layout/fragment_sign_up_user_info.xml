@@ -6,7 +6,7 @@
 	android:layout_height="match_parent"
 	android:orientation="vertical"
 	android:padding="@dimen/dimen_28dp"
-	tools:context=".screens.register.fragments.RegisterUserInfoFragment">
+	tools:context=".screens.signup.fragments.SignUpUserInfoFragment">
 
 	<com.bluespark.raffleit.common.views.EditTextCustomView
 		android:id="@+id/etcv_user_email_name"

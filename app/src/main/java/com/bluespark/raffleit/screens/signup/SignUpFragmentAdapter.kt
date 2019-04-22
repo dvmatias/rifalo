@@ -1,10 +1,10 @@
-package com.bluespark.raffleit.screens.register
+package com.bluespark.raffleit.screens.signup
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 
-class RegisterFragmentAdapter(fragmentManager: FragmentManager) :
+class SignUpFragmentAdapter(fragmentManager: FragmentManager) :
 	FragmentPagerAdapter(fragmentManager) {
 
 	private val fragmentList = ArrayList<Fragment>()

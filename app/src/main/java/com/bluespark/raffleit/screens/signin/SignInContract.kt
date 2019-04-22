@@ -17,7 +17,7 @@ interface SignInContract {
 		fun showNoInternetDialog(show: Boolean)
 		// Flow
 		fun goToMainScreen()
-		fun goToRegisterUserScreen()
+		fun goToSignUpScreen()
 	}
 
 	interface Presenter : BasePresenter<View> {

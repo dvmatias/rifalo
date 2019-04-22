@@ -23,7 +23,7 @@
 	</style>
 
 	<!-- Activity Sign In Theme. -->
-	<style name="ActivityRegisterTheme" parent="Theme.AppCompat.Light.NoActionBar">
+	<style name="ActivitySignUpTheme" parent="Theme.AppCompat.Light.NoActionBar">
 		<item name="android:statusBarColor">@color/color_primary</item>
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
@@ -43,8 +43,8 @@
 		<item name="android:textColorHint">@color/color_sign_in_edit_text_hint</item>
 	</style>
 
-	<!-- Edit Text Register Theme. -->
-	<style name="EditTextLoginRegisterTheme" parent="Base.V7.Widget.AppCompat.EditText">
+	<!-- Edit Text Sign Up Theme. -->
+	<style name="EditTextLoginSignUpTheme" parent="Base.V7.Widget.AppCompat.EditText">
 		<item name="android:background">@drawable/shape_custom_view_edit_text_bgr</item>
 		<item name="android:colorControlActivated">@color/color_transparent</item>
 		<item name="android:colorControlNormal">@color/color_transparent</item>

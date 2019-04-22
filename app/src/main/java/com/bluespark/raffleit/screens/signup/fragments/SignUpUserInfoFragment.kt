@@ -1,4 +1,4 @@
-package com.bluespark.raffleit.screens.register.fragments
+package com.bluespark.raffleit.screens.signup.fragments
 
 import android.content.Context
 import android.net.Uri
@@ -13,13 +13,13 @@ import com.bluespark.raffleit.R
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [RegisterUserInfoFragment.Listener] interface
+ * [SignUpUserInfoFragment.Listener] interface
  * to handle interaction events.
- * Use the [RegisterUserInfoFragment.newInstance] factory method to
+ * Use the [SignUpUserInfoFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class RegisterUserInfoFragment : Fragment() {
+class SignUpUserInfoFragment : Fragment() {
 	private var listener: Listener? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class RegisterUserInfoFragment : Fragment() {
 		savedInstanceState: Bundle?
 	): View? {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_register_user_info, container, false)
+		return inflater.inflate(R.layout.fragment_sign_up_user_info, container, false)
 	}
 
 	// TODO: Rename method, update argument and hook method into UI event
@@ -78,12 +78,12 @@ class RegisterUserInfoFragment : Fragment() {
 		 *
 		 * @param param1 Parameter 1.
 		 * @param param2 Parameter 2.
-		 * @return A new instance of fragment RegisterUserInfoFragment.
+		 * @return A new instance of fragment SignUpUserInfoFragment.
 		 */
 		// TODO: Rename and change types and number of parameters
 		@JvmStatic
 		fun newInstance() =
-			RegisterUserInfoFragment().apply {
+			SignUpUserInfoFragment().apply {
 				arguments = Bundle().apply {
 				}
 			}

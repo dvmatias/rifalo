@@ -4,7 +4,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@drawable/bgr_degrade_activity"
-	tools:context=".screens.register.RegisterActivity">
+	tools:context=".screens.signup.SignUpActivity">
 
 	<!-- Go Back Button -->
 	<TextView
@@ -16,7 +16,7 @@
 		android:drawableStart="@drawable/ic_arrow_back_24dp"
 		android:drawablePadding="@dimen/dimen_8dp"
 		android:gravity="center_vertical"
-		android:text="@string/label_go_back_register_activity_btn"
+		android:text="@string/label_go_back_sign_up_activity_btn"
 		android:textColor="@color/color_white"
 		android:textSize="@dimen/text_18sp"
 		android:textStyle="bold" />
