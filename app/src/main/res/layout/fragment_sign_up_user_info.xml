@@ -48,7 +48,7 @@
 			app:titleText="@string/title_user_email_name_etcv" />
 
 		<com.bluespark.raffleit.common.views.EditTextCustomView
-			android:id="@+id/etcv_user_password_name"
+			android:id="@+id/etcv_user_password"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/dimen_14dp"
@@ -57,7 +57,7 @@
 			app:titleText="@string/title_user_password_name_etcv" />
 
 		<com.bluespark.raffleit.common.views.EditTextCustomView
-			android:id="@+id/etcv_user_password_confirmation_name"
+			android:id="@+id/etcv_user_password_confirmation"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/dimen_14dp"

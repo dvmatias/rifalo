@@ -31,7 +31,7 @@
 
 	<!-- Edit Text Login Theme. -->
 	<style name="EditTextLoginTheme" parent="Base.V7.Widget.AppCompat.EditText">
-		<item name="android:background">@drawable/bgr_sign_in_activity_edit_text</item>
+		<item name="android:background">@drawable/bgr_sign_in_activity_edit_text_normal</item>
 		<item name="android:colorControlActivated">@color/color_transparent</item>
 		<item name="android:colorControlNormal">@color/color_transparent</item>
 		<item name="android:layout_marginStart">@dimen/dimen_8dp</item>

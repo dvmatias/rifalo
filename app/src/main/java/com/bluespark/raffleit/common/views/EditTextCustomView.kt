@@ -2,6 +2,7 @@ package com.bluespark.raffleit.common.views
 
 import android.content.Context
 import android.graphics.Color
+import android.support.annotation.Nullable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
@@ -19,6 +20,8 @@ class EditTextCustomView : LinearLayout {
 	private var _hintText: String =
 		context.resources.getString(R.string.hint_custom_view_edit_text_default_string)
 
+	private var _errorText: String = ""
+
 	private var titleText: String
 		get() = _titleText
 		set(value) {
@@ -35,6 +38,13 @@ class EditTextCustomView : LinearLayout {
 		get() = _titleColor
 		set(value) {
 			_titleColor = value
+		}
+
+	private var errorText: String
+		get() = _errorText
+		set(value) {
+			_errorText = value
+			tv_error.text = _errorText
 		}
 
 	constructor(context: Context) : super(context) {
@@ -100,14 +110,36 @@ class EditTextCustomView : LinearLayout {
 			tv_title.setTextColor(Color.parseColor(titleColor))
 			et_user_input.hint = hintText
 
+			setStatusNormal()
 			hideError()
 
 			typedArray.recycle()
 		}
 	}
 
+	fun setStatusNormal() {
+		cv.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_normal)
+	}
+
+	fun setStatusError(@Nullable errorMsg: String) {
+		cv.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_error)
+		_errorText = errorMsg
+		if (!_errorText.isBlank()) {
+			errorText = _errorText
+			showError()
+		}
+	}
+
+	fun setStatusValid() {
+		cv.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_valid)
+	}
+
 	private fun hideError() {
 		tv_error.visibility = View.GONE
+	}
+
+	private fun showError() {
+		tv_error.visibility = View.VISIBLE
 	}
 
 }
