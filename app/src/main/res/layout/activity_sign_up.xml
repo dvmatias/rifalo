@@ -56,7 +56,8 @@
 		android:layout_height="wrap_content"
 		android:paddingStart="@dimen/dimen_32dp"
 		android:paddingEnd="@dimen/dimen_32dp"
-		android:paddingBottom="@dimen/dimen_32dp">
+		android:paddingBottom="@dimen/dimen_32dp"
+		android:layout_marginBottom="@dimen/dimen_18dp">
 
 		<com.bluespark.raffleit.common.views.FlowButtonCustomView
 			android:id="@+id/flow_btn"
