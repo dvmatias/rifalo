@@ -32,9 +32,6 @@ class SignUpUserInfoFragment : Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		etcv_user_email_name.setStatusNormal()
-		etcv_user_password.setStatusError("This is an error string.")
-		etcv_user_password_confirmation.setStatusValid()
 	}
 
 	override fun onCreateView(
