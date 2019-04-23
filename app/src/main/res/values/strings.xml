@@ -25,9 +25,12 @@
 	<string name="title_user_password_confirmation_name_etcv">Confirm you password</string>
 
 	<!-- Edit Text Custom View -->
-	<string name="custom_view_edit_text_title_default">Title</string>
-	<string name="custom_view_edit_title_color_default">#FF9800</string>
-	<string name="custom_view_edit_text_hint_default">Hint</string>
+	<string name="title_custom_view_edit_text_default_string">Title</string>
+	<string name="title_custom_view_edit_default_color">#FF9800</string>
+	<string name="hint_custom_view_edit_text_default_string">Hint</string>
+
+	<!-- Edit Text Custom View -->
+	<string name="label_flow_button_custom_view_default_string">button</string>
 
 	<!-- TODO: Remove or change this placeholder text -->
 	<string name="hello_blank_fragment">Hello blank fragment</string>

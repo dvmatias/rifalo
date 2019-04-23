@@ -11,13 +11,13 @@ import kotlinx.android.synthetic.main.custom_view_edit_text.view.*
 class EditTextCustomView : LinearLayout {
 
 	private var _titleText: String =
-		context.resources.getString(R.string.custom_view_edit_text_title_default)
+		context.resources.getString(R.string.title_custom_view_edit_text_default_string)
 
 	private var _titleColor: String =
-		context.resources.getString(R.string.custom_view_edit_title_color_default)
+		context.resources.getString(R.string.title_custom_view_edit_default_color)
 
 	private var _hintText: String =
-		context.resources.getString(R.string.custom_view_edit_text_hint_default)
+		context.resources.getString(R.string.hint_custom_view_edit_text_default_string)
 
 	private var titleText: String
 		get() = _titleText
@@ -59,6 +59,7 @@ class EditTextCustomView : LinearLayout {
 		val typedArray = context.obtainStyledAttributes(
 			attrs, R.styleable.EditTextCustomView, defStyle, 0
 		)
+
 		try {
 			val indexCount = typedArray.getIndexCount()
 			for (i in 0 until indexCount) {

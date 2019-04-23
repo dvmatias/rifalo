@@ -1,62 +1,55 @@
 package com.bluespark.raffleit.common.views
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.drawable.Drawable
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
-import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
 import com.bluespark.raffleit.R
+import kotlinx.android.synthetic.main.custom_viewflow_button.view.*
 
 /**
  * TODO: document your custom view class.
  */
 class FlowButtonCustomView : CardView {
 
-	private var _exampleString: String? = null // TODO: use a default from R.string...
-	private var _exampleColor: Int = Color.RED // TODO: use a default from R.color...
-	private var _exampleDimension: Float = 0f // TODO: use a default from R.dimen...
-
-	private var textPaint: TextPaint? = null
-	private var textWidth: Float = 0f
-	private var textHeight: Float = 0f
+	private var _labelText: String =
+		resources.getString(R.string.label_flow_button_custom_view_default_string)
+	private var _labelColor: Int =
+		ContextCompat.getColor(context, R.color.label_flow_button_custom_view_default_color)
+	private var _buttonColor: Int? =
+		ContextCompat.getColor(context, R.color.button_flow_button_custom_view_default_color)
 
 	/**
-	 * The text to draw
+	 * Button label text
 	 */
-	var exampleString: String?
-		get() = _exampleString
+	var labelText: String
+		get() = _labelText
 		set(value) {
-			_exampleString = value
-			invalidateTextPaintAndMeasurements()
+			_labelText = value
+			tv_label.text = labelText
 		}
 
 	/**
-	 * The font color
+	 * Button label color
 	 */
-	var exampleColor: Int
-		get() = _exampleColor
+	var labelColor: Int
+		get() = _labelColor
 		set(value) {
-			_exampleColor = value
-			invalidateTextPaintAndMeasurements()
+			_labelColor = value
+			tv_label.setTextColor(labelColor)
 		}
 
 	/**
-	 * In the example view, this dimension is the font size.
+	 * Button background color
 	 */
-	var exampleDimension: Float
-		get() = _exampleDimension
+	var buttonColor: Int?
+		get() = _buttonColor
 		set(value) {
-			_exampleDimension = value
-			invalidateTextPaintAndMeasurements()
+			_buttonColor = value
+			cv.setCardBackgroundColor(_buttonColor!!)
 		}
-
-	/**
-	 * In the example view, this drawable is drawn above the text.
-	 */
-	var exampleDrawable: Drawable? = null
 
 	constructor(context: Context) : super(context) {
 		init(null, 0)
@@ -78,9 +71,38 @@ class FlowButtonCustomView : CardView {
 		View.inflate(context, R.layout.custom_viewflow_button, this)
 		setBackgroundColor(Color.TRANSPARENT)
 		// Load attributes
-//		val a = context.obtainStyledAttributes(
-//			attrs, R.styleable.FlowButtonCustomView, defStyle, 0
-//		)
+		val typedArray = context.obtainStyledAttributes(
+			attrs, R.styleable.FlowButtonCustomView, defStyle, 0
+		)
+
+		try {
+			val indexCount = typedArray.getIndexCount()
+			for (i in 0 until indexCount) {
+				val attr = typedArray.getIndex(i)
+
+				when (attr) {
+					R.styleable.FlowButtonCustomView_labelText -> {
+						//
+						_labelText = typedArray.getString(R.styleable.EditTextCustomView_titleText)
+					}
+					R.styleable.FlowButtonCustomView_labelColor -> {
+						//
+						_labelColor = typedArray.getColor(R.styleable.FlowButtonCustomView_labelColor, _labelColor)
+					}
+					R.styleable.FlowButtonCustomView_buttonColor -> {
+						//
+						_buttonColor = typedArray.getColor(R.styleable.FlowButtonCustomView_buttonColor, _buttonColor!!)
+					}
+				}
+			}
+		} catch (e: Exception) {
+			e.printStackTrace()
+		} finally {
+			labelText = _labelText
+			labelColor = _labelColor
+			buttonColor = _buttonColor
+			typedArray.recycle()
+		}
 //
 //		_exampleString = a.getString(
 //			R.styleable.SignButtonCustomView_exampleString
@@ -113,15 +135,6 @@ class FlowButtonCustomView : CardView {
 //
 //		// Update TextPaint and text measurements from attributes
 //		invalidateTextPaintAndMeasurements()
-	}
-
-	private fun invalidateTextPaintAndMeasurements() {
-		textPaint?.let {
-			it.textSize = exampleDimension
-			it.color = exampleColor
-			textWidth = it.measureText(exampleString)
-			textHeight = it.fontMetrics.bottom
-		}
 	}
 
 }
