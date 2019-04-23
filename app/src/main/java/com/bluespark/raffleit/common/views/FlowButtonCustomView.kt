@@ -5,16 +5,28 @@ import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.bluespark.raffleit.R
+import com.bluespark.raffleit.common.views.FlowButtonCustomView.InternalListener
 import kotlinx.android.synthetic.main.custom_viewflow_button.view.*
 
 /**
- * TODO: document your custom view class.
+ * This class represents a custom button with a [CardView]
+ * as main background and a [TextView] as button label.
+ *
+ * Has the inner class [InternalListener] to translate clicks
+ * on this view.
+ *
+ * The user can configure custom attributes such as:
+ *   - Button label text: [R.styleable.FlowButtonCustomView_labelText]
+ *   - Button label color: [R.styleable.FlowButtonCustomView_labelColor]
+ *   - Button background color: [R.styleable.FlowButtonCustomView_buttonColor]
+ *
+ * @author matias.delv.dom@gmail.com
  */
 class FlowButtonCustomView : CardView {
+
+	private val listenerAdapter = InternalListener()
 
 	private var _labelText: String =
 		resources.getString(R.string.label_flow_button_custom_view_default_string)
@@ -24,7 +36,7 @@ class FlowButtonCustomView : CardView {
 		ContextCompat.getColor(context, R.color.button_flow_button_custom_view_default_color)
 
 	/**
-	 * Button label text
+	 * Button label text.
 	 */
 	var labelText: String
 		get() = _labelText
@@ -34,7 +46,7 @@ class FlowButtonCustomView : CardView {
 		}
 
 	/**
-	 * Button label color
+	 * Button label color.
 	 */
 	var labelColor: Int
 		get() = _labelColor
@@ -44,7 +56,7 @@ class FlowButtonCustomView : CardView {
 		}
 
 	/**
-	 * Button background color
+	 * Button background color.
 	 */
 	var buttonColor: Int?
 		get() = _buttonColor
@@ -69,6 +81,12 @@ class FlowButtonCustomView : CardView {
 		init(attrs, defStyle)
 	}
 
+	/**
+	 * Init the view.
+	 *
+	 * @param attrs Attributes set.
+	 * @param defStyle Default style
+	 */
 	private fun init(attrs: AttributeSet?, defStyle: Int) {
 		View.inflate(context, R.layout.custom_viewflow_button, this)
 		setBackgroundColor(Color.TRANSPARENT)
@@ -89,11 +107,17 @@ class FlowButtonCustomView : CardView {
 					}
 					R.styleable.FlowButtonCustomView_labelColor -> {
 						//
-						_labelColor = typedArray.getColor(R.styleable.FlowButtonCustomView_labelColor, _labelColor)
+						_labelColor = typedArray.getColor(
+							R.styleable.FlowButtonCustomView_labelColor,
+							_labelColor
+						)
 					}
 					R.styleable.FlowButtonCustomView_buttonColor -> {
 						//
-						_buttonColor = typedArray.getColor(R.styleable.FlowButtonCustomView_buttonColor, _buttonColor!!)
+						_buttonColor = typedArray.getColor(
+							R.styleable.FlowButtonCustomView_buttonColor,
+							_buttonColor!!
+						)
 					}
 				}
 			}
@@ -103,44 +127,42 @@ class FlowButtonCustomView : CardView {
 			labelText = _labelText
 			labelColor = _labelColor
 			buttonColor = _buttonColor
+
+			isClickable = true
+			isFocusable = true
+			setOnClickListener(listenerAdapter)
+
 			typedArray.recycle()
 		}
-//
-//		_exampleString = a.getString(
-//			R.styleable.SignButtonCustomView_exampleString
-//		)
-//		_exampleColor = a.getColor(
-//			R.styleable.SignButtonCustomView_exampleColor,
-//			exampleColor
-//		)
-//		// Use getDimensionPixelSize or getDimensionPixelOffset when dealing with
-//		// values that should fall on pixel boundaries.
-//		_exampleDimension = a.getDimension(
-//			R.styleable.SignButtonCustomView_exampleDimension,
-//			exampleDimension
-//		)
-//
-//		if (a.hasValue(R.styleable.SignButtonCustomView_exampleDrawable)) {
-//			exampleDrawable = a.getDrawable(
-//				R.styleable.SignButtonCustomView_exampleDrawable
-//			)
-//			exampleDrawable?.callback = this
-//		}
-//
-//		a.recycle()
-//
-//		// Set up a default TextPaint object
-//		textPaint = TextPaint().apply {
-//			flags = Paint.ANTI_ALIAS_FLAG
-//			textAlign = Paint.Align.LEFT
-//		}
-//
-//		// Update TextPaint and text measurements from attributes
-//		invalidateTextPaintAndMeasurements()
 	}
 
-//	override fun setOnClickListener(clickListener: OnClickListener) {
-//		cv.setOnClickListener(clickListener)
-//	}
+	/**
+	 * Sets the listener object that is triggered when the view is clicked.
+	 *
+	 * @param clickListener The instance of the listener to trigger.
+	 */
+	override fun setOnClickListener(clickListener: OnClickListener) {
+		listenerAdapter.setListener(clickListener)
+		cv.setOnClickListener(listenerAdapter)
+	}
+
+	/**
+	 * Internal click listener class. Translates a view’s click listener to
+	 * one that is more appropriate for this custom button class.
+	 *
+	 * @author matias.delv.dom@gmail.com
+	 */
+	inner class InternalListener : View.OnClickListener {
+		private var listener: OnClickListener? = null
+
+		override fun onClick(v: View?) {
+			listener?.onClick(this@FlowButtonCustomView)
+		}
+
+		fun setListener(clickListener: OnClickListener) {
+			listener = clickListener
+		}
+
+	}
 
 }
