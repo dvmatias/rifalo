@@ -20,7 +20,7 @@
 		android:background="@drawable/bgr_sign_in_activity_edit_text"
 		app:cardBackgroundColor="@color/color_custom_view_card_view_bgr"
 		app:cardCornerRadius="@dimen/dimen_sign_in_components_corner_radius"
-		app:cardElevation="@dimen/dimen_2dp">
+		app:cardElevation="@dimen/dimen_1dp">
 
 		<android.support.v7.widget.AppCompatEditText
 			android:id="@+id/et_user_input"

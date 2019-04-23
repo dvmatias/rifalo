@@ -46,7 +46,7 @@ class SignUpUserInfoFragment : Fragment() {
 		if (context is Listener) {
 			listener = context
 		} else {
-			throw RuntimeException(context.toString() + " must implement Listener")
+			throw RuntimeException("$context must implement Listener")
 		}
 	}
 
@@ -56,15 +56,7 @@ class SignUpUserInfoFragment : Fragment() {
 	}
 
 	/**
-	 * This interface must be implemented by activities that contain this
-	 * fragment to allow an interaction in this fragment to be communicated
-	 * to the activity and potentially other fragments contained in that
-	 * activity.
-	 *
-	 *
-	 * See the Android Training lesson [Communicating with Other Fragments]
-	 * (http://developer.android.com/training/basics/fragments/communicating.html)
-	 * for more information.
+	 * TODO desc
 	 */
 	interface Listener {
 		// TODO: Update argument type and name
@@ -72,15 +64,11 @@ class SignUpUserInfoFragment : Fragment() {
 	}
 
 	companion object {
+		val TAG: String = SignUpUserInfoFragment::class.java.simpleName
+
 		/**
-		 * Use this factory method to create a new instance of
-		 * this fragment using the provided parameters.
-		 *
-		 * @param param1 Parameter 1.
-		 * @param param2 Parameter 2.
-		 * @return A new instance of fragment SignUpUserInfoFragment.
+		 * Factory method to create a new instance of [SignUpUserInfoFragment].
 		 */
-		// TODO: Rename and change types and number of parameters
 		@JvmStatic
 		fun newInstance() =
 			SignUpUserInfoFragment().apply {

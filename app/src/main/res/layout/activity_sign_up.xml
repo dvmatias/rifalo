@@ -10,7 +10,7 @@
 
 	<!-- Go Back Button -->
 	<TextView
-		android:id="@+id/iv_go_back_btn"
+		android:id="@+id/back_btn"
 		android:layout_width="wrap_content"
 		android:layout_height="@dimen/dimen_44dp"
 		android:layout_marginStart="@dimen/dimen_32dp"
@@ -59,6 +59,7 @@
 		android:paddingBottom="@dimen/dimen_32dp">
 
 		<com.bluespark.raffleit.common.views.FlowButtonCustomView
+			android:id="@+id/flow_btn"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"

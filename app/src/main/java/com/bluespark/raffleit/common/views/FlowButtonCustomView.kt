@@ -5,7 +5,9 @@ import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.bluespark.raffleit.R
 import kotlinx.android.synthetic.main.custom_viewflow_button.view.*
 
@@ -136,5 +138,9 @@ class FlowButtonCustomView : CardView {
 //		// Update TextPaint and text measurements from attributes
 //		invalidateTextPaintAndMeasurements()
 	}
+
+//	override fun setOnClickListener(clickListener: OnClickListener) {
+//		cv.setOnClickListener(clickListener)
+//	}
 
 }
