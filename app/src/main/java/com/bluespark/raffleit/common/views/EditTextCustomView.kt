@@ -150,10 +150,12 @@ class EditTextCustomView : LinearLayout {
 		}
 	}
 
+	@Suppress("unused")
 	fun setStatusNormal() {
 		cv.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_normal)
 	}
 
+	@Suppress("unused")
 	fun setStatusError(@Nullable errorMsg: String) {
 		cv.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_error)
 		_errorText = errorMsg
@@ -163,6 +165,7 @@ class EditTextCustomView : LinearLayout {
 		}
 	}
 
+	@Suppress("unused")
 	fun setStatusValid() {
 		cv.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_valid)
 	}
