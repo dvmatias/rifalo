@@ -8,5 +8,7 @@
 		<attr name="errorSize" format="dimension" />
 		<attr name="hintText" format="string" />
 		<attr name="hintColor" format="color" />
+		<attr name="android:imeOptions"/>
+		<attr name="android:inputType"/>
 	</declare-styleable>
 </resources>

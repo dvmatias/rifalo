@@ -23,7 +23,7 @@
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="Sign Up"
+			android:text="@string/title_fragment_sign_up_user_info_sign_up"
 			android:textAlignment="center"
 			android:textColor="@color/color_white"
 			android:textSize="@dimen/text_20sp"
@@ -33,7 +33,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/dimen_12dp"
-			android:text="You’re about to register in Raffle !t. Please complete your information."
+			android:text="@string/title_fragment_sign_up_user_info_explanation"
 			android:textAlignment="center"
 			android:textColor="@color/color_white"
 			android:textSize="@dimen/text_16sp" />
@@ -43,6 +43,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/dimen_14dp"
+			android:inputType="text"
+			android:imeOptions="actionNext"
 			app:hintText="@string/hint_user_email_name_etcv"
 			app:titleColor="@color/color_white"
 			app:titleText="@string/title_user_email_name_etcv" />
@@ -52,6 +54,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/dimen_14dp"
+			android:inputType="textPassword"
+			android:imeOptions="actionNext"
 			app:hintText="@string/hint_user_password_name_etcv"
 			app:titleColor="@color/color_white"
 			app:titleText="@string/title_user_password_name_etcv" />
@@ -61,6 +65,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/dimen_14dp"
+			android:inputType="textPassword"
+			android:imeOptions="actionGo"
 			app:hintText="@string/hint_user_password_confirmation_name_etcv"
 			app:titleColor="@color/color_white"
 			app:titleText="@string/title_user_password_confirmation_name_etcv" />

@@ -22,22 +22,29 @@ class EditTextCustomView : LinearLayout {
 
 	private var _errorText: String = ""
 
+	private var _inputType: Int = 1
+
+	private var _imeOptions: Int = 1
+
 	private var titleText: String
 		get() = _titleText
 		set(value) {
 			_titleText = value
+			tv_title.text = _titleText
 		}
 
 	private var hintText: String
 		get() = _hintText
 		set(value) {
 			_hintText = value
+			et.hint = _hintText
 		}
 
 	private var titleColor: String
 		get() = _titleColor
 		set(value) {
 			_titleColor = value
+			tv_title.setTextColor(Color.parseColor(_titleColor))
 		}
 
 	private var errorText: String
@@ -45,6 +52,20 @@ class EditTextCustomView : LinearLayout {
 		set(value) {
 			_errorText = value
 			tv_error.text = _errorText
+		}
+
+	private var inputType: Int
+		get() = _inputType
+		set(value) {
+			_inputType = value
+			et.inputType = _inputType
+		}
+
+	private var imeOptions: Int
+		get() = _imeOptions
+		set(value) {
+			_imeOptions = value
+			et.imeOptions = _imeOptions
 		}
 
 	constructor(context: Context) : super(context) {
@@ -95,6 +116,18 @@ class EditTextCustomView : LinearLayout {
 						if (!_hintText.isBlank())
 							hintText = _hintText
 					}
+					R.styleable.EditTextCustomView_android_inputType -> {
+						//
+						_inputType =
+							typedArray.getInt(R.styleable.EditTextCustomView_android_inputType, 1)
+						inputType = _inputType
+					}
+					R.styleable.EditTextCustomView_android_imeOptions -> {
+						//
+						_imeOptions =
+							typedArray.getInt(R.styleable.EditTextCustomView_android_imeOptions, 1)
+						imeOptions = _imeOptions
+					}
 				}
 			}
 			//      TODO: Manage rest of attributes.
@@ -106,9 +139,9 @@ class EditTextCustomView : LinearLayout {
 		} catch (e: Exception) {
 			e.printStackTrace()
 		} finally {
-			tv_title.text = titleText
-			tv_title.setTextColor(Color.parseColor(titleColor))
-			et_user_input.hint = hintText
+//			tv_title.text = titleText
+//			tv_title.setTextColor(Color.parseColor(titleColor))
+//			et.hint = hintText
 
 			setStatusNormal()
 			hideError()
