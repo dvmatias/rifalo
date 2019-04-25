@@ -6,7 +6,7 @@ import android.view.View
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.bluespark.raffleit.screens.main.MainActivity
-import com.bluespark.raffleit.screens.singin.SignInActivity
+import com.bluespark.raffleit.screens.signin.SignInActivity
 import javax.inject.Inject
 
 class SplashActivity : BaseActivityImpl(), SplashContract.View {

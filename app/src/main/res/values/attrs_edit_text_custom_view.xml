@@ -1,0 +1,14 @@
+<resources>
+	<declare-styleable name="EditTextCustomView">
+		<attr name="titleText" format="string" />
+		<attr name="titleColor" format="string|color" />
+		<attr name="titleSize" format="dimension" />
+		<attr name="errorText" format="string" />
+		<attr name="errorColor" format="color" />
+		<attr name="errorSize" format="dimension" />
+		<attr name="hintText" format="string" />
+		<attr name="hintColor" format="color" />
+		<attr name="android:imeOptions"/>
+		<attr name="android:inputType"/>
+	</declare-styleable>
+</resources>

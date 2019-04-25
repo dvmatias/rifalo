@@ -1,4 +1,4 @@
-package com.bluespark.raffleit.screens.singin
+package com.bluespark.raffleit.screens.signin
 
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
 

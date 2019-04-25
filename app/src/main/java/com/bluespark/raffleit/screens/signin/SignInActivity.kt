@@ -1,21 +1,20 @@
-package com.bluespark.raffleit.screens.singin
+package com.bluespark.raffleit.screens.signin
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
+import com.bluespark.raffleit.common.utils.managers.FirebaseSignInGoogleManager
 import com.bluespark.raffleit.screens.main.MainActivity
+import com.bluespark.raffleit.screens.signup.SignUpActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.view_login_btn.view.*
 import kotlinx.android.synthetic.main.view_sign_in_facebook_btn.view.*
@@ -23,16 +22,18 @@ import kotlinx.android.synthetic.main.view_sign_in_google_btn.view.*
 import javax.inject.Inject
 
 
-class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickListener {
+class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickListener,
+	FirebaseSignInGoogleManager.Listener {
 
-	@Inject
-	lateinit var googleSignInClient: GoogleSignInClient
 	@Inject
 	lateinit var presenter: SignInPresenterImpl
-
-	private lateinit var firebaseAuth: FirebaseAuth
+	@Inject
+	lateinit var firebaseAuth: FirebaseAuth
+	@Inject
+	lateinit var firebaseSignInGoogleManager: FirebaseSignInGoogleManager
 
 	companion object {
+		@Suppress("unused")
 		private val TAG = SignInActivity::class.java.simpleName
 	}
 
@@ -58,21 +59,6 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		google.sign_in_google_btn.setOnClickListener(this)
 		tv_sign_up.setOnClickListener(this)
 
-		firebaseAuth = FirebaseAuth.getInstance()
-	}
-
-	private fun handleSignInGoogleResult(completedTask: Task<GoogleSignInAccount>) {
-		try {
-			val account = completedTask.getResult(ApiException::class.java)
-			firebaseAuthWithGoogle(account)
-			// Signed in successfully, show auth
-			Log.w(TAG, "signInResult:success")
-		} catch (e: ApiException) {
-			// The ApiException status code indicates the detailed failure reason.
-			// Please refer to the GoogleSignInStatusCodes class reference for more information.
-			Log.w(TAG, "signInResult:failed code=" + e.statusCode)
-		}
-
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -82,31 +68,20 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 			// The Task returned from this call is always completed, no need to attach
 			// a listener.
 			val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-			handleSignInGoogleResult(task)
+			firebaseSignInGoogleManager.handleSignInGoogleResult(this, task)
 		}
 	}
 
-	private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
-		val accountId = account?.id!!
-		Log.d(TAG, "firebaseAuthWithGoogle(): $accountId")
+	/**
+	 * [FirebaseSignInGoogleManager.Listener] implementation
+	 */
 
-		val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-		firebaseAuth.signInWithCredential(credential)
-			.addOnCompleteListener(
-				this
-			) { task ->
-				if (task.isSuccessful) {
-					// Sign in success, update UI with the signed-in user's information
-					Log.d(TAG, "signInWithCredential:success")
-					val user = firebaseAuth.currentUser
-					//						updateUI(user)
+	override fun onGoogleSignInSuccess() {
+		goToMainScreen()
+	}
 
-					goToMainScreen()
-				} else {
-					// If sign in fails, display a message to the user.
-					Log.w(TAG, "signInWithCredential:failure", task.exception)
-				}
-			}
+	override fun onGoogleSignInFail() {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
 	/**
@@ -117,7 +92,35 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 	}
 
 	override fun onLoginClick() {
-		Toast.makeText(this, "onLoginClick()", Toast.LENGTH_SHORT).show()
+		val email: String = et_user_name.text.toString()
+		val password: String = et_user_password.text.toString()
+
+		if (TextUtils.isEmpty(email)) {
+			Toast.makeText(applicationContext, "Please enter email...", Toast.LENGTH_LONG).show()
+			return
+		}
+		if (TextUtils.isEmpty(password)) {
+			Toast.makeText(applicationContext, "Please enter password!", Toast.LENGTH_LONG).show()
+			return
+		}
+
+		firebaseAuth.signInWithEmailAndPassword(email, password)
+			.addOnCompleteListener { task ->
+				if (task.isSuccessful) {
+					Toast.makeText(applicationContext, "Login successful!", Toast.LENGTH_LONG)
+						.show()
+//					progressBar.setVisibility(View.GONE)
+
+					goToMainScreen()
+				} else {
+					Toast.makeText(
+						applicationContext,
+						"Login failed! Please try again later",
+						Toast.LENGTH_LONG
+					).show()
+//					progressBar.setVisibility(View.GONE)
+				}
+			}
 	}
 
 	override fun onSignInFacebookClick() {
@@ -126,12 +129,11 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 
 	override fun onSignInGoogleClick() {
 		Toast.makeText(this, "onSignInGoogleClick()", Toast.LENGTH_SHORT).show()
-		val signInIntent = googleSignInClient.signInIntent
-		startActivityForResult(signInIntent, Constants.RC_SIGN_IN_GOOGLE)
+		firebaseSignInGoogleManager.signIn(this)
 	}
 
 	override fun onSignUpClick() {
-		Toast.makeText(this, "onSignUpClick()", Toast.LENGTH_SHORT).show()
+		goToSignUpScreen()
 	}
 
 	override fun showLoading(show: Boolean) {
@@ -148,4 +150,8 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		finish()
 	}
 
+	override fun goToSignUpScreen() {
+		val goToSignUpScreenIntent = Intent(this, SignUpActivity::class.java)
+		startActivity(goToSignUpScreenIntent)
+	}
 }

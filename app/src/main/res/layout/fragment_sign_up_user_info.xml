@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:paddingStart="@dimen/dimen_32dp"
+	android:paddingEnd="@dimen/dimen_32dp"
+	tools:context=".screens.signup.fragments.userinfo.SignUpUserInfoFragment">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:background="@drawable/shape_fragment_sign_up_user_info_bgr"
+		android:orientation="vertical"
+		android:paddingStart="@dimen/dimen_14dp"
+		android:paddingTop="@dimen/dimen_20dp"
+		android:paddingEnd="@dimen/dimen_14dp"
+		android:paddingBottom="@dimen/dimen_20dp"
+		tools:ignore="UselessParent">
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/title_fragment_sign_up_user_info_sign_up"
+			android:textAlignment="center"
+			android:textColor="@color/color_white"
+			android:textSize="@dimen/text_20sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_12dp"
+			android:text="@string/title_fragment_sign_up_user_info_explanation"
+			android:textAlignment="center"
+			android:textColor="@color/color_white"
+			android:textSize="@dimen/text_16sp" />
+
+		<com.bluespark.raffleit.common.views.EditTextCustomView
+			android:id="@+id/etcv_user_email"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_14dp"
+			android:inputType="text"
+			android:imeOptions="actionNext"
+			app:hintText="@string/hint_user_email_name_etcv"
+			app:titleColor="@color/color_white"
+			app:titleText="@string/title_user_email_name_etcv" />
+
+		<com.bluespark.raffleit.common.views.EditTextCustomView
+			android:id="@+id/etcv_user_password"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_14dp"
+			android:inputType="textPassword"
+			android:imeOptions="actionNext"
+			app:hintText="@string/hint_user_password_name_etcv"
+			app:titleColor="@color/color_white"
+			app:titleText="@string/title_user_password_name_etcv" />
+
+		<com.bluespark.raffleit.common.views.EditTextCustomView
+			android:id="@+id/etcv_user_password_confirmation"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_14dp"
+			android:inputType="textPassword"
+			android:imeOptions="actionGo"
+			app:hintText="@string/hint_user_password_confirmation_name_etcv"
+			app:titleColor="@color/color_white"
+			app:titleText="@string/title_user_password_confirmation_name_etcv" />
+
+	</LinearLayout>
+
+</FrameLayout>

@@ -10,5 +10,31 @@
 	<string name="title_sign_in_facebook_btn">SIGN IN FACEBOOK</string>
 	<string name="title_sign_in_google_btn">SIGN IN WITH GOOGLE</string>
 	<string name="text_sign_in_activity_sign_up">Don´t have an account? <b>Sign up</b></string>
+	<string name="label_go_back_sign_up_activity_btn">GO BACK</string>
+
+	<!-- Fragment Sign Up User Info -->
+	<string name="title_fragment_sign_up_user_info_sign_up">Sign Up</string>
+	<string name="title_fragment_sign_up_user_info_explanation">You’re about to register in Raffle !t. Please complete your information.</string>
+	<string name="title_user_first_name_etcv">First name</string>
+	<string name="hint_user_first_name_etcv">Enter your fist name</string>
+	<string name="title_user_last_name_etcv">Last name</string>
+	<string name="hint_user_last_name_etcv">Enter your fist name</string>
+	<string name="title_user_email_name_etcv">Email</string>
+	<string name="hint_user_email_name_etcv">Enter your email address</string>
+	<string name="title_user_password_name_etcv">Password</string>
+	<string name="hint_user_password_name_etcv">Enter your password</string>
+	<string name="hint_user_password_confirmation_name_etcv">Enter your password again</string>
+	<string name="title_user_password_confirmation_name_etcv">Confirm you password</string>
+
+	<!-- Edit Text Custom View -->
+	<string name="title_custom_view_edit_text_default_string">Title</string>
+	<string name="title_custom_view_edit_default_color">#FF9800</string>
+	<string name="hint_custom_view_edit_text_default_string">Hint</string>
+
+	<!-- Edit Text Custom View -->
+	<string name="label_flow_button_custom_view_default_string">button</string>
+
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

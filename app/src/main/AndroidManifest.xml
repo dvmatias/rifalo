@@ -27,11 +27,15 @@
 
 		<!-- Activity Sign In -->
 		<activity
-			android:name=".screens.singin.SignInActivity"
+			android:name=".screens.signin.SignInActivity"
 			android:theme="@style/ActivitySignInTheme" />
 
 		<!-- Activity Main -->
 		<activity android:name=".screens.main.MainActivity" />
+
+		<!-- Activity Sign Up -->
+		<activity android:name=".screens.signup.SignUpActivity"
+			android:theme="@style/ActivitySignUpTheme" />
 	</application>
 
 </manifest>

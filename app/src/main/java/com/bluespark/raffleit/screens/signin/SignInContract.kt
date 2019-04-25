@@ -1,4 +1,4 @@
-package com.bluespark.raffleit.screens.singin
+package com.bluespark.raffleit.screens.signin
 
 import com.bluespark.raffleit.common.mvp.BasePresenter
 import com.bluespark.raffleit.common.mvp.BaseView
@@ -17,6 +17,7 @@ interface SignInContract {
 		fun showNoInternetDialog(show: Boolean)
 		// Flow
 		fun goToMainScreen()
+		fun goToSignUpScreen()
 	}
 
 	interface Presenter : BasePresenter<View> {
