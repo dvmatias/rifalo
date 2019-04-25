@@ -2,7 +2,7 @@ package com.bluespark.raffleit.common.utils.managers
 
 import android.util.Log
 import com.bluespark.raffleit.common.Constants
-import com.bluespark.raffleit.common.model.`object`.UserFirebase
+import com.bluespark.raffleit.common.model.objects.UserFirebase
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient

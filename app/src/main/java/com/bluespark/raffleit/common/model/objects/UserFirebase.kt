@@ -1,4 +1,4 @@
-package com.bluespark.raffleit.common.model.`object`
+package com.bluespark.raffleit.common.model.objects
 
 import android.net.Uri
 

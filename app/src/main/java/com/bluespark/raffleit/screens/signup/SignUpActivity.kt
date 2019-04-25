@@ -83,6 +83,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
+
 	/**
 	 *
 	 */
