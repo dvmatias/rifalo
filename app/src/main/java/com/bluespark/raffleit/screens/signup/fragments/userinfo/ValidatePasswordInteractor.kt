@@ -16,7 +16,10 @@ class ValidatePasswordInteractor(private var context: Context) {
 		if (password.isNullOrEmpty()) {
 			listener.onInvalidPassword(context.getString(R.string.msg_empty_password_error))
 		} else {
-			val matcher = Pattern.compile(Constants.REGEX_PASSWORD_PATTERN_VALIDATOR, Pattern.CASE_INSENSITIVE)
+			val matcher = Pattern.compile(
+				Constants.REGEX_PASSWORD_PATTERN_VALIDATOR,
+				Pattern.CASE_INSENSITIVE
+			)
 				.matcher(password)
 
 			listener.run {

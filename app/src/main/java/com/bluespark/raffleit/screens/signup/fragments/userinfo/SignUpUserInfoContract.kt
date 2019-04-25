@@ -10,6 +10,7 @@ interface SignUpUserInfoContract {
 
 		//UI feedback
 		fun setEmailError(errorMsg: String)
+
 		fun setPasswordError(errorMsg: String)
 		fun setPasswordConfirmationError(errorMsg: String)
 

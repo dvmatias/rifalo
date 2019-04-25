@@ -16,8 +16,9 @@ class ValidateEmailInteractor(private var context: Context) {
 		if (email.isNullOrEmpty()) {
 			listener.onInvalidEmail(context.getString(R.string.msg_empty_email_error))
 		} else {
-			val matcher = Pattern.compile(Constants.REGEX_EMAIL_PATTERN_VALIDATOR, Pattern.CASE_INSENSITIVE)
-				.matcher(email)
+			val matcher =
+				Pattern.compile(Constants.REGEX_EMAIL_PATTERN_VALIDATOR, Pattern.CASE_INSENSITIVE)
+					.matcher(email)
 
 			listener.run {
 				if (matcher.matches()) onValidEmail() else onInvalidEmail(

@@ -33,5 +33,5 @@ class InteractorModule {
 	@Provides
 	fun getValidatePasswordConfirmationInteractor(context: Context): ValidatePasswordConfirmationInteractor =
 		ValidatePasswordConfirmationInteractor(context)
-	
+
 }
