@@ -4,7 +4,7 @@ data class SignUpUser(
 	var email: String,
 	var password: String,
 	var passwordConfirmation: String,
-	var phone: Phone
+	var phone: Phone?
 ) {
 
 	inner class Phone(

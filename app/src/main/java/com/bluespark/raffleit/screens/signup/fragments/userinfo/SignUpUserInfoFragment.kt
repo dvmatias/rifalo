@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluespark.raffleit.R
+import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BaseFragmentImpl
 import kotlinx.android.synthetic.main.fragment_sign_up_user_info.*
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
@@ -20,10 +22,16 @@ import kotlinx.android.synthetic.main.fragment_sign_up_user_info.*
  *
  */
 class SignUpUserInfoFragment : BaseFragmentImpl(), SignUpUserInfoContract.View {
+
+	@Inject
+	lateinit var presenter: SignUpUserInfoPresenterImpl
+
 	private var listener: Listener? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		getPresentationComponent().inject(this)
+
 		arguments?.let {
 		}
 
@@ -91,6 +99,17 @@ class SignUpUserInfoFragment : BaseFragmentImpl(), SignUpUserInfoContract.View {
 
 	override fun setPasswordConfirmationError(errorMsg: String) {
 		etcv_user_password_confirmation.setStatusError(errorMsg)
+	}
+
+	fun validateUser() {
+		presenter.validateUser(
+			SignUpUser(
+				etcv_user_email.getText(),
+				etcv_user_password.getText(),
+				etcv_user_password_confirmation.getText(),
+				null
+			)
+		)
 	}
 
 }
