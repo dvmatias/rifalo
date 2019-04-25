@@ -1,13 +1,13 @@
-package com.bluespark.raffleit.screens.signup.fragments
+package com.bluespark.raffleit.screens.signup.fragments.userinfo
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluespark.raffleit.R
+import com.bluespark.raffleit.common.mvp.BaseFragmentImpl
 import kotlinx.android.synthetic.main.fragment_sign_up_user_info.*
 
 /**
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_sign_up_user_info.*
  * create an instance of this fragment.
  *
  */
-class SignUpUserInfoFragment : Fragment() {
+class SignUpUserInfoFragment : BaseFragmentImpl(), SignUpUserInfoContract.View {
 	private var listener: Listener? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,11 +42,6 @@ class SignUpUserInfoFragment : Fragment() {
 		return inflater.inflate(R.layout.fragment_sign_up_user_info, container, false)
 	}
 
-	// TODO: Rename method, update argument and hook method into UI event
-	fun onButtonPressed(uri: Uri) {
-		listener?.onFragmentInteraction(uri)
-	}
-
 	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		if (context is Listener) {
@@ -65,8 +60,7 @@ class SignUpUserInfoFragment : Fragment() {
 	 * TODO desc
 	 */
 	interface Listener {
-		// TODO: Update argument type and name
-		fun onFragmentInteraction(uri: Uri)
+		// TODO
 	}
 
 	companion object {
@@ -82,4 +76,21 @@ class SignUpUserInfoFragment : Fragment() {
 				}
 			}
 	}
+
+	/**
+	 * [SignUpUserInfoContract.View] implementation.
+	 */
+
+	override fun setEmailError(errorMsg: String) {
+		etcv_user_email.setStatusError(errorMsg)
+	}
+
+	override fun setPasswordError(errorMsg: String) {
+		etcv_user_password.setStatusError(errorMsg)
+	}
+
+	override fun setPasswordConfirmationError(errorMsg: String) {
+		etcv_user_password_confirmation.setStatusError(errorMsg)
+	}
+
 }

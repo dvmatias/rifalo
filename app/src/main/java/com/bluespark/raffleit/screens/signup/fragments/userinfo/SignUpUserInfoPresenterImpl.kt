@@ -1,16 +1,17 @@
-package com.bluespark.raffleit.screens.signup
+package com.bluespark.raffleit.screens.signup.fragments.userinfo
 
 import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
 
-class SignUpPresenterImpl(view: SignUpContract.View?) : BasePresenterImpl<SignUpContract.View>(),
-	SignUpContract.Presenter {
+class SignUpUserInfoPresenterImpl(view: SignUpUserInfoContract.View?) :
+	BasePresenterImpl<SignUpUserInfoContract.View>(),
+	SignUpUserInfoContract.Presenter {
 
 	init {
 		bind(view)
 	}
 
-	override fun isValidUser(signUpUser: SignUpUser) {
+	override fun validateUser(signUpUser: SignUpUser) {
 		val validEmail = isValidEmail(signUpUser.email)
 		val validPassword = isValidPassword(signUpUser.password)
 		val validPasswordConfirmation = isValidPasswordConfirmation(signUpUser.passwordConfirmation)
