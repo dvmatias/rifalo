@@ -25,6 +25,13 @@
 	<string name="hint_user_password_name_etcv">Enter your password</string>
 	<string name="hint_user_password_confirmation_name_etcv">Enter your password again</string>
 	<string name="title_user_password_confirmation_name_etcv">Confirm you password</string>
+	<string name="msg_empty_email_error">You must enter your email</string>
+	<string name="msg_invalid_email_error">Invalid email address</string>
+	<string name="msg_empty_password_error">You can\'t leave your password empty</string>
+	<string name="msg_invalid_password_error">Invalid password</string>
+	<string name="msg_empty_password_confirmation_error">You must enter a password confirmation</string>
+	<string name="msg_invalid_password_confirmation_error">The passwords does not match</string>
+
 
 	<!-- Edit Text Custom View -->
 	<string name="title_custom_view_edit_text_default_string">Title</string>

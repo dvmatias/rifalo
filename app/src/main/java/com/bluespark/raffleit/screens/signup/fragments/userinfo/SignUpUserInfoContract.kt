@@ -18,9 +18,9 @@ interface SignUpUserInfoContract {
 	interface Presenter : BasePresenter<View> {
 
 		fun validateUser(signUpUser: SignUpUser)
-		fun isValidEmail(email: String?): Pair<Boolean, String>
-		fun isValidPassword(password: String?): Pair<Boolean, String>
-		fun isValidPasswordConfirmation(passwordConfirmation: String?): Pair<Boolean, String>
+		fun manageEmailError(errorMsg: String)
+		fun managePasswordError(errorMsg: String)
+		fun managePasswordConfirmationError(errorMsg: String)
 
 	}
 

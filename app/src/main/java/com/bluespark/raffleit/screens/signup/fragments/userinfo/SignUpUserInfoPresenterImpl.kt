@@ -3,69 +3,91 @@ package com.bluespark.raffleit.screens.signup.fragments.userinfo
 import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
 
-class SignUpUserInfoPresenterImpl(view: SignUpUserInfoContract.View?) :
+class SignUpUserInfoPresenterImpl(
+	view: SignUpUserInfoContract.View?,
+	private var validateEmailInteractor: ValidateEmailInteractor,
+	private var validatePasswordInteractor: ValidatePasswordInteractor,
+	private var validatePasswordConfirmationInteractor: ValidatePasswordConfirmationInteractor
+) :
 	BasePresenterImpl<SignUpUserInfoContract.View>(),
-	SignUpUserInfoContract.Presenter {
+	SignUpUserInfoContract.Presenter, ValidateEmailInteractor.Listener,
+	ValidatePasswordInteractor.Listener, ValidatePasswordConfirmationInteractor.Listener {
+
+	private var validEmail: Boolean
+	private var validPassword: Boolean
+	private var validPasswordConfirmation: Boolean
 
 	init {
 		bind(view)
+		validEmail = false
+		validPassword = false
+		validPasswordConfirmation = false
 	}
 
 	override fun validateUser(signUpUser: SignUpUser) {
-		val validEmail = isValidEmail(signUpUser.email)
-		val validPassword = isValidPassword(signUpUser.password)
-		val validPasswordConfirmation = isValidPasswordConfirmation(signUpUser.passwordConfirmation)
-
-		if (validEmail.first && validPassword.first && validPasswordConfirmation.first) {
-			// TODO todo valido
-		} else {
-			manageErrors(validEmail, validPassword, validPasswordConfirmation)
-		}
+		validateEmailInteractor.execute(this, signUpUser.email)
+		validatePasswordInteractor.execute(this, signUpUser.password)
+		validatePasswordConfirmationInteractor.execute(this, signUpUser.passwordConfirmation, signUpUser.password)
 	}
 
 	/**
-	 * Validate the user's email.
-	 *
-	 * @return [Pair<Boolean, String>] Boolean is true for valid email, false otherwise.
-	 *          String value represent an error to be displayed on email edit text.
+	 * Manage error on email field.
 	 */
-	override fun isValidEmail(email: String?): Pair<Boolean, String> {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	override fun manageEmailError(errorMsg: String) {
+		view?.setEmailError(errorMsg)
 	}
 
 	/**
-	 * Validate the user's password.
-	 *
-	 * @return [Pair<Boolean, String>] Boolean is true for valid password, false otherwise.
-	 *          String value represent an error to be displayed on password edit text.
+	 * Manage error on password field.
 	 */
-	override fun isValidPassword(password: String?): Pair<Boolean, String> {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	override fun managePasswordError(errorMsg: String) {
+		view?.setPasswordError(errorMsg)
 	}
 
 	/**
-	 * Validate the user's password confirmation.
-	 *
-	 * @return [Pair<Boolean, String>] Boolean is true for valid password confirmation,
-	 *          false otherwise. String value represent an error to be displayed on password
-	 *          confirmation edit text.
+	 * Manage error on password confirmation field.
 	 */
-	override fun isValidPasswordConfirmation(passwordConfirmation: String?): Pair<Boolean, String> {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	override fun managePasswordConfirmationError(errorMsg: String) {
+		view?.setPasswordConfirmationError(errorMsg)
 	}
 
 	/**
-	 * Set proper errors.
+	 * [ValidateEmailInteractor.Listener] implementation.
 	 */
-	private fun manageErrors(
-		validEmail: Pair<Boolean, String>,
-		validPassword: Pair<Boolean, String>,
-		validPasswordConfirmation: Pair<Boolean, String>
-	) {
-		if (!validEmail.first) view?.setEmailError(validEmail.second)
-		if (!validPassword.first) view?.setPasswordError(validPassword.second)
-		if (!validPasswordConfirmation.first) view?.setPasswordConfirmationError(
-			validPasswordConfirmation.second
-		)
+
+	override fun onValidEmail() {
+		validEmail = true
 	}
+
+	override fun onInvalidEmail(errorMsg: String) {
+		validEmail = false
+		manageEmailError(errorMsg)
+	}
+
+	/**
+	 * [ValidatePasswordInteractor.Listener] implementation.
+	 */
+
+	override fun onValidPassword() {
+		validPassword = true
+	}
+
+	override fun onInvalidPassword(errorMsg: String) {
+		validPassword = false
+		managePasswordError(errorMsg)
+	}
+
+	/**
+	 * [ValidatePasswordConfirmationInteractor.Listener] implementation.
+	 */
+
+	override fun onValidPasswordConfirmation() {
+		validPasswordConfirmation = true
+	}
+
+	override fun onInvalidPasswordConfirmation(errorMsg: String) {
+		validPasswordConfirmation = false
+		managePasswordConfirmationError(errorMsg)
+	}
+
 }

@@ -171,7 +171,7 @@ class EditTextCustomView : LinearLayout {
 	}
 
 	private fun hideError() {
-		tv_error.visibility = View.GONE
+		tv_error.visibility = View.INVISIBLE
 	}
 
 	private fun showError() {
