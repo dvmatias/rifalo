@@ -13,15 +13,15 @@ class SignUpUserInfoPresenterImpl(
 	SignUpUserInfoContract.Presenter, ValidateEmailInteractor.Listener,
 	ValidatePasswordInteractor.Listener, ValidatePasswordConfirmationInteractor.Listener {
 
-	private var validEmail: Boolean
-	private var validPassword: Boolean
-	private var validPasswordConfirmation: Boolean
+	private var isValidEmail: Boolean
+	private var isValidPassword: Boolean
+	private var isValidPasswordConfirmation: Boolean
 
 	init {
 		bind(view)
-		validEmail = false
-		validPassword = false
-		validPasswordConfirmation = false
+		isValidEmail = false
+		isValidPassword = false
+		isValidPasswordConfirmation = false
 	}
 
 	override fun validateUser(signUpUser: SignUpUser) {
@@ -32,6 +32,10 @@ class SignUpUserInfoPresenterImpl(
 			signUpUser.passwordConfirmation,
 			signUpUser.password
 		)
+
+		if (isValidEmail && isValidPassword && isValidPasswordConfirmation) {
+			view?.onValidUser()
+		}
 	}
 
 	/**
@@ -60,11 +64,11 @@ class SignUpUserInfoPresenterImpl(
 	 */
 
 	override fun onValidEmail() {
-		validEmail = true
+		isValidEmail = true
 	}
 
 	override fun onInvalidEmail(errorMsg: String) {
-		validEmail = false
+		isValidEmail = false
 		manageEmailError(errorMsg)
 	}
 
@@ -73,11 +77,11 @@ class SignUpUserInfoPresenterImpl(
 	 */
 
 	override fun onValidPassword() {
-		validPassword = true
+		isValidPassword = true
 	}
 
 	override fun onInvalidPassword(errorMsg: String) {
-		validPassword = false
+		isValidPassword = false
 		managePasswordError(errorMsg)
 	}
 
@@ -86,11 +90,11 @@ class SignUpUserInfoPresenterImpl(
 	 */
 
 	override fun onValidPasswordConfirmation() {
-		validPasswordConfirmation = true
+		isValidPasswordConfirmation = true
 	}
 
 	override fun onInvalidPasswordConfirmation(errorMsg: String) {
-		validPasswordConfirmation = false
+		isValidPasswordConfirmation = false
 		managePasswordConfirmationError(errorMsg)
 	}
 

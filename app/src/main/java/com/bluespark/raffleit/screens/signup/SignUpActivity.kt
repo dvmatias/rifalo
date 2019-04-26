@@ -60,19 +60,26 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	override fun onFlowButtonClicked() {
-		Toast.makeText(applicationContext, "Flow button clicked!", Toast.LENGTH_SHORT).show()
 		val currentFragment = adapter.getItem(pager.currentItem)
 		if (currentFragment is SignUpUserInfoFragment)
 			currentFragment.validateUser()
 	}
 
 	override fun goToValidatePhoneFragment() {
-		Toast.makeText(applicationContext, "Go to ValidatePhoneFragment", Toast.LENGTH_SHORT).show()
+		pager.setCurrentItem(1, true)
 	}
 
 	override fun goToSignUpUserInfoFragment() {
 		Toast.makeText(applicationContext, "Go to SignUpUserInfoFragment", Toast.LENGTH_SHORT)
 			.show()
+	}
+
+	/**
+	 * [SignUpUserInfoFragment.Listener] implementation.
+	 */
+
+	override fun onValidUser() {
+		goToValidatePhoneFragment()
 	}
 
 	/**

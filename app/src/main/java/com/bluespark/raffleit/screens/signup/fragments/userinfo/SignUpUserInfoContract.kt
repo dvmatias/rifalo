@@ -8,11 +8,13 @@ interface SignUpUserInfoContract {
 
 	interface View : BaseView {
 
-		//UI feedback
+		// UI feedback
 		fun setEmailError(errorMsg: String)
-
 		fun setPasswordError(errorMsg: String)
 		fun setPasswordConfirmationError(errorMsg: String)
+
+		// Flow.
+		fun onValidUser()
 
 	}
 
