@@ -13,17 +13,17 @@ import javax.inject.Inject
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [SignUpUserPhoneValidationFragment.Listener] interface
+ * [UserPhoneValidationFragment.Listener] interface
  * to handle interaction events.
- * Use the [SignUpUserPhoneValidationFragment.newInstance] factory method to
+ * Use the [UserPhoneValidationFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class SignUpUserPhoneValidationFragment : BaseFragmentImpl(),
-	SignUpUserPhoneValidationContract.View {
+class UserPhoneValidationFragment : BaseFragmentImpl(),
+	UserPhoneValidationContract.View {
 
 	@Inject
-	lateinit var presenter: SignUpUserPhoneValidationPresenterImpl
+	lateinit var presenter: UserPhoneValidationPresenterImpl
 
 	private var listener: Listener? = null
 
@@ -46,7 +46,7 @@ class SignUpUserPhoneValidationFragment : BaseFragmentImpl(),
 		savedInstanceState: Bundle?
 	): View? {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_sign_up_user_phone_validation, container, false)
+		return inflater.inflate(R.layout.fragment_user_phone_validation, container, false)
 	}
 
 	override fun onAttach(context: Context) {
@@ -71,21 +71,21 @@ class SignUpUserPhoneValidationFragment : BaseFragmentImpl(),
 	}
 
 	companion object {
-		val TAG: String = SignUpUserPhoneValidationFragment::class.java.simpleName
+		val TAG: String = UserPhoneValidationFragment::class.java.simpleName
 
 		/**
-		 * Factory method to create a new instance of [SignUpUserPhoneValidationFragment].
+		 * Factory method to create a new instance of [UserPhoneValidationFragment].
 		 */
 		@JvmStatic
 		fun newInstance() =
-			SignUpUserPhoneValidationFragment().apply {
+			UserPhoneValidationFragment().apply {
 				arguments = Bundle().apply {
 				}
 			}
 	}
 
 	/**
-	 * [SignUpUserPhoneValidationContract.View] implementation.
+	 * [UserPhoneValidationContract.View] implementation.
 	 */
 	// TODO
 

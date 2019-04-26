@@ -13,8 +13,8 @@
 	<string name="label_go_back_sign_up_activity_btn">GO BACK</string>
 
 	<!-- Fragment Sign Up User Info -->
-	<string name="title_fragment_sign_up_user_info_sign_up">Sign Up</string>
-	<string name="title_fragment_sign_up_user_info_explanation">You’re about to register in Raffle !t. Please complete your information.</string>
+	<string name="title_fragment_user_info_sign_up">Sign Up</string>
+	<string name="title_fragment_user_info_explanation">You’re about to register in Raffle !t. Please complete your information.</string>
 	<string name="title_user_first_name_etcv">First name</string>
 	<string name="hint_user_first_name_etcv">Enter your fist name</string>
 	<string name="title_user_last_name_etcv">Last name</string>

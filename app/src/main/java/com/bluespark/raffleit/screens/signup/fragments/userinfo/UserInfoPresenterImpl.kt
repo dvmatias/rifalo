@@ -3,14 +3,14 @@ package com.bluespark.raffleit.screens.signup.fragments.userinfo
 import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
 
-class SignUpUserInfoPresenterImpl(
-	view: SignUpUserInfoContract.View?,
+class UserInfoPresenterImpl(
+	view: UserInfoContract.View?,
 	private var validateEmailInteractor: ValidateEmailInteractor,
 	private var validatePasswordInteractor: ValidatePasswordInteractor,
 	private var validatePasswordConfirmationInteractor: ValidatePasswordConfirmationInteractor
 ) :
-	BasePresenterImpl<SignUpUserInfoContract.View>(),
-	SignUpUserInfoContract.Presenter, ValidateEmailInteractor.Listener,
+	BasePresenterImpl<UserInfoContract.View>(),
+	UserInfoContract.Presenter, ValidateEmailInteractor.Listener,
 	ValidatePasswordInteractor.Listener, ValidatePasswordConfirmationInteractor.Listener {
 
 	private var isValidEmail: Boolean

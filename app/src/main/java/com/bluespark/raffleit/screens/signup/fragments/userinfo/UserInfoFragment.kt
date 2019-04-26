@@ -9,22 +9,22 @@ import android.view.ViewGroup
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BaseFragmentImpl
-import kotlinx.android.synthetic.main.fragment_sign_up_user_info.*
+import kotlinx.android.synthetic.main.fragment_user_info.*
 import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [SignUpUserInfoFragment.Listener] interface
+ * [UserInfoFragment.Listener] interface
  * to handle interaction events.
- * Use the [SignUpUserInfoFragment.newInstance] factory method to
+ * Use the [UserInfoFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class SignUpUserInfoFragment : BaseFragmentImpl(), SignUpUserInfoContract.View {
+class UserInfoFragment : BaseFragmentImpl(), UserInfoContract.View {
 
 	@Inject
-	lateinit var presenter: SignUpUserInfoPresenterImpl
+	lateinit var presenter: UserInfoPresenterImpl
 
 	private var listener: Listener? = null
 
@@ -40,6 +40,10 @@ class SignUpUserInfoFragment : BaseFragmentImpl(), SignUpUserInfoContract.View {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
+		// TODO delete this only used to switch fragments quickly.
+		etcv_user_email.setText("masacresita@gmail.com")
+		etcv_user_password.setText("mas@1234")
+		etcv_user_password_confirmation.setText("mas@1234")
 	}
 
 	override fun onCreateView(
@@ -47,7 +51,7 @@ class SignUpUserInfoFragment : BaseFragmentImpl(), SignUpUserInfoContract.View {
 		savedInstanceState: Bundle?
 	): View? {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_sign_up_user_info, container, false)
+		return inflater.inflate(R.layout.fragment_user_info, container, false)
 	}
 
 	override fun onAttach(context: Context) {
@@ -72,21 +76,21 @@ class SignUpUserInfoFragment : BaseFragmentImpl(), SignUpUserInfoContract.View {
 	}
 
 	companion object {
-		val TAG: String = SignUpUserInfoFragment::class.java.simpleName
+		val TAG: String = UserInfoFragment::class.java.simpleName
 
 		/**
-		 * Factory method to create a new instance of [SignUpUserInfoFragment].
+		 * Factory method to create a new instance of [UserInfoFragment].
 		 */
 		@JvmStatic
 		fun newInstance() =
-			SignUpUserInfoFragment().apply {
+			UserInfoFragment().apply {
 				arguments = Bundle().apply {
 				}
 			}
 	}
 
 	/**
-	 * [SignUpUserInfoContract.View] implementation.
+	 * [UserInfoContract.View] implementation.
 	 */
 
 	override fun setEmailError(errorMsg: String) {

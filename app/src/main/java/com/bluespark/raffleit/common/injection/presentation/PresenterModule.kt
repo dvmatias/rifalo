@@ -3,7 +3,7 @@ package com.bluespark.raffleit.common.injection.presentation
 import com.bluespark.raffleit.common.mvp.BaseView
 import com.bluespark.raffleit.screens.signin.SignInContract
 import com.bluespark.raffleit.screens.signin.SignInPresenterImpl
-import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.SignUpUserPhoneValidationPresenterImpl
+import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationPresenterImpl
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.*
 import com.bluespark.raffleit.screens.splash.SplashCheckCredentialsInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
@@ -37,16 +37,16 @@ class PresenterModule {
 		validateEmailInteractor: ValidateEmailInteractor,
 		validatePasswordInteractor: ValidatePasswordInteractor,
 		validatePasswordConfirmationInteractor: ValidatePasswordConfirmationInteractor
-	): SignUpUserInfoPresenterImpl =
-		SignUpUserInfoPresenterImpl(
-			view as SignUpUserInfoContract.View,
+	): UserInfoPresenterImpl =
+		UserInfoPresenterImpl(
+			view as UserInfoContract.View,
 			validateEmailInteractor,
 			validatePasswordInteractor,
 			validatePasswordConfirmationInteractor
 		)
 
 	@Provides
-	fun getSignUpUserPhoneValidationPresenterImpl(): SignUpUserPhoneValidationPresenterImpl =
-		SignUpUserPhoneValidationPresenterImpl()
+	fun getSignUpUserPhoneValidationPresenterImpl(): UserPhoneValidationPresenterImpl =
+		UserPhoneValidationPresenterImpl()
 
 }

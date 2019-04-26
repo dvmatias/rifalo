@@ -4,7 +4,7 @@ import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenter
 import com.bluespark.raffleit.common.mvp.BaseView
 
-interface SignUpUserInfoContract {
+interface UserInfoContract {
 
 	interface View : BaseView {
 

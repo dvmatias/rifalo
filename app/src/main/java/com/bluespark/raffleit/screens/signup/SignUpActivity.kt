@@ -6,13 +6,13 @@ import android.view.View
 import android.widget.Toast
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
-import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.SignUpUserPhoneValidationFragment
-import com.bluespark.raffleit.screens.signup.fragments.userinfo.SignUpUserInfoFragment
+import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationFragment
+import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserInfoFragment
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import javax.inject.Inject
 
 class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickListener,
-	SignUpUserInfoFragment.Listener, SignUpUserPhoneValidationFragment.Listener {
+	UserInfoFragment.Listener, UserPhoneValidationFragment.Listener {
 
 	@Inject
 	lateinit var fragmentManager: FragmentManager
@@ -41,10 +41,10 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	private fun setupPager() {
-		adapter.addFragment(SignUpUserInfoFragment.newInstance(), SignUpUserInfoFragment.TAG)
+		adapter.addFragment(UserInfoFragment.newInstance(), UserInfoFragment.TAG)
 		adapter.addFragment(
-			SignUpUserPhoneValidationFragment.newInstance(),
-			SignUpUserPhoneValidationFragment.TAG
+			UserPhoneValidationFragment.newInstance(),
+			UserPhoneValidationFragment.TAG
 		)
 		pager.adapter = adapter
 	}
@@ -63,7 +63,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	override fun onFlowButtonClicked() {
 		val currentFragment = adapter.getItem(pager.currentItem)
-		if (currentFragment is SignUpUserInfoFragment)
+		if (currentFragment is UserInfoFragment)
 			currentFragment.validateUser()
 	}
 
@@ -72,12 +72,12 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	override fun goToSignUpUserInfoFragment() {
-		Toast.makeText(applicationContext, "Go to SignUpUserInfoFragment", Toast.LENGTH_SHORT)
+		Toast.makeText(applicationContext, "Go to UserInfoFragment", Toast.LENGTH_SHORT)
 			.show()
 	}
 
 	/**
-	 * [SignUpUserInfoFragment.Listener] implementation.
+	 * [UserInfoFragment.Listener] implementation.
 	 */
 
 	override fun onValidUser() {
