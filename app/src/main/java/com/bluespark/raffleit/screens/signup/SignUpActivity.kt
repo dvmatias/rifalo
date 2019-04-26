@@ -5,15 +5,14 @@ import android.support.v4.app.FragmentManager
 import android.view.View
 import android.widget.Toast
 import com.bluespark.raffleit.R
-import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
+import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.SignUpUserPhoneValidationFragment
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.SignUpUserInfoFragment
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import kotlinx.android.synthetic.main.fragment_sign_up_user_info.*
 import javax.inject.Inject
 
 class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickListener,
-	SignUpUserInfoFragment.Listener {
+	SignUpUserInfoFragment.Listener, SignUpUserPhoneValidationFragment.Listener {
 
 	@Inject
 	lateinit var fragmentManager: FragmentManager
@@ -43,7 +42,10 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	private fun setupPager() {
 		adapter.addFragment(SignUpUserInfoFragment.newInstance(), SignUpUserInfoFragment.TAG)
-		adapter.addFragment(SignUpUserInfoFragment.newInstance(), "TITLE_B")
+		adapter.addFragment(
+			SignUpUserPhoneValidationFragment.newInstance(),
+			SignUpUserPhoneValidationFragment.TAG
+		)
 		pager.adapter = adapter
 	}
 

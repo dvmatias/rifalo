@@ -3,6 +3,7 @@ package com.bluespark.raffleit.common.injection.presentation
 import com.bluespark.raffleit.screens.main.MainActivity
 import com.bluespark.raffleit.screens.signin.SignInActivity
 import com.bluespark.raffleit.screens.signup.SignUpActivity
+import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.SignUpUserPhoneValidationFragment
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.SignUpUserInfoFragment
 import com.bluespark.raffleit.screens.splash.SplashActivity
 import dagger.Subcomponent
@@ -21,6 +22,7 @@ interface PresentationComponent {
 	fun inject(activity: SignInActivity)
 	fun inject(activity: SignUpActivity)
 	fun inject(activity: SignUpUserInfoFragment)
+	fun inject(activity: SignUpUserPhoneValidationFragment)
 	fun inject(activity: MainActivity)
 
 }

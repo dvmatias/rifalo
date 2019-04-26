@@ -178,6 +178,10 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 		tv_error.visibility = View.VISIBLE
 	}
 
+	fun setText(text: String) {
+		et.setText(text)
+	}
+
 	fun getText(): String {
 		return et.text.toString()
 	}
