@@ -86,6 +86,7 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 		init(attrs, defStyleAttr)
 	}
 
+	@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 	private fun init(attrs: AttributeSet?, defStyle: Int) {
 		View.inflate(context, R.layout.custom_view_edit_text, this)
 		// Load attributes
@@ -94,7 +95,7 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 		)
 
 		try {
-			val indexCount = typedArray.getIndexCount()
+			val indexCount = typedArray.indexCount
 			for (i in 0 until indexCount) {
 				val attr = typedArray.getIndex(i)
 
@@ -151,13 +152,13 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 
 	@Suppress("unused")
 	fun setStatusNormal() {
-		cv.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_normal)
+		v_bgr.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_normal)
 		hideError()
 	}
 
 	@Suppress("unused")
 	fun setStatusError(@Nullable errorMsg: String) {
-		cv.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_error)
+		v_bgr.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_error)
 		_errorText = errorMsg
 		if (!_errorText.isBlank()) {
 			errorText = _errorText
@@ -167,7 +168,7 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 
 	@Suppress("unused")
 	fun setStatusValid() {
-		cv.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_valid)
+		v_bgr .setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_valid)
 	}
 
 	private fun hideError() {

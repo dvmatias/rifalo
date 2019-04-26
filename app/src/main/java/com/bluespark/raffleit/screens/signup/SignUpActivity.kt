@@ -31,6 +31,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		setContentView(R.layout.activity_sign_up)
 		getPresentationComponent().inject(this)
 
+		setFlowButtonLabel(getString(R.string.label_btn_next))
 		setListeners()
 		setupPager()
 	}
@@ -54,7 +55,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	 */
 
 	override fun setFlowButtonLabel(label: String) {
-		Toast.makeText(applicationContext, "Set button label: $label", Toast.LENGTH_SHORT).show()
+		flow_btn.labelText = label
 	}
 
 	override fun onBackButtonClicked() {
@@ -69,6 +70,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	override fun goToValidatePhoneFragment() {
 		pager.setCurrentItem(1, true)
+		setFlowButtonLabel(getString(R.string.label_btn_validate_phone))
 	}
 
 	override fun goToSignUpUserInfoFragment() {

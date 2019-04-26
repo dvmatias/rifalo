@@ -1,12 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-	xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-	android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:paddingStart="@dimen/dimen_32dp"
+	android:paddingEnd="@dimen/dimen_32dp">
 
-	<TextView
-		android:layout_width="wrap_content"
+	<LinearLayout
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:gravity="center"
-		android:text="User Phone Validation Fragment"/>
+		android:layout_gravity="center_vertical"
+		android:background="@drawable/shape_fragment_user_info_bgr"
+		android:orientation="vertical"
+		android:paddingStart="@dimen/dimen_14dp"
+		android:paddingTop="@dimen/dimen_20dp"
+		android:paddingEnd="@dimen/dimen_14dp"
+		android:paddingBottom="@dimen/dimen_20dp"
+		tools:ignore="UselessParent">
 
-</android.support.constraint.ConstraintLayout>
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/title_fragment_phone_validation"
+			android:textAlignment="center"
+			android:textColor="@color/color_white"
+			android:textSize="@dimen/text_18sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_12dp"
+			android:text="@string/title_fragment_phone_validation_explanation"
+			android:textAlignment="center"
+			android:textColor="@color/color_white"
+			android:textSize="@dimen/text_16sp" />
+
+		<!-- Phone input view -->
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_14dp"
+			android:orientation="vertical">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/dimen_20dp"
+				android:textSize="@dimen/text_14sp"
+				android:textColor="@color/color_white"
+				android:text="@string/title_input_box_phone"/>
+
+			<android.support.v7.widget.CardView
+				android:id="@+id/cv"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/dimen_sign_in_components_height"
+				android:layout_margin="@dimen/dimen_4dp"
+				app:cardBackgroundColor="@color/color_custom_view_card_view_bgr"
+				app:cardCornerRadius="@dimen/dimen_sign_in_components_corner_radius"
+				app:cardElevation="@dimen/dimen_1dp"
+				app:cardUseCompatPadding="false">
+
+				<android.support.v7.widget.AppCompatEditText
+					android:id="@+id/et"
+					style="@style/EditTextLoginSignUpTheme"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent" />
+			</android.support.v7.widget.CardView>
+
+			<TextView
+				android:id="@+id/tv_error"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="@dimen/dimen_20dp"
+				android:textAlignment="textEnd"
+				android:textColor="@color/color_custom_view_edit_text_error"
+				android:textSize="@dimen/text_14sp" />
+
+		</LinearLayout>
+	</LinearLayout>
+
+</FrameLayout>

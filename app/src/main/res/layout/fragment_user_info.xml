@@ -26,7 +26,7 @@
 			android:text="@string/title_fragment_user_info_sign_up"
 			android:textAlignment="center"
 			android:textColor="@color/color_white"
-			android:textSize="@dimen/text_20sp"
+			android:textSize="@dimen/text_18sp"
 			android:textStyle="bold" />
 
 		<TextView
@@ -53,7 +53,7 @@
 			android:id="@+id/etcv_user_password"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/dimen_4dp"
+			android:layout_marginTop="@dimen/dimen_2dp"
 			android:inputType="textPassword"
 			android:imeOptions="actionNext"
 			app:hintText="@string/hint_user_password_name_etcv"
@@ -64,7 +64,7 @@
 			android:id="@+id/etcv_user_password_confirmation"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/dimen_4dp"
+			android:layout_marginTop="@dimen/dimen_2dp"
 			android:inputType="textPassword"
 			android:imeOptions="actionGo"
 			app:hintText="@string/hint_user_password_confirmation_name_etcv"

@@ -12,7 +12,11 @@
 	<string name="text_sign_in_activity_sign_up">Don´t have an account? <b>Sign up</b></string>
 	<string name="label_go_back_sign_up_activity_btn">GO BACK</string>
 
-	<!-- Fragment Sign Up User Info -->
+	<!-- Sign Up Activity -->
+	<string name="label_btn_next">next</string>
+	<string name="label_btn_validate_phone">validate phone</string>
+
+	<!-- Fragment User Info -->
 	<string name="title_fragment_user_info_sign_up">Sign Up</string>
 	<string name="title_fragment_user_info_explanation">You’re about to register in Raffle !t. Please complete your information.</string>
 	<string name="title_user_first_name_etcv">First name</string>
@@ -32,6 +36,10 @@
 	<string name="msg_empty_password_confirmation_error">You must enter a password confirmation</string>
 	<string name="msg_invalid_password_confirmation_error">The passwords does not match</string>
 
+	<!-- Fragment Phone Validation -->
+	<string name="title_fragment_phone_validation">Phone Validation</string>
+	<string name="title_fragment_phone_validation_explanation">Now we have to validate you phone. Please choose the region code an enter you phone number.</string>
+	<string name="title_input_box_phone">Enter your cellphone number</string>
 
 	<!-- Edit Text Custom View -->
 	<string name="title_custom_view_edit_text_default_string">Title</string>
