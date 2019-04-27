@@ -7,6 +7,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -53,4 +55,8 @@ class NetworkingModule(val context: Context) {
 	@Provides
 	fun getFirebaseSignInGoogleManager(firebaseAuth: FirebaseAuth, googleSignInClient: GoogleSignInClient): FirebaseSignInGoogleManager =
 		FirebaseSignInGoogleManager(firebaseAuth, googleSignInClient)
+
+	@Singleton
+	@Provides
+	fun getDatabaseReference(): DatabaseReference = FirebaseDatabase.getInstance().reference
 }

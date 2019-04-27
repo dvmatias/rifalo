@@ -3,6 +3,8 @@ package com.bluespark.raffleit.common
 class Constants {
 
 	companion object {
+		const val SHOW_LOADING = true
+		const val HIDE_LOADING = false
 		const val DELAY_CHECK_SYSTEM_UI_VISIBILITY = 1300L
 		const val RC_SIGN_IN_GOOGLE = 131
 		const val REGEX_EMAIL_PATTERN_VALIDATOR =

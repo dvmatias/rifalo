@@ -10,23 +10,24 @@ interface SignUpContract {
 
 		//UI feedback
 		fun setFlowButtonLabel(label: String)
+		fun showLoading(show: Boolean)
 
 		//User actions
 		fun onBackButtonClicked()
+
 		fun onFlowButtonClicked()
 
 		//Flow
 		fun goToValidatePhoneFragment()
+
 		fun goToSignUpUserInfoFragment()
 
 	}
 
 	interface Presenter : BasePresenter<View> {
 
-		fun isValidUser(signUpUser: SignUpUser)
-		fun isValidEmail(email: String?): Pair<Boolean, String>
-		fun isValidPassword(password: String?): Pair<Boolean, String>
-		fun isValidPasswordConfirmation(passwordConfirmation: String?): Pair<Boolean, String>
+		fun fetchCountryCodes()
+		fun setSignUpUser(signUpUser: SignUpUser)
 
 	}
 

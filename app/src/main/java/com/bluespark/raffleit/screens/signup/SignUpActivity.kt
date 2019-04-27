@@ -1,7 +1,6 @@
 package com.bluespark.raffleit.screens.signup
 
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
 import android.view.View
 import android.widget.Toast
 import com.bluespark.raffleit.R
@@ -11,11 +10,12 @@ import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserInfoFragment
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import javax.inject.Inject
 
+
 class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickListener,
 	UserInfoFragment.Listener, UserPhoneValidationFragment.Listener {
 
 	@Inject
-	lateinit var fragmentManager: FragmentManager
+	lateinit var presenter: SignUpPresenterImpl
 
 	@Inject
 	lateinit var adapter: SignUpFragmentAdapter
@@ -34,6 +34,11 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		setFlowButtonLabel(getString(R.string.label_btn_next))
 		setListeners()
 		setupPager()
+	}
+
+	override fun onResume() {
+		super.onResume()
+		presenter.fetchCountryCodes()
 	}
 
 	private fun setListeners() {
@@ -56,6 +61,10 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	override fun setFlowButtonLabel(label: String) {
 		flow_btn.labelText = label
+	}
+
+	override fun showLoading(show: Boolean) {
+		Toast.makeText(applicationContext, "Show loading view:  $show", Toast.LENGTH_SHORT).show()
 	}
 
 	override fun onBackButtonClicked() {
