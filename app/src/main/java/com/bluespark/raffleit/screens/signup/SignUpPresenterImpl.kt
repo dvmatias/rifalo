@@ -15,16 +15,19 @@ class SignUpPresenterImpl(
 	SignUpContract.Presenter, SignUpFetchCountryCodesInteractor.Listener {
 
 	private var signUpUser: SignUpUser? = null
+	private var countryCodeScheme: CountryCodeSchema? = null
 
 	init {
 		bind(view)
 	}
 
 	override fun fetchCountryCodes() {
-		view?.showLoading(Constants.SHOW_LOADING)
-		Handler().postDelayed({
-			signUpFetchCountryCodesInteractor.execute(this)
-		}, 500)
+		if (countryCodeScheme == null) {
+			view?.showLoading(Constants.SHOW_LOADING)
+			Handler().postDelayed({
+				signUpFetchCountryCodesInteractor.execute(this)
+			}, 500)
+		}
 	}
 
 	override fun setSignUpUser(signUpUser: SignUpUser) {
@@ -37,6 +40,7 @@ class SignUpPresenterImpl(
 
 	override fun onSuccess(@NonNull countryCodeScheme: CountryCodeSchema) {
 		Log.d("SignUpPresenterImpl", "onSuccess() signUpFetchCountryCodesInteractor")
+		this.countryCodeScheme = countryCodeScheme
 		view?.showLoading(Constants.HIDE_LOADING)
 	}
 
