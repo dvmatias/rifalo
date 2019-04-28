@@ -1,7 +1,10 @@
 package com.bluespark.raffleit.screens.signup
 
+import android.os.Handler
+import android.support.annotation.NonNull
 import android.util.Log
 import com.bluespark.raffleit.common.Constants
+import com.bluespark.raffleit.common.model.databaseschemas.CountryCodeSchema
 import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
 
@@ -19,7 +22,9 @@ class SignUpPresenterImpl(
 
 	override fun fetchCountryCodes() {
 		view?.showLoading(Constants.SHOW_LOADING)
-		signUpFetchCountryCodesInteractor.execute(this)
+		Handler().postDelayed({
+			signUpFetchCountryCodesInteractor.execute(this)
+		}, 500)
 	}
 
 	override fun setSignUpUser(signUpUser: SignUpUser) {
@@ -30,7 +35,7 @@ class SignUpPresenterImpl(
 	 * [SignUpFetchCountryCodesInteractor.Listener] implementation.
 	 */
 
-	override fun onSuccess() {
+	override fun onSuccess(@NonNull countryCodeScheme: CountryCodeSchema) {
 		Log.d("SignUpPresenterImpl", "onSuccess() signUpFetchCountryCodesInteractor")
 		view?.showLoading(Constants.HIDE_LOADING)
 	}

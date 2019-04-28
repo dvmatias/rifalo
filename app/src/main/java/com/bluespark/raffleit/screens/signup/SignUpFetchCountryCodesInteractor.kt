@@ -1,5 +1,6 @@
 package com.bluespark.raffleit.screens.signup
 
+import android.support.annotation.NonNull
 import com.bluespark.raffleit.common.model.databaseschemas.CountryCodeSchema
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -9,7 +10,7 @@ import com.google.firebase.database.ValueEventListener
 class SignUpFetchCountryCodesInteractor(private var rootDatabaseReference: DatabaseReference) {
 
 	interface Listener {
-		fun onSuccess()
+		fun onSuccess(@NonNull countryCodeScheme: CountryCodeSchema)
 		fun onFail()
 	}
 
@@ -44,7 +45,7 @@ class SignUpFetchCountryCodesInteractor(private var rootDatabaseReference: Datab
 					e.printStackTrace()
 				} finally {
 					if (!countryCodeScheme.language.isEmpty()) {
-						listener.onSuccess()
+						listener.onSuccess(countryCodeScheme)
 					}
 				}
 			}

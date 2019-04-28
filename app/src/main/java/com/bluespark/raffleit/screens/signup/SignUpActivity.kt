@@ -5,6 +5,8 @@ import android.view.View
 import android.widget.Toast
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
+import com.bluespark.raffleit.common.utils.managers.DialogsManager
+import com.bluespark.raffleit.common.views.LoadingDialogFragment
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationFragment
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserInfoFragment
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -19,6 +21,12 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	@Inject
 	lateinit var adapter: SignUpFragmentAdapter
+
+	@Inject
+	lateinit var dialogsManager: DialogsManager
+
+	@Inject
+	lateinit var loadingDialogFragment: LoadingDialogFragment
 
 	companion object {
 		@Suppress("unused")
@@ -64,7 +72,14 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	override fun showLoading(show: Boolean) {
-		Toast.makeText(applicationContext, "Show loading view:  $show", Toast.LENGTH_SHORT).show()
+		if (show) {
+			dialogsManager.showRetainedDialogWithId(
+				loadingDialogFragment,
+				LoadingDialogFragment.TAG
+			)
+		} else {
+			dialogsManager.dismissCurrentlyShownDialog()
+		}
 	}
 
 	override fun onBackButtonClicked() {

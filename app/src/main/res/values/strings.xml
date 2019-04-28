@@ -11,6 +11,7 @@
 	<string name="title_sign_in_google_btn">SIGN IN WITH GOOGLE</string>
 	<string name="text_sign_in_activity_sign_up">Don´t have an account? <b>Sign up</b></string>
 	<string name="label_go_back_sign_up_activity_btn">GO BACK</string>
+	<string name="text_please_wait">Please wait…</string>
 
 	<!-- Sign Up Activity -->
 	<string name="label_btn_next">next</string>
