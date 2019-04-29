@@ -1,20 +1,28 @@
 package com.bluespark.raffleit.screens.signup
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.bluespark.raffleit.R
+import com.bluespark.raffleit.common.Constants.Companion.EXTRA_KEY_SELECTED_COUNTRY_COUNTRY_ACTIVITY
+import com.bluespark.raffleit.common.Constants.Companion.REQUEST_CODE_CHOOSE_COUNTRY_ACTIVITY
+import com.bluespark.raffleit.common.model.objects.Country
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.bluespark.raffleit.common.utils.managers.DialogsManager
+import com.bluespark.raffleit.common.views.CountryCodeSelector
 import com.bluespark.raffleit.common.views.LoadingDialogFragment
+import com.bluespark.raffleit.screens.choosecountry.ChooseCountryActivity
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationFragment
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserInfoFragment
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import javax.inject.Inject
 
 
 class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickListener,
-	UserInfoFragment.Listener, UserPhoneValidationFragment.Listener {
+	UserInfoFragment.Listener, UserPhoneValidationFragment.Listener,
+	CountryCodeSelector.Listener {
 
 	@Inject
 	lateinit var presenter: SignUpPresenterImpl
@@ -27,6 +35,9 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	@Inject
 	lateinit var loadingDialogFragment: LoadingDialogFragment
+
+	@Inject
+	lateinit var gson: Gson
 
 	companion object {
 		@Suppress("unused")
@@ -102,12 +113,34 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 			.show()
 	}
 
+	override fun goToChooseCountryScreen() {
+		val intent = Intent(this, ChooseCountryActivity::class.java)
+		intent.putExtra(EXTRA_KEY_SELECTED_COUNTRY_COUNTRY_ACTIVITY, gson.toJson(Country("XX", "+0", "Default", "https://firebasestorage.googleapis.com/v0/b/rifalo-805c2.appspot.com/o/images_country_codes%2Fcountry_code_default.png?alt=media&token=f3e29d6e-3aa3-4901-9d0e-7f31b26b21ce")))
+		startActivityForResult(intent, REQUEST_CODE_CHOOSE_COUNTRY_ACTIVITY)
+	}
+
 	/**
 	 * [UserInfoFragment.Listener] implementation.
 	 */
 
 	override fun onValidUser() {
 		goToValidatePhoneFragment()
+	}
+
+	/**
+	 * [CountryCodeSelector.Listener] implementation.
+	 */
+	// TODO
+	override fun onCountryClick() {
+		goToChooseCountryScreen()
+	}
+
+	override fun onPhoneEmpty() {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+
+	override fun onPhoneNotEmpty() {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
 	/**

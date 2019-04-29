@@ -1,5 +1,6 @@
 package com.bluespark.raffleit.common.injection.presentation
 
+import com.bluespark.raffleit.screens.choosecountry.ChooseCountryActivity
 import com.bluespark.raffleit.screens.main.MainActivity
 import com.bluespark.raffleit.screens.signin.SignInActivity
 import com.bluespark.raffleit.screens.signup.SignUpActivity
@@ -24,6 +25,7 @@ interface PresentationComponent {
 	fun inject(activity: SignUpActivity)
 	fun inject(activity: UserInfoFragment)
 	fun inject(activity: UserPhoneValidationFragment)
+	fun inject(activity: ChooseCountryActivity)
 	fun inject(activity: MainActivity)
 
 }

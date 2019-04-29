@@ -16,6 +16,8 @@ class Constants {
 					+ "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$")
 		const val REGEX_PASSWORD_PATTERN_VALIDATOR =
 			("^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$")
+		const val EXTRA_KEY_SELECTED_COUNTRY_COUNTRY_ACTIVITY = "selected_country"
+		const val REQUEST_CODE_CHOOSE_COUNTRY_ACTIVITY = 1543
 	}
 
 }

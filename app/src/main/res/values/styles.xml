@@ -54,4 +54,17 @@
 		<item name="android:textColorHint">@color/color_custom_view_edit_text_hint</item>
 	</style>
 
+	<!-- Edit Text Phone Validator Theme. -->
+	<style name="EditTextPhoneValidator" parent="Base.V7.Widget.AppCompat.EditText">
+		<item name="android:background">@drawable/shape_custom_view_edit_text_bgr</item>
+		<item name="android:colorControlActivated">@color/color_transparent</item>
+		<item name="android:colorControlNormal">@color/color_transparent</item>
+		<item name="android:maxLength">13</item>
+		<item name="android:paddingEnd">@dimen/dimen_16dp</item>
+		<item name="android:paddingStart">@dimen/dimen_12dp</item>
+		<item name="android:textColorHint">@color/color_custom_view_edit_text_hint</item>
+		<item name="android:textAlignment">center</item>
+		<item name="android:inputType">number</item>
+	</style>
+
 </resources>

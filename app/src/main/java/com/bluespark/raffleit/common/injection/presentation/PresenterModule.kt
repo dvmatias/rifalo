@@ -1,6 +1,8 @@
 package com.bluespark.raffleit.common.injection.presentation
 
 import com.bluespark.raffleit.common.mvp.BaseView
+import com.bluespark.raffleit.screens.choosecountry.ChooseCountryContract
+import com.bluespark.raffleit.screens.choosecountry.ChooseCountryPresenterImpl
 import com.bluespark.raffleit.screens.signin.SignInContract
 import com.bluespark.raffleit.screens.signin.SignInPresenterImpl
 import com.bluespark.raffleit.screens.signup.SignUpContract
@@ -58,5 +60,9 @@ class PresenterModule {
 	@Provides
 	fun getSignUpUserPhoneValidationPresenterImpl(): UserPhoneValidationPresenterImpl =
 		UserPhoneValidationPresenterImpl()
+
+	@Provides
+	fun getChooseCountryPresenterImpl(view: BaseView): ChooseCountryPresenterImpl =
+		ChooseCountryPresenterImpl(view as ChooseCountryContract.View)
 
 }

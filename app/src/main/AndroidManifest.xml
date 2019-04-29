@@ -35,8 +35,10 @@
 		<activity android:name=".screens.main.MainActivity" />
 
 		<!-- Activity Sign Up -->
-		<activity android:name=".screens.signup.SignUpActivity"
+		<activity
+			android:name=".screens.signup.SignUpActivity"
 			android:theme="@style/ActivitySignUpTheme" />
+		<activity android:name=".screens.choosecountry.ChooseCountryActivity"></activity>
 	</application>
 
 </manifest>

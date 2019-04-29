@@ -14,13 +14,12 @@ interface SignUpContract {
 
 		//User actions
 		fun onBackButtonClicked()
-
 		fun onFlowButtonClicked()
 
 		//Flow
 		fun goToValidatePhoneFragment()
-
 		fun goToSignUpUserInfoFragment()
+		fun goToChooseCountryScreen()
 
 	}
 
