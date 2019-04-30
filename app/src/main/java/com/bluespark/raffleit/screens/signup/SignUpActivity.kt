@@ -38,12 +38,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	@Inject
 	lateinit var gson: Gson
 
-	private var selectedCountry: Country = Country(
-		"XX",
-		"+0",
-		"Default",
-		"https://firebasestorage.googleapis.com/v0/b/rifalo-805c2.appspot.com/o/images_country_codes%2Fcountry_code_default.png?alt=media&token=f3e29d6e-3aa3-4901-9d0e-7f31b26b21ce"
-	)
+	private lateinit var selectedCountry: Country
 
 	companion object {
 		@Suppress("unused")
@@ -59,6 +54,14 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		setFlowButtonLabel(getString(R.string.label_btn_next))
 		setListeners()
 		setupPager()
+		setSelectedcountry(
+			Country(
+				"XX",
+				"+0",
+				"Default",
+				"https://firebasestorage.googleapis.com/v0/b/rifalo-805c2.appspot.com/o/images_country_codes%2Fcountry_code_default.png?alt=media&token=f3e29d6e-3aa3-4901-9d0e-7f31b26b21ce"
+			)
+		)
 	}
 
 	override fun onResume() {
@@ -142,6 +145,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	override fun setSelectedcountry(country: Country) {
 		this.selectedCountry = country
+		showSelectedCountry()
 	}
 
 	/**
@@ -202,7 +206,6 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 				)
 			}
 			setSelectedcountry(selectedCountry)
-			showSelectedCountry()
 		}
 	}
 }

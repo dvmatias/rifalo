@@ -36,8 +36,8 @@
 				android:layout_height="match_parent"
 				android:layout_gravity="center_vertical"
 				android:orientation="horizontal"
-				android:paddingStart="@dimen/dimen_4dp"
-				android:paddingEnd="@dimen/dimen_4dp"
+				android:paddingStart="@dimen/dimen_2dp"
+				android:paddingEnd="@dimen/dimen_2dp"
 				tools:ignore="UseCompoundDrawables">
 
 				<!-- Country Flag. -->
@@ -45,10 +45,10 @@
 					android:id="@+id/iv_flag"
 					android:layout_width="@dimen/dimen_26dp"
 					android:layout_height="match_parent"
-					android:layout_marginStart="@dimen/dimen_12dp"
+					android:layout_marginStart="@dimen/dimen_14dp"
 					android:adjustViewBounds="true"
 					android:contentDescription="@null"
-					android:src="@drawable/img_arg_flag" />
+					android:src="@drawable/img_country_code_default_flag" />
 
 				<!-- Country Code. -->
 				<TextView
@@ -59,7 +59,8 @@
 					android:gravity="center"
 					android:lines="@integer/integer_one"
 					android:minEms="@integer/integer_three"
-					android:layout_marginStart="@dimen/dimen_4dp" />
+					android:layout_marginStart="@dimen/dimen_4dp"
+					android:text="+0"/>
 			</LinearLayout>
 
 			<View
