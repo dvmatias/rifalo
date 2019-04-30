@@ -22,9 +22,9 @@
 		<item name="android:windowNoTitle">true</item>
 	</style>
 
-	<!-- Activity Sign In Theme. -->
+	<!-- Activity Sign Up Theme. -->
 	<style name="ActivitySignUpTheme" parent="Theme.AppCompat.Light.NoActionBar">
-		<item name="android:statusBarColor">@color/color_primary</item>
+		<item name="android:statusBarColor">@color/color_transparent</item>
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
 	</style>

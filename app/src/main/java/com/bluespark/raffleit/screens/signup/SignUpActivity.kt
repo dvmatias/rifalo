@@ -165,11 +165,17 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	override fun onPhoneEmpty() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		// Disable terms and conditions view.
+		val currentFragment = getCurrentFragment()
+		if (currentFragment is UserPhoneValidationFragment)
+			currentFragment.enableTermsAndConditions(false)
 	}
 
 	override fun onPhoneNotEmpty() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		// Enable terms and conditions view.
+		val currentFragment = getCurrentFragment()
+		if (currentFragment is UserPhoneValidationFragment)
+			currentFragment.enableTermsAndConditions(false)
 	}
 
 	/**

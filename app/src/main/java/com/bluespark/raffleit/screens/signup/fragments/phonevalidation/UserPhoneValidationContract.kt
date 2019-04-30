@@ -6,7 +6,8 @@ import com.bluespark.raffleit.common.mvp.BaseView
 interface UserPhoneValidationContract {
 
 	interface View : BaseView {
-
+		// UI Feedback
+		fun enableTermsAndConditions(enabled: Boolean)
 	}
 
 	interface Presenter : BasePresenter<View> {

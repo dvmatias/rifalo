@@ -38,7 +38,9 @@
 		<activity
 			android:name=".screens.signup.SignUpActivity"
 			android:theme="@style/ActivitySignUpTheme" />
-		<activity android:name=".screens.choosecountry.ChooseCountryActivity"></activity>
+
+		<!-- Activity Choose Country -->
+		<activity android:name=".screens.choosecountry.ChooseCountryActivity" />
 	</application>
 
 </manifest>

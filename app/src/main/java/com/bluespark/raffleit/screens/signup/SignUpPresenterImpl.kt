@@ -30,7 +30,7 @@ class SignUpPresenterImpl(
 			view?.showLoading(Constants.SHOW_LOADING)
 			Handler().postDelayed({
 				signUpFetchCountryCodesInteractor.execute(this)
-			}, 500)
+			}, 5000)
 		}
 	}
 
