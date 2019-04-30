@@ -37,6 +37,7 @@
 			android:textSize="@dimen/text_16sp" />
 
 		<com.bluespark.raffleit.common.views.CountryCodeSelector
+			android:id="@+id/v_country_code_selector"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content" />
 

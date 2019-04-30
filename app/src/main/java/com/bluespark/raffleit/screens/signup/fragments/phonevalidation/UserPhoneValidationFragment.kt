@@ -7,8 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluespark.raffleit.R
+import com.bluespark.raffleit.common.model.objects.Country
 import com.bluespark.raffleit.common.mvp.BaseFragmentImpl
-import com.bluespark.raffleit.common.views.CountryCodeSelector
+import com.bluespark.raffleit.common.utils.ImageLoader
+import com.bluespark.raffleit.common.utils.managers.PhoneManager
+import kotlinx.android.synthetic.main.fragment_user_phone_validation.*
 import javax.inject.Inject
 
 /**
@@ -24,6 +27,10 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	UserPhoneValidationContract.View {
 
 	@Inject
+	lateinit var imageLoader: ImageLoader
+	@Inject
+	lateinit var phoneManager: PhoneManager
+	@Inject
 	lateinit var presenter: UserPhoneValidationPresenterImpl
 
 	private var listener: Listener? = null
@@ -31,10 +38,6 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		getPresentationComponent().inject(this)
-
-		arguments?.let {
-		}
-
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,6 +65,10 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	override fun onDetach() {
 		super.onDetach()
 		listener = null
+	}
+
+	fun showSelectedCountry(selectedCountry: Country) {
+		v_country_code_selector.showCountryInfo(selectedCountry, imageLoader, phoneManager)
 	}
 
 	/**

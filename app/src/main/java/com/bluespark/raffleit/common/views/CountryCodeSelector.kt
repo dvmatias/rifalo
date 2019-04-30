@@ -69,7 +69,7 @@ class CountryCodeSelector(context: Context, attrs: AttributeSet) :
 		phoneManager: PhoneManager
 	) {
 		imageLoader.loadImage(iv_flag, selectedCountry.url)
-		tv_code.text = phoneManager.getFormattedCountryCodeForRegion(selectedCountry.name)
+		tv_code.text = phoneManager.getFormattedCountryCodeForRegion(selectedCountry.code)
 	}
 
 	private fun showError(errorMessage: String) {

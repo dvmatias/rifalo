@@ -19,11 +19,11 @@ class CountryCodeSchema {
 	 */
 	class CountrySchema {
 		// Country code name (i.e. "AR")
-		var code: String? = null
+		var code: String = ""
 		// Country dial code number (i.e. "+54")
-		var dial_code: String? = null
+		var dial_code: String = ""
 		// Country name (i.e. "Argentina")
-		var name: String? = null
+		var name: String = ""
 		// Country flag image URL (i.e. "http://.../.../...png")
 		var url: String = "https://firebasestorage.googleapis.com/v0/b/rifalo-805c2.appspot.com/o/images_country_codes%2Fcountry_code_default.png?alt=media&token=f3e29d6e-3aa3-4901-9d0e-7f31b26b21ce"
 	}

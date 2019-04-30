@@ -43,12 +43,11 @@
 				<!-- Country Flag. -->
 				<ImageView
 					android:id="@+id/iv_flag"
-					android:layout_width="@dimen/dimen_36dp"
+					android:layout_width="@dimen/dimen_26dp"
 					android:layout_height="match_parent"
 					android:layout_marginStart="@dimen/dimen_12dp"
 					android:adjustViewBounds="true"
 					android:contentDescription="@null"
-					android:padding="@dimen/dimen_4dp"
 					android:src="@drawable/img_arg_flag" />
 
 				<!-- Country Code. -->
@@ -58,9 +57,9 @@
 					android:layout_height="match_parent"
 					android:drawableEnd="@drawable/ic_arrow_drop_down_dark_24dp"
 					android:gravity="center"
-					android:lines="1"
-					android:paddingStart="@dimen/dimen_2dp"
-					android:paddingEnd="@dimen/dimen_2dp" />
+					android:lines="@integer/integer_one"
+					android:minEms="@integer/integer_three"
+					android:layout_marginStart="@dimen/dimen_4dp" />
 			</LinearLayout>
 
 			<View

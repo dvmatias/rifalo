@@ -9,12 +9,16 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import com.bluespark.raffleit.R
-import com.bluespark.raffleit.common.Constants.Companion.EXTRA_KEY_SELECTED_COUNTRY_COUNTRY_ACTIVITY
+import com.bluespark.raffleit.common.Constants.Companion.EXTRA_KEY_COUNTRY_LIST
+import com.bluespark.raffleit.common.Constants.Companion.EXTRA_KEY_SELECTED_COUNTRY
 import com.bluespark.raffleit.common.model.objects.Country
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_choose_country.*
 import javax.inject.Inject
+import com.google.gson.reflect.TypeToken
+
+
 
 class ChooseCountryActivity : BaseActivityImpl(),
 	ChooseCountryContract.View,
@@ -65,9 +69,16 @@ class ChooseCountryActivity : BaseActivityImpl(),
 	}
 
 	private fun getExtras() {
+		// get selected country
 		selectedCountry = gson.fromJson(
-			intent.getStringExtra(EXTRA_KEY_SELECTED_COUNTRY_COUNTRY_ACTIVITY),
+			intent.getStringExtra(EXTRA_KEY_SELECTED_COUNTRY),
 			Country::class.java
+		)
+		// get list of country objects
+		val countryListType = object : TypeToken<ArrayList<Country>>() {}.type
+		countryList = gson.fromJson(
+			intent.getStringExtra(EXTRA_KEY_COUNTRY_LIST),
+			countryListType
 		)
 	}
 
@@ -94,7 +105,7 @@ class ChooseCountryActivity : BaseActivityImpl(),
 		if (null != selectedCountry) {
 			val intent = Intent()
 			intent.putExtra(
-				EXTRA_KEY_SELECTED_COUNTRY_COUNTRY_ACTIVITY,
+				EXTRA_KEY_SELECTED_COUNTRY,
 				gson.toJson(selectedCountry)
 			)
 			setResult(Activity.RESULT_OK, intent)

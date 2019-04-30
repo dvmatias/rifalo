@@ -1,11 +1,14 @@
 package com.bluespark.raffleit.screens.signup
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.Toast
 import com.bluespark.raffleit.R
-import com.bluespark.raffleit.common.Constants.Companion.EXTRA_KEY_SELECTED_COUNTRY_COUNTRY_ACTIVITY
+import com.bluespark.raffleit.common.Constants.Companion.EXTRA_KEY_COUNTRY_LIST
+import com.bluespark.raffleit.common.Constants.Companion.EXTRA_KEY_SELECTED_COUNTRY
 import com.bluespark.raffleit.common.Constants.Companion.REQUEST_CODE_CHOOSE_COUNTRY_ACTIVITY
 import com.bluespark.raffleit.common.model.objects.Country
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
@@ -26,18 +29,21 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	@Inject
 	lateinit var presenter: SignUpPresenterImpl
-
 	@Inject
 	lateinit var adapter: SignUpFragmentAdapter
-
 	@Inject
 	lateinit var dialogsManager: DialogsManager
-
 	@Inject
 	lateinit var loadingDialogFragment: LoadingDialogFragment
-
 	@Inject
 	lateinit var gson: Gson
+
+	private var selectedCountry: Country = Country(
+		"XX",
+		"+0",
+		"Default",
+		"https://firebasestorage.googleapis.com/v0/b/rifalo-805c2.appspot.com/o/images_country_codes%2Fcountry_code_default.png?alt=media&token=f3e29d6e-3aa3-4901-9d0e-7f31b26b21ce"
+	)
 
 	companion object {
 		@Suppress("unused")
@@ -74,6 +80,8 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		pager.adapter = adapter
 	}
 
+	private fun getCurrentFragment(): Fragment = adapter.getItem(pager.currentItem)
+
 	/**
 	 * [SignUpContract.View] implementation.
 	 */
@@ -93,12 +101,18 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		}
 	}
 
+	override fun showSelectedCountry() {
+		val currentFragment = getCurrentFragment()
+		if (currentFragment is UserPhoneValidationFragment)
+			currentFragment.showSelectedCountry(this.selectedCountry)
+	}
+
 	override fun onBackButtonClicked() {
 		Toast.makeText(applicationContext, "Back clicked!", Toast.LENGTH_SHORT).show()
 	}
 
 	override fun onFlowButtonClicked() {
-		val currentFragment = adapter.getItem(pager.currentItem)
+		val currentFragment = getCurrentFragment()
 		if (currentFragment is UserInfoFragment)
 			currentFragment.validateUser()
 	}
@@ -115,8 +129,19 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	override fun goToChooseCountryScreen() {
 		val intent = Intent(this, ChooseCountryActivity::class.java)
-		intent.putExtra(EXTRA_KEY_SELECTED_COUNTRY_COUNTRY_ACTIVITY, gson.toJson(Country("XX", "+0", "Default", "https://firebasestorage.googleapis.com/v0/b/rifalo-805c2.appspot.com/o/images_country_codes%2Fcountry_code_default.png?alt=media&token=f3e29d6e-3aa3-4901-9d0e-7f31b26b21ce")))
+		intent.putExtra(
+			EXTRA_KEY_SELECTED_COUNTRY,
+			gson.toJson(selectedCountry)
+		)
+		intent.putExtra(
+			EXTRA_KEY_COUNTRY_LIST,
+			gson.toJson(presenter.countryList)
+		)
 		startActivityForResult(intent, REQUEST_CODE_CHOOSE_COUNTRY_ACTIVITY)
+	}
+
+	override fun setSelectedcountry(country: Country) {
+		this.selectedCountry = country
 	}
 
 	/**
@@ -151,6 +176,33 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		when (v?.id) {
 			R.id.back_btn -> onBackButtonClicked()
 			R.id.flow_btn -> onFlowButtonClicked()
+		}
+	}
+
+	/**
+	 * On Activity Result.
+	 */
+
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		super.onActivityResult(requestCode, resultCode, data)
+		if (requestCode == REQUEST_CODE_CHOOSE_COUNTRY_ACTIVITY) {
+			val selectedCountry = when (resultCode) {
+				Activity.RESULT_OK -> {
+					gson.fromJson(
+						data?.getStringExtra(EXTRA_KEY_SELECTED_COUNTRY),
+						Country::class.java
+					)
+				}
+				Activity.RESULT_CANCELED -> this.selectedCountry
+				else -> Country(
+					"XX",
+					"+0",
+					"Default",
+					"https://firebasestorage.googleapis.com/v0/b/rifalo-805c2.appspot.com/o/images_country_codes%2Fcountry_code_default.png?alt=media&token=f3e29d6e-3aa3-4901-9d0e-7f31b26b21ce"
+				)
+			}
+			setSelectedcountry(selectedCountry)
+			showSelectedCountry()
 		}
 	}
 }
