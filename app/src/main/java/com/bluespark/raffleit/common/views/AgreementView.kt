@@ -11,6 +11,7 @@ class AgreementView(context: Context, attrs: AttributeSet) : LinearLayout(contex
 	View.OnClickListener {
 
 	private lateinit var listener: Listener
+	@Suppress("PropertyName")
 	var _isEnabled: Boolean = false
 		set(value) {
 			if (field != value) {
