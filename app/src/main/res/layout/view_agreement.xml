@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+
+	<FrameLayout
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent">
+
+		<ImageView
+			android:id="@+id/iv_checkbox"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="@dimen/dimen_8dp"
+			android:layout_gravity="top"
+			android:src="@drawable/ic_check_circle_unchecked"
+			android:background="?android:attr/selectableItemBackgroundBorderless"
+			android:clickable="true"
+			android:focusable="true"
+			android:contentDescription="@null"/>
+	</FrameLayout>
+
+	<TextView
+		android:id="@+id/tv_terms"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_weight="@integer/integer_one"
+		android:textColor="@color/color_white"
+		android:padding="@dimen/dimen_4dp"
+		android:text="By checking the box I confirm that I am over 18 years old and that I have read and accept the Terms and Conditions and Private Policy." />
+</LinearLayout>

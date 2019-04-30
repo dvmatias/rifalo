@@ -96,7 +96,7 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	 * [UserPhoneValidationContract.View] implementation.
 	 */
 
-	override fun enableTermsAndConditions(enabled: Boolean) {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	override fun enableTermsAndConditions(isEnabled: Boolean) {
+		v_agreement._isEnabled = isEnabled
 	}
 }

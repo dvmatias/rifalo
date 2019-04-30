@@ -13,6 +13,7 @@ import com.bluespark.raffleit.common.Constants.Companion.REQUEST_CODE_CHOOSE_COU
 import com.bluespark.raffleit.common.model.objects.Country
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.bluespark.raffleit.common.utils.managers.DialogsManager
+import com.bluespark.raffleit.common.views.AgreementView
 import com.bluespark.raffleit.common.views.CountryCodeSelector
 import com.bluespark.raffleit.common.views.LoadingDialogFragment
 import com.bluespark.raffleit.screens.choosecountry.ChooseCountryActivity
@@ -25,7 +26,7 @@ import javax.inject.Inject
 
 class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickListener,
 	UserInfoFragment.Listener, UserPhoneValidationFragment.Listener,
-	CountryCodeSelector.Listener {
+	CountryCodeSelector.Listener, AgreementView.Listener {
 
 	@Inject
 	lateinit var presenter: SignUpPresenterImpl
@@ -54,7 +55,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		setFlowButtonLabel(getString(R.string.label_btn_next))
 		setListeners()
 		setupPager()
-		setSelectedcountry(
+		setSelectedCountry(
 			Country(
 				"XX",
 				"+0",
@@ -143,7 +144,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		startActivityForResult(intent, REQUEST_CODE_CHOOSE_COUNTRY_ACTIVITY)
 	}
 
-	override fun setSelectedcountry(country: Country) {
+	override fun setSelectedCountry(country: Country) {
 		this.selectedCountry = country
 		showSelectedCountry()
 	}
@@ -175,7 +176,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		// Enable terms and conditions view.
 		val currentFragment = getCurrentFragment()
 		if (currentFragment is UserPhoneValidationFragment)
-			currentFragment.enableTermsAndConditions(false)
+			currentFragment.enableTermsAndConditions(true)
 	}
 
 	/**
@@ -211,7 +212,19 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 					"https://firebasestorage.googleapis.com/v0/b/rifalo-805c2.appspot.com/o/images_country_codes%2Fcountry_code_default.png?alt=media&token=f3e29d6e-3aa3-4901-9d0e-7f31b26b21ce"
 				)
 			}
-			setSelectedcountry(selectedCountry)
+			setSelectedCountry(selectedCountry)
 		}
+	}
+
+	/**
+	 * [AgreementView.Listener] implementation.
+	 */
+
+	override fun onAgreementAccepted() {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+
+	override fun onAgreementRejected() {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 }

@@ -20,7 +20,7 @@ interface SignUpContract {
 		fun goToSignUpUserInfoFragment()
 		fun goToChooseCountryScreen()
 		//
-		fun setSelectedcountry(country: Country)
+		fun setSelectedCountry(country: Country)
 
 	}
 

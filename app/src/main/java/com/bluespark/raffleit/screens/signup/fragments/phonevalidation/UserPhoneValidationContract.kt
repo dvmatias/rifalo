@@ -7,7 +7,7 @@ interface UserPhoneValidationContract {
 
 	interface View : BaseView {
 		// UI Feedback
-		fun enableTermsAndConditions(enabled: Boolean)
+		fun enableTermsAndConditions(isEnabled: Boolean)
 	}
 
 	interface Presenter : BasePresenter<View> {
