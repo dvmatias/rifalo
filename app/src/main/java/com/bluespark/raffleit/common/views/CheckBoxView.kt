@@ -4,11 +4,18 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
 import com.bluespark.raffleit.R
+import android.opengl.ETC1.getWidth
+import android.util.Log
+import android.util.DisplayMetrics
+
+
+
 
 /**
  * TODO: document your custom view class.
@@ -139,8 +146,7 @@ class CheckBoxView : View {
 	override fun onDraw(canvas: Canvas) {
 		super.onDraw(canvas)
 
-		// TODO: consider storing these as member variables to reduce
-		// allocations per draw cycle.
+		// TODO: consider storing these as member variables to reduce allocations per draw cycle.
 		val paddingLeft = paddingLeft
 		val paddingTop = paddingTop
 		val paddingRight = paddingRight
@@ -167,5 +173,54 @@ class CheckBoxView : View {
 			)
 			it.draw(canvas)
 		}
+
+		canvas.drawColor(Color.RED)
 	}
+
+	/**
+	 *
+	 */
+	override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+		Log.v("Chart onMeasure w", View.MeasureSpec.toString(widthMeasureSpec))
+		Log.v("Chart onMeasure h", View.MeasureSpec.toString(heightMeasureSpec))
+
+		val desiredWidth = dpToPx(24) + paddingLeft + paddingRight
+		val desiredHeight = dpToPx(24) + paddingTop + paddingBottom
+
+		setMeasuredDimension(
+			measureDimension(desiredWidth, widthMeasureSpec),
+			measureDimension(desiredHeight, heightMeasureSpec)
+		)
+	}
+
+	private fun measureDimension(desiredSize: Int, measureSpec: Int): Int {
+		var result: Int
+		val specMode = View.MeasureSpec.getMode(measureSpec)
+		val specSize = View.MeasureSpec.getSize(measureSpec)
+
+		if (specMode == View.MeasureSpec.EXACTLY) {
+			result = specSize
+		} else {
+			result = desiredSize
+			if (specMode == View.MeasureSpec.AT_MOST) {
+				result = Math.min(result, specSize)
+			}
+		}
+
+		if (result < desiredSize) {
+			Log.e("ChartView", "The view is too small, the content might get cut")
+		}
+		return result
+	}
+
+	fun dpToPx(dp: Int): Int {
+		val displayMetrics = context.resources.displayMetrics
+		return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
+	}
+
+	fun pxToDp(px: Int): Int {
+		val displayMetrics = context.resources.displayMetrics
+		return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
+	}
+
 }

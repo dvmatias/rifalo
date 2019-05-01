@@ -14,12 +14,11 @@
 		android:orientation="vertical">
 
 		<com.bluespark.raffleit.common.views.CheckBoxView
-			android:layout_width="60dp"
-			android:layout_height="60dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
 			android:layout_marginTop="@dimen/dimen_20dp"
 			android:background="#ccc"
-			android:padding="2dp"
 			app:baseColor="#ca26e7"
 			app:tintColor="#df6d16"
 			app:labelString="Hello!" />
