@@ -4,17 +4,14 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.support.v4.content.ContextCompat
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
 import com.bluespark.raffleit.R
-import android.opengl.ETC1.getWidth
 import android.util.Log
 import android.util.DisplayMetrics
-
-
 
 
 /**
@@ -27,6 +24,8 @@ class CheckBoxView : View {
 	private var _tintColor: Int = Color.BLUE // TODO: use a default from R.color...
 
 	private var textPaint: TextPaint? = null
+	private lateinit var strokePaint: Paint
+	private lateinit var circlePaint: Paint
 	private var textWidth: Float = 0f
 	private var textHeight: Float = 0f
 
@@ -125,7 +124,22 @@ class CheckBoxView : View {
 			textPaint = TextPaint().apply {
 				flags = Paint.ANTI_ALIAS_FLAG
 				textAlign = Paint.Align.LEFT
+				setBackgroundColor(Color.TRANSPARENT)
 			}
+			// Setup a stroke paint object.
+			strokePaint = Paint().apply {
+				color =ContextCompat.getColor(context, R.color.sadasdasdasdas)
+				isAntiAlias = true
+				style = Paint.Style.STROKE
+				strokeWidth = 5F
+			}
+			// Setup a stroke paint object.
+			circlePaint = Paint().apply {
+				color = Color.TRANSPARENT
+				isAntiAlias = true
+			}
+//			exampleDrawable = context.getDrawable(R.drawable.b)
+			exampleDrawable = null
 
 			// Update TextPaint and text measurements from attributes
 			invalidateTextPaintAndMeasurements()
@@ -146,24 +160,28 @@ class CheckBoxView : View {
 	override fun onDraw(canvas: Canvas) {
 		super.onDraw(canvas)
 
+		canvas.drawColor(Color.TRANSPARENT)
+
 		// TODO: consider storing these as member variables to reduce allocations per draw cycle.
-		val paddingLeft = paddingLeft
-		val paddingTop = paddingTop
-		val paddingRight = paddingRight
-		val paddingBottom = paddingBottom
+		val paddingLeft = paddingLeft + convertDpToPx(2).toInt()
+		val paddingTop = paddingTop + convertDpToPx(2).toInt()
+		val paddingRight = paddingRight + convertDpToPx(2).toInt()
+		val paddingBottom = paddingBottom + convertDpToPx(2).toInt()
 
 		val contentWidth = width - paddingLeft - paddingRight
 		val contentHeight = height - paddingTop - paddingBottom
 
-		labelString?.let {
-			// Draw the text.
-			canvas.drawText(
-				it,
-				paddingLeft + (contentWidth - textWidth) / 2,
-				paddingTop + (contentHeight + textHeight) / 2,
-				textPaint
-			)
-		}
+//		labelString?.let {
+//			// Draw the text.
+//			canvas.drawText(
+//				it,
+//				paddingLeft + (contentWidth - textWidth) / 2,
+//				paddingTop + (contentHeight + textHeight) / 2,
+//				textPaint
+//			)
+//		}
+
+		canvas.drawCircle((width/2).toFloat(), (height/2).toFloat(), convertDpToPx(14), circlePaint)
 
 		// Draw the example drawable on top of the text.
 		exampleDrawable?.let {
@@ -174,7 +192,9 @@ class CheckBoxView : View {
 			it.draw(canvas)
 		}
 
-		canvas.drawColor(Color.RED)
+		canvas.drawCircle((width/2).toFloat(), (height/2).toFloat(), convertDpToPx(14), strokePaint)
+
+
 	}
 
 	/**
@@ -184,12 +204,12 @@ class CheckBoxView : View {
 		Log.v("Chart onMeasure w", View.MeasureSpec.toString(widthMeasureSpec))
 		Log.v("Chart onMeasure h", View.MeasureSpec.toString(heightMeasureSpec))
 
-		val desiredWidth = dpToPx(24) + paddingLeft + paddingRight
-		val desiredHeight = dpToPx(24) + paddingTop + paddingBottom
+		val desiredWidth = convertDpToPx(32) + paddingLeft + paddingRight
+		val desiredHeight = convertDpToPx(32) + paddingTop + paddingBottom
 
 		setMeasuredDimension(
-			measureDimension(desiredWidth, widthMeasureSpec),
-			measureDimension(desiredHeight, heightMeasureSpec)
+			measureDimension(desiredWidth.toInt(), widthMeasureSpec),
+			measureDimension(desiredHeight.toInt(), heightMeasureSpec)
 		)
 	}
 
@@ -213,12 +233,12 @@ class CheckBoxView : View {
 		return result
 	}
 
-	fun dpToPx(dp: Int): Int {
+	fun convertDpToPx(dp: Int): Float {
 		val displayMetrics = context.resources.displayMetrics
-		return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
+		return (dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
 	}
 
-	fun pxToDp(px: Int): Int {
+	fun convertPxToDp(px: Int): Int {
 		val displayMetrics = context.resources.displayMetrics
 		return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
 	}
