@@ -8,16 +8,13 @@ import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.text.TextPaint
 import android.util.AttributeSet
-import android.util.DisplayMetrics
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.view.accessibility.AccessibilityEvent.TYPE_VIEW_CLICKED
 import android.widget.Checkable
-import android.widget.CompoundButton
 import com.bluespark.raffleit.R
-import android.util.TypedValue
-
-
+import com.bluespark.raffleit.common.utils.UiHelper
 
 
 /**
@@ -32,16 +29,14 @@ class CheckBoxView : View, Checkable {
 	private var textPaint: TextPaint? = null
 	private lateinit var strokePaint: Paint
 	private lateinit var circlePaint: Paint
-	private var textWidth: Float = 0f
-	private var textHeight: Float = 0f
 
 	private var onCheckedChangedListener: OnCheckedChangeListener? = null
 	private var checked: Boolean = false
 
-	private var _paddingLeft: Int = paddingLeft + convertDpToPx(4).toInt()
-	private var _paddingTop: Int = paddingTop + convertDpToPx(4).toInt()
-	private var _paddingRight: Int = paddingRight + convertDpToPx(4).toInt()
-	private var _paddingBottom: Int = paddingBottom + convertDpToPx(4).toInt()
+	private var _paddingLeft: Int = paddingLeft + UiHelper.convertDpToPx(context, 4).toInt()
+	private var _paddingTop: Int = paddingTop + UiHelper.convertDpToPx(context, 4).toInt()
+	private var _paddingRight: Int = paddingRight + UiHelper.convertDpToPx(context, 4).toInt()
+	private var _paddingBottom: Int = paddingBottom + UiHelper.convertDpToPx(context, 4).toInt()
 
 	/**
 	 * The text to draw
@@ -50,7 +45,6 @@ class CheckBoxView : View, Checkable {
 		get() = _labelString
 		set(value) {
 			_labelString = value
-			invalidateTextPaintAndMeasurements()
 		}
 
 	/**
@@ -60,7 +54,6 @@ class CheckBoxView : View, Checkable {
 		get() = _baseColor
 		set(value) {
 			_baseColor = value
-			invalidateTextPaintAndMeasurements()
 		}
 
 	/**
@@ -70,7 +63,6 @@ class CheckBoxView : View, Checkable {
 		get() = _tintColor
 		set(value) {
 			_tintColor = value
-			invalidateTextPaintAndMeasurements()
 		}
 
 	/**
@@ -152,7 +144,6 @@ class CheckBoxView : View, Checkable {
 				color = Color.TRANSPARENT
 				isAntiAlias = true
 			}
-//			exampleDrawable = context.getDrawable(R.drawable.b)
 			exampleDrawable = null
 
 			sendAccessibilityEvent(TYPE_VIEW_CLICKED)
@@ -160,20 +151,6 @@ class CheckBoxView : View, Checkable {
 			val outValue = TypedValue()
 			context.theme.resolveAttribute(android.R.attr.selectableItemBackgroundBorderless, outValue, true)
 			this.setBackgroundResource(outValue.resourceId)
-
-			// Update TextPaint and text measurements from attributes
-			invalidateTextPaintAndMeasurements()
-		}
-	}
-
-	private fun invalidateTextPaintAndMeasurements() {
-		if (labelString.isNullOrEmpty())
-			return
-		textPaint?.let {
-			it.textSize = 48f
-			it.color = baseColor
-			textWidth = it.measureText(labelString)
-			textHeight = it.fontMetrics.bottom
 		}
 	}
 
@@ -188,7 +165,7 @@ class CheckBoxView : View, Checkable {
 		canvas.drawCircle(
 			(width / 2).toFloat(),
 			(height / 2).toFloat(),
-			convertDpToPx(14),
+			UiHelper.convertDpToPx(context, 14),
 			circlePaint
 		)
 
@@ -204,7 +181,7 @@ class CheckBoxView : View, Checkable {
 		canvas.drawCircle(
 			(width / 2).toFloat(),
 			(height / 2).toFloat(),
-			convertDpToPx(14),
+			UiHelper.convertDpToPx(context, 14),
 			strokePaint
 		)
 
@@ -214,8 +191,8 @@ class CheckBoxView : View, Checkable {
 	 *
 	 */
 	override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-		val desiredWidth = convertDpToPx(32) + _paddingLeft + _paddingRight
-		val desiredHeight = convertDpToPx(32) + _paddingTop + _paddingBottom
+		val desiredWidth = UiHelper.convertDpToPx(context, 32) + _paddingLeft + _paddingRight
+		val desiredHeight = UiHelper.convertDpToPx(context, 32) + _paddingTop + _paddingBottom
 
 		setMeasuredDimension(
 			measureDimension(desiredWidth.toInt(), widthMeasureSpec),
@@ -241,16 +218,6 @@ class CheckBoxView : View, Checkable {
 			Log.e("ChartView", "The view is too small, the content might get cut")
 		}
 		return result
-	}
-
-	fun convertDpToPx(dp: Int): Float {
-		val displayMetrics = context.resources.displayMetrics
-		return (dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
-	}
-
-	fun convertPxToDp(px: Int): Int {
-		val displayMetrics = context.resources.displayMetrics
-		return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
 	}
 
 	/**
