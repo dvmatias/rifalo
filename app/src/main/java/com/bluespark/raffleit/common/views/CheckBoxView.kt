@@ -8,16 +8,22 @@ import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.text.TextPaint
 import android.util.AttributeSet
-import android.view.View
-import com.bluespark.raffleit.R
-import android.util.Log
 import android.util.DisplayMetrics
+import android.util.Log
+import android.view.View
+import android.view.accessibility.AccessibilityEvent.TYPE_VIEW_CLICKED
+import android.widget.Checkable
+import android.widget.CompoundButton
+import com.bluespark.raffleit.R
+import android.util.TypedValue
+
+
 
 
 /**
  * TODO: document your custom view class.
  */
-class CheckBoxView : View {
+class CheckBoxView : View, Checkable {
 
 	private var _labelString: String? = null // TODO: use a default from R.string...
 	private var _baseColor: Int = Color.RED // TODO: use a default from R.color...
@@ -28,6 +34,14 @@ class CheckBoxView : View {
 	private lateinit var circlePaint: Paint
 	private var textWidth: Float = 0f
 	private var textHeight: Float = 0f
+
+	private var onCheckedChangedListener: OnCheckedChangeListener? = null
+	private var checked: Boolean = false
+
+	private var _paddingLeft: Int = paddingLeft + convertDpToPx(4).toInt()
+	private var _paddingTop: Int = paddingTop + convertDpToPx(4).toInt()
+	private var _paddingRight: Int = paddingRight + convertDpToPx(4).toInt()
+	private var _paddingBottom: Int = paddingBottom + convertDpToPx(4).toInt()
 
 	/**
 	 * The text to draw
@@ -128,7 +142,7 @@ class CheckBoxView : View {
 			}
 			// Setup a stroke paint object.
 			strokePaint = Paint().apply {
-				color =ContextCompat.getColor(context, R.color.sadasdasdasdas)
+				color = ContextCompat.getColor(context, R.color.sadasdasdasdas)
 				isAntiAlias = true
 				style = Paint.Style.STROKE
 				strokeWidth = 5F
@@ -140,6 +154,12 @@ class CheckBoxView : View {
 			}
 //			exampleDrawable = context.getDrawable(R.drawable.b)
 			exampleDrawable = null
+
+			sendAccessibilityEvent(TYPE_VIEW_CLICKED)
+
+			val outValue = TypedValue()
+			context.theme.resolveAttribute(android.R.attr.selectableItemBackgroundBorderless, outValue, true)
+			this.setBackgroundResource(outValue.resourceId)
 
 			// Update TextPaint and text measurements from attributes
 			invalidateTextPaintAndMeasurements()
@@ -162,38 +182,31 @@ class CheckBoxView : View {
 
 		canvas.drawColor(Color.TRANSPARENT)
 
-		// TODO: consider storing these as member variables to reduce allocations per draw cycle.
-		val paddingLeft = paddingLeft + convertDpToPx(2).toInt()
-		val paddingTop = paddingTop + convertDpToPx(2).toInt()
-		val paddingRight = paddingRight + convertDpToPx(2).toInt()
-		val paddingBottom = paddingBottom + convertDpToPx(2).toInt()
+		val contentWidth = width - _paddingLeft - _paddingRight
+		val contentHeight = height - _paddingTop - _paddingBottom
 
-		val contentWidth = width - paddingLeft - paddingRight
-		val contentHeight = height - paddingTop - paddingBottom
-
-//		labelString?.let {
-//			// Draw the text.
-//			canvas.drawText(
-//				it,
-//				paddingLeft + (contentWidth - textWidth) / 2,
-//				paddingTop + (contentHeight + textHeight) / 2,
-//				textPaint
-//			)
-//		}
-
-		canvas.drawCircle((width/2).toFloat(), (height/2).toFloat(), convertDpToPx(14), circlePaint)
+		canvas.drawCircle(
+			(width / 2).toFloat(),
+			(height / 2).toFloat(),
+			convertDpToPx(14),
+			circlePaint
+		)
 
 		// Draw the example drawable on top of the text.
 		exampleDrawable?.let {
 			it.setBounds(
-				paddingLeft, paddingTop,
-				paddingLeft + contentWidth, paddingTop + contentHeight
+				_paddingLeft, _paddingTop,
+				_paddingLeft + contentWidth, _paddingTop + contentHeight
 			)
 			it.draw(canvas)
 		}
 
-		canvas.drawCircle((width/2).toFloat(), (height/2).toFloat(), convertDpToPx(14), strokePaint)
-
+		canvas.drawCircle(
+			(width / 2).toFloat(),
+			(height / 2).toFloat(),
+			convertDpToPx(14),
+			strokePaint
+		)
 
 	}
 
@@ -201,11 +214,8 @@ class CheckBoxView : View {
 	 *
 	 */
 	override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-		Log.v("Chart onMeasure w", View.MeasureSpec.toString(widthMeasureSpec))
-		Log.v("Chart onMeasure h", View.MeasureSpec.toString(heightMeasureSpec))
-
-		val desiredWidth = convertDpToPx(32) + paddingLeft + paddingRight
-		val desiredHeight = convertDpToPx(32) + paddingTop + paddingBottom
+		val desiredWidth = convertDpToPx(32) + _paddingLeft + _paddingRight
+		val desiredHeight = convertDpToPx(32) + _paddingTop + _paddingBottom
 
 		setMeasuredDimension(
 			measureDimension(desiredWidth.toInt(), widthMeasureSpec),
@@ -243,4 +253,60 @@ class CheckBoxView : View {
 		return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
 	}
 
+	/**
+	 * TODO
+	 */
+
+	fun setOnCheckedChangedListener(listener: OnCheckedChangeListener) {
+		onCheckedChangedListener = listener
+		setOnClickListener { toggle() }
+	}
+
+	/**
+	 * TODO
+	 */
+
+	/**
+	 * @return The current checked state of the view
+	 */
+	override fun isChecked(): Boolean {
+		return checked
+	}
+
+	/**
+	 * Change the checked state of the view to the inverse of its current state
+	 *
+	 */
+	override fun toggle() {
+		isChecked = !checked
+	}
+
+	/**
+	 * Change the checked state of the view
+	 *
+	 * @param checked The new checked state
+	 */
+	override fun setChecked(p0: Boolean) {
+		if (p0 != checked) {
+			checked = p0
+			refreshDrawableState()
+
+			onCheckedChangedListener?.onCheckedChanged(this, checked)
+		}
+	}
+
+	/**
+	 * Interface definition for a callback to be invoked when the checked state of this View is
+	 * changed.
+	 */
+	interface OnCheckedChangeListener {
+
+		/**
+		 * Called when the checked state of a compound button has changed.
+		 *
+		 * @param checkableView The view whose state has changed.
+		 * @param isChecked     The new checked state of checkableView.
+		 */
+		fun onCheckedChanged(checkableView: View, isChecked: Boolean)
+	}
 }
