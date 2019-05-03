@@ -1,6 +1,5 @@
 <resources>
 	<declare-styleable name="CheckBoxView">
-		<attr name="labelString" format="string" />
 		<attr name="baseColor" format="color" />
 		<attr name="tintColor" format="color" />
 	</declare-styleable>

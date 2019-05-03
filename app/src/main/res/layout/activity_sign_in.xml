@@ -13,21 +13,6 @@
 		android:background="@color/color_transparent"
 		android:orientation="vertical">
 
-		<FrameLayout
-			android:layout_width="100dp"
-			android:layout_height="100dp"
-			android:background="@color/color_white">
-
-			<com.bluespark.raffleit.common.views.CheckBoxView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:background="#ccc"
-				app:baseColor="#ca26e7"
-				app:tintColor="#df6d16"
-				app:labelString="Hello!" />
-		</FrameLayout>
-
 		<!-- App Name -->
 		<FrameLayout
 			android:layout_width="match_parent"

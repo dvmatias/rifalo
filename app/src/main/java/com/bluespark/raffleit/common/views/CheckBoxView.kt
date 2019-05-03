@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
-import android.text.TextPaint
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
@@ -18,34 +17,33 @@ import com.bluespark.raffleit.common.utils.UiHelper
 
 
 /**
- * TODO: document your custom view class.
+ * Custom Check Box View.
+ *
+ * Class to paint a checkable object.
+ *
+ * @author matias.delv.dom@gmail.com
  */
 class CheckBoxView : View, Checkable {
 
-	private var _labelString: String? = null // TODO: use a default from R.string...
-	private var _baseColor: Int = Color.RED // TODO: use a default from R.color...
-	private var _tintColor: Int = Color.BLUE // TODO: use a default from R.color...
-
-	private var textPaint: TextPaint? = null
+	// Default attributes values.
+	private var _baseColor: Int =
+		ContextCompat.getColor(context, R.color.color_check_box_view_tint_default)
+	private var _tintColor: Int =
+		ContextCompat.getColor(context, R.color.color_check_box_view_base_default)
+	// Paint objects.
 	private lateinit var strokePaint: Paint
 	private lateinit var circlePaint: Paint
-
+	// Default background drawable.
+	private var bgrDrawable: Drawable? = null
+	// On checked listener instance.
 	private var onCheckedChangedListener: OnCheckedChangeListener? = null
+	// View current checked status.
 	private var checked: Boolean = false
-
+	// View padding.
 	private var _paddingLeft: Int = paddingLeft + UiHelper.convertDpToPx(context, 4).toInt()
 	private var _paddingTop: Int = paddingTop + UiHelper.convertDpToPx(context, 4).toInt()
 	private var _paddingRight: Int = paddingRight + UiHelper.convertDpToPx(context, 4).toInt()
 	private var _paddingBottom: Int = paddingBottom + UiHelper.convertDpToPx(context, 4).toInt()
-
-	/**
-	 * The text to draw
-	 */
-	var labelString: String?
-		get() = _labelString
-		set(value) {
-			_labelString = value
-		}
 
 	/**
 	 * The base color (stroke and text)
@@ -65,11 +63,6 @@ class CheckBoxView : View, Checkable {
 			_tintColor = value
 		}
 
-	/**
-	 * In the example view, this drawable is drawn above the text.
-	 */
-	var exampleDrawable: Drawable? = null
-
 	constructor(context: Context) : super(context) {
 		init(null, 0)
 	}
@@ -86,6 +79,9 @@ class CheckBoxView : View, Checkable {
 		init(attrs, defStyle)
 	}
 
+	/**
+	 * Init.
+	 */
 	private fun init(attrs: AttributeSet?, defStyle: Int) {
 		// Load attributes
 		val a = context.obtainStyledAttributes(
@@ -98,12 +94,6 @@ class CheckBoxView : View, Checkable {
 				val attr = a.getIndex(i)
 
 				when (attr) {
-					R.styleable.CheckBoxView_labelString -> {
-						//
-						_labelString = a.getString(
-							R.styleable.CheckBoxView_labelString
-						)
-					}
 					R.styleable.CheckBoxView_baseColor -> {
 						//
 						_baseColor = a.getColor(
@@ -126,34 +116,68 @@ class CheckBoxView : View, Checkable {
 
 			a.recycle()
 
-			// Set up a default TextPaint object
-			textPaint = TextPaint().apply {
-				flags = Paint.ANTI_ALIAS_FLAG
-				textAlign = Paint.Align.LEFT
-				setBackgroundColor(Color.TRANSPARENT)
-			}
 			// Setup a stroke paint object.
 			strokePaint = Paint().apply {
-				color = ContextCompat.getColor(context, R.color.sadasdasdasdas)
+				color = _baseColor
 				isAntiAlias = true
 				style = Paint.Style.STROKE
-				strokeWidth = 5F
+				strokeWidth = 6F
 			}
-			// Setup a stroke paint object.
-			circlePaint = Paint().apply {
-				color = Color.TRANSPARENT
-				isAntiAlias = true
-			}
-			exampleDrawable = null
+
+			checked = false
+			setViewStatus()
 
 			sendAccessibilityEvent(TYPE_VIEW_CLICKED)
 
 			val outValue = TypedValue()
-			context.theme.resolveAttribute(android.R.attr.selectableItemBackgroundBorderless, outValue, true)
+			context.theme.resolveAttribute(
+				android.R.attr.selectableItemBackgroundBorderless,
+				outValue,
+				true
+			)
 			this.setBackgroundResource(outValue.resourceId)
 		}
 	}
 
+	/**
+	 * Set view status according to [checked] values.
+	 */
+	private fun setViewStatus() {
+		if (checked) setViewStatusChecked() else setViewStatusUnchecked()
+		invalidate()
+	}
+
+	/**
+	 * Set view for [checked] = true.
+	 */
+	private fun setViewStatusChecked() {
+		// Background drawable
+		bgrDrawable = ContextCompat.getDrawable(context, R.drawable.img_check_box_view_bgr)
+		//Background fill paint object.
+		circlePaint = Paint().apply {
+			color = _tintColor
+			style = Paint.Style.FILL
+			isAntiAlias = true
+		}
+	}
+
+	/**
+	 * Set view for [checked] = false.
+	 */
+	private fun setViewStatusUnchecked() {
+		// Background drawable
+		bgrDrawable = null
+		//Background fill paint object.
+		circlePaint = Paint().apply {
+			color = Color.TRANSPARENT
+			style = Paint.Style.FILL
+			isAntiAlias = true
+		}
+	}
+
+	/**
+	 * Draw view.
+	 */
 	override fun onDraw(canvas: Canvas) {
 		super.onDraw(canvas)
 
@@ -170,7 +194,7 @@ class CheckBoxView : View, Checkable {
 		)
 
 		// Draw the example drawable on top of the text.
-		exampleDrawable?.let {
+		bgrDrawable?.let {
 			it.setBounds(
 				_paddingLeft, _paddingTop,
 				_paddingLeft + contentWidth, _paddingTop + contentHeight
@@ -188,7 +212,7 @@ class CheckBoxView : View, Checkable {
 	}
 
 	/**
-	 *
+	 * On measure.
 	 */
 	override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 		val desiredWidth = UiHelper.convertDpToPx(context, 32) + _paddingLeft + _paddingRight
@@ -221,16 +245,15 @@ class CheckBoxView : View, Checkable {
 	}
 
 	/**
-	 * TODO
+	 * Set [onCheckedChangedListener] listener.
 	 */
-
 	fun setOnCheckedChangedListener(listener: OnCheckedChangeListener) {
-		onCheckedChangedListener = listener
 		setOnClickListener { toggle() }
+		onCheckedChangedListener = listener
 	}
 
 	/**
-	 * TODO
+	 * [Checkable] implementation.
 	 */
 
 	/**
@@ -251,12 +274,13 @@ class CheckBoxView : View, Checkable {
 	/**
 	 * Change the checked state of the view
 	 *
-	 * @param checked The new checked state
+	 * @param p0 The new checked state
 	 */
 	override fun setChecked(p0: Boolean) {
 		if (p0 != checked) {
 			checked = p0
-			refreshDrawableState()
+
+			setViewStatus()
 
 			onCheckedChangedListener?.onCheckedChanged(this, checked)
 		}
