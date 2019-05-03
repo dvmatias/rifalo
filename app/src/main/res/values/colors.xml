@@ -15,7 +15,7 @@
 
 	<!-- Check Box View -->
 	<color name="color_check_box_view_base_default">#FFD900</color>
-	<color name="color_check_box_view_tint_default">#666666</color>
+	<color name="color_check_box_view_tint_default">#787878</color>
 
 	<color name="color_transparent">#00000000</color>
 	<color name="color_white">#FFFFFFFF</color>

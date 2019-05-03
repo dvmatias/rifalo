@@ -5,12 +5,12 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
+import android.support.annotation.Nullable
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import android.view.accessibility.AccessibilityEvent.TYPE_VIEW_CLICKED
 import android.widget.Checkable
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.utils.UiHelper
@@ -115,20 +115,20 @@ class CheckBoxView : View, Checkable {
 		} finally {
 
 			a.recycle()
-
 			// Setup a stroke paint object.
 			strokePaint = Paint().apply {
 				color = _baseColor
 				isAntiAlias = true
 				style = Paint.Style.STROKE
-				strokeWidth = 6F
+				strokeWidth = 5F
 			}
-
-			checked = false
-			setViewStatus()
-
-			sendAccessibilityEvent(TYPE_VIEW_CLICKED)
-
+			// Init view.
+			initStatus()
+			// set a default checked change listener.
+			setOnCheckedChangedListener(object : CheckBoxView.OnCheckedChangeListener {
+				override fun onCheckedChanged(checkableView: View, isChecked: Boolean) {}
+			})
+			// Set selectable item background.
 			val outValue = TypedValue()
 			context.theme.resolveAttribute(
 				android.R.attr.selectableItemBackgroundBorderless,
@@ -137,6 +137,14 @@ class CheckBoxView : View, Checkable {
 			)
 			this.setBackgroundResource(outValue.resourceId)
 		}
+	}
+
+	/**
+	 * Init the view in non checked status.
+	 */
+	private fun initStatus() {
+		checked = false
+		setViewStatus()
 	}
 
 	/**
@@ -248,9 +256,9 @@ class CheckBoxView : View, Checkable {
 	 * Set [onCheckedChangedListener] listener.
 	 */
 	@Suppress("unused")
-	fun setOnCheckedChangedListener(listener: OnCheckedChangeListener) {
-		setOnClickListener { toggle() }
+	fun setOnCheckedChangedListener(@Nullable listener: OnCheckedChangeListener?) {
 		onCheckedChangedListener = listener
+		setOnClickListener { toggle() }
 	}
 
 	/**
@@ -280,9 +288,7 @@ class CheckBoxView : View, Checkable {
 	override fun setChecked(p0: Boolean) {
 		if (p0 != checked) {
 			checked = p0
-
 			setViewStatus()
-
 			onCheckedChangedListener?.onCheckedChanged(this, checked)
 		}
 	}

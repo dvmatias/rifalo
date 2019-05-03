@@ -6,6 +6,7 @@ class Constants {
 		const val SHOW_LOADING = true
 		const val HIDE_LOADING = false
 		const val DELAY_CHECK_SYSTEM_UI_VISIBILITY = 1300L
+		const val DELAY_FETCH_COUNTRY_CODES = 1L
 		const val RC_SIGN_IN_GOOGLE = 131
 		const val REGEX_EMAIL_PATTERN_VALIDATOR =
 			("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"

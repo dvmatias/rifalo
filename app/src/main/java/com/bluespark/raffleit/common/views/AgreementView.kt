@@ -16,14 +16,13 @@ class AgreementView(context: Context, attrs: AttributeSet) : LinearLayout(contex
 		set(value) {
 			if (field != value) {
 				field = value
-				iv_checkbox.isClickable = value
-				iv_checkbox.isFocusable = value
+				check_box_view.isEnabled = value
 			}
 		}
 
 	override fun onClick(v: View?) {
 		when (v?.id) {
-			iv_checkbox.id -> setChecked(!iv_checkbox.isSelected)
+//			iv_checkbox.id -> setChecked(!iv_checkbox.isSelected)
 		}
 	}
 
@@ -35,7 +34,7 @@ class AgreementView(context: Context, attrs: AttributeSet) : LinearLayout(contex
 	init {
 		inflate(context, R.layout.view_agreement, this)
 
-		iv_checkbox.setOnClickListener(this)
+		check_box_view.isEnabled = false
 		setClickListener()
 		_isEnabled = false
 	}
@@ -49,24 +48,14 @@ class AgreementView(context: Context, attrs: AttributeSet) : LinearLayout(contex
 
 	private fun setCheckStatus(isChecked: Boolean) {
 		if (isChecked) {
-			setCheckedImage()
 			listener.onAgreementAccepted()
 		} else {
-			setUncheckedImage()
 			listener.onAgreementRejected()
 		}
 	}
 
-	private fun setCheckedImage() {
-		iv_checkbox.setImageDrawable(context.getDrawable(R.drawable.ic_check_circle_checked))
-	}
-
-	private fun setUncheckedImage() {
-		iv_checkbox.setImageDrawable(context.getDrawable(R.drawable.ic_check_circle_unchecked))
-	}
-
 	private fun setChecked(isChecked: Boolean) {
-		iv_checkbox.isSelected = isChecked
+//		iv_checkbox.isSelected = isChecked
 		setCheckStatus(isChecked)
 	}
 
