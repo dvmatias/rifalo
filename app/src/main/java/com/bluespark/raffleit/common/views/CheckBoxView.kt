@@ -239,7 +239,7 @@ class CheckBoxView : View, Checkable {
 		}
 
 		if (result < desiredSize) {
-			Log.e("ChartView", "The view is too small, the content might get cut")
+			Log.e("CheckBoxView", "The view is too small, the content might get cut")
 		}
 		return result
 	}
@@ -247,6 +247,7 @@ class CheckBoxView : View, Checkable {
 	/**
 	 * Set [onCheckedChangedListener] listener.
 	 */
+	@Suppress("unused")
 	fun setOnCheckedChangedListener(listener: OnCheckedChangeListener) {
 		setOnClickListener { toggle() }
 		onCheckedChangedListener = listener
