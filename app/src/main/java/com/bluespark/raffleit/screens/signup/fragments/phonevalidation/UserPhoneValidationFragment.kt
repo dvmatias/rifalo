@@ -35,6 +35,19 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 
 	private var listener: Listener? = null
 
+	companion object {
+		val TAG: String = UserPhoneValidationFragment::class.java.simpleName
+
+		/**
+		 * Factory method to create a new instance of [UserPhoneValidationFragment].
+		 */
+		@JvmStatic
+		fun newInstance() =
+			UserPhoneValidationFragment().apply {
+				arguments = Bundle().apply {}
+			}
+	}
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		getPresentationComponent().inject(this)
@@ -42,7 +55,8 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-
+		// By default, terms and conditions is disables until valid phone has been written.
+		enableTermsAndConditions(false)
 	}
 
 	override fun onCreateView(
@@ -76,20 +90,6 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	 */
 	interface Listener {
 
-	}
-
-	companion object {
-		val TAG: String = UserPhoneValidationFragment::class.java.simpleName
-
-		/**
-		 * Factory method to create a new instance of [UserPhoneValidationFragment].
-		 */
-		@JvmStatic
-		fun newInstance() =
-			UserPhoneValidationFragment().apply {
-				arguments = Bundle().apply {
-				}
-			}
 	}
 
 	/**

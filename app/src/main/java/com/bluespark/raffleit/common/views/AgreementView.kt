@@ -16,8 +16,10 @@ class AgreementView(context: Context, attrs: AttributeSet) : LinearLayout(contex
 		set(value) {
 			if (field != value) {
 				field = value
-				check_box_view.isEnabled = value
 			}
+			check_box_view.isEnabled = value
+			alpha = if (value) 1F else 0.5F
+
 		}
 
 	override fun onClick(v: View?) {
