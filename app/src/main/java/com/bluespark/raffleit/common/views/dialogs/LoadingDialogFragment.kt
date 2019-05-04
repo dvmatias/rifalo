@@ -11,7 +11,11 @@ import com.bluespark.raffleit.R
 import kotlinx.android.synthetic.main.fragment_loading_dialog.*
 
 /**
- * TODO dec.
+ * Loading Dialog Fragment.
+ *
+ * Indeterminate, non cancellable loading view.
+ *
+ * @author matias.delv.com@gmail.com
  */
 
 class LoadingDialogFragment : MyDialogFragment() {
@@ -58,12 +62,8 @@ class LoadingDialogFragment : MyDialogFragment() {
 	 */
 	private fun animateLoadingImage() {
 		val rotate = RotateAnimation(
-			ROTATION_FROM_DEGREES,
-			ROTATION_TO_DEGREES,
-			Animation.RELATIVE_TO_SELF,
-			ROTATION_PIVOT_X_VALUE,
-			Animation.RELATIVE_TO_SELF,
-			ROTATION_PIVOT_Y_VALUE
+			ROTATION_FROM_DEGREES, ROTATION_TO_DEGREES, Animation.RELATIVE_TO_SELF,
+			ROTATION_PIVOT_X_VALUE, Animation.RELATIVE_TO_SELF, ROTATION_PIVOT_Y_VALUE
 		)
 		rotate.apply {
 			duration = ROTATION_DURATION
@@ -73,4 +73,5 @@ class LoadingDialogFragment : MyDialogFragment() {
 
 		iv_loading.startAnimation(rotate)
 	}
+
 }
