@@ -22,14 +22,20 @@ import kotlinx.android.synthetic.main.fragment_loading_dialog.*
 class LoadingDialogFragment : MyDialogFragment() {
 
 	companion object {
-		@JvmStatic
-		fun newInstance() = LoadingDialogFragment()
+		const val ROTATION_FROM_DEGREES = 0F
+		const val ROTATION_TO_DEGREES = 360F
+		const val ROTATION_PIVOT_X_VALUE = 0.5F
+		const val ROTATION_PIVOT_Y_VALUE = 0.5F
+		const val ROTATION_DURATION = 1750L
 
 		val TAG: String
 			get() {
 				val tag = LoadingDialogFragment::class.java.simpleName
 				return if (tag.length <= 23) tag else tag.substring(0, 23)
 			}
+
+		@JvmStatic
+		fun newInstance() = LoadingDialogFragment()
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,16 +58,19 @@ class LoadingDialogFragment : MyDialogFragment() {
 		animateLoadingImage()
 	}
 
+	/**
+	 * Animate loading image. Rotate.
+	 */
 	private fun animateLoadingImage() {
 		val rotate = RotateAnimation(
-			0f,
-			360f,
+			ROTATION_FROM_DEGREES,
+			ROTATION_TO_DEGREES,
 			Animation.RELATIVE_TO_SELF,
-			0.5f,
+			ROTATION_PIVOT_X_VALUE,
 			Animation.RELATIVE_TO_SELF,
-			0.5f
+			ROTATION_PIVOT_Y_VALUE
 		)
-		rotate.duration = 1750
+		rotate.duration = ROTATION_DURATION
 		rotate.interpolator = LinearInterpolator()
 		rotate.repeatCount = Animation.INFINITE
 
