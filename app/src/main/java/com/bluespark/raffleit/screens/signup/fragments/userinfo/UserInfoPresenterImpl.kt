@@ -25,6 +25,7 @@ class UserInfoPresenterImpl(
 	}
 
 	override fun validateUser(signUpUser: SignUpUser) {
+		view?.hideErrors()
 		validateEmailInteractor.execute(this, signUpUser.email)
 		validatePasswordInteractor.execute(this, signUpUser.password)
 		validatePasswordConfirmationInteractor.execute(

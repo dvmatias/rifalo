@@ -7,6 +7,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.view.animation.BounceInterpolator
 import android.widget.LinearLayout
 import com.bluespark.raffleit.R
 import kotlinx.android.synthetic.main.custom_view_edit_text.view.*
@@ -177,6 +179,13 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 
 	private fun showError() {
 		tv_error.visibility = View.VISIBLE
+		animateError()
+	}
+
+	private fun animateError() {
+		val animShake = AnimationUtils.loadAnimation(context, R.anim.shake_inline_error)
+		animShake.interpolator = BounceInterpolator()
+		tv_error.startAnimation(animShake)
 	}
 
 	fun setText(text: String) {

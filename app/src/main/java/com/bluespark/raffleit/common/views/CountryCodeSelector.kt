@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.model.objects.Country
@@ -37,6 +38,7 @@ class CountryCodeSelector(context: Context, attrs: AttributeSet) :
 	override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
 	override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+		hideError()
 		phoneNumber = if (!s.isNullOrBlank() && s.isNotEmpty()) {
 			listener.onPhoneNotEmpty()
 			s.toString()
@@ -48,7 +50,10 @@ class CountryCodeSelector(context: Context, attrs: AttributeSet) :
 
 	override fun onClick(v: View?) {
 		when (v?.id) {
-			btn_country.id -> listener.onCountryClick()
+			btn_country.id -> {
+				listener.onCountryClick()
+				hideError()
+			}
 		}
 	}
 
@@ -78,6 +83,12 @@ class CountryCodeSelector(context: Context, attrs: AttributeSet) :
 	fun showError(errorMessage: String) {
 		tv_error.text = errorMessage
 		tv_error.visibility = View.VISIBLE
+		animateError()
+	}
+
+	private fun animateError() {
+		val animShake = AnimationUtils.loadAnimation(context, R.anim.shake_inline_error)
+		tv_error.startAnimation(animShake)
 	}
 
 	fun hideError() {

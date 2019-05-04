@@ -17,6 +17,7 @@ class AgreementView(context: Context, attrs: AttributeSet) : LinearLayout(contex
 			if (field != value) {
 				field = value
 			}
+			if (!value) check_box_view.isChecked = false
 			check_box_view.isEnabled = value
 			alpha = if (value) 1F else 0.5F
 
