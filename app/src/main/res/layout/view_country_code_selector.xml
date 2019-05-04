@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="@dimen/dimen_14dp"
+	android:orientation="vertical">
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="@dimen/dimen_20dp"
+		android:layout_marginEnd="@dimen/dimen_20dp"
+		android:text="@string/title_input_box_phone"
+		android:textColor="@color/color_white"
+		android:textSize="@dimen/text_14sp" />
+
+	<android.support.v7.widget.CardView
+		android:id="@+id/cv"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/dimen_sign_in_components_height"
+		android:layout_margin="@dimen/dimen_4dp"
+		app:cardBackgroundColor="@color/color_custom_view_card_view_bgr"
+		app:cardCornerRadius="@dimen/dimen_sign_in_components_corner_radius"
+		app:cardElevation="@dimen/dimen_1dp"
+		app:cardUseCompatPadding="false">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="horizontal">
+
+			<LinearLayout
+				android:id="@+id/btn_country"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:layout_gravity="center_vertical"
+				android:orientation="horizontal"
+				android:paddingStart="@dimen/dimen_2dp"
+				android:paddingEnd="@dimen/dimen_2dp"
+				tools:ignore="UseCompoundDrawables">
+
+				<!-- Country Flag. -->
+				<ImageView
+					android:id="@+id/iv_flag"
+					android:layout_width="@dimen/dimen_26dp"
+					android:layout_height="match_parent"
+					android:layout_marginStart="@dimen/dimen_14dp"
+					android:adjustViewBounds="true"
+					android:contentDescription="@null"
+					android:src="@drawable/img_country_code_default_flag" />
+
+				<!-- Country Code. -->
+				<TextView
+					android:id="@+id/tv_code"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:drawableEnd="@drawable/ic_arrow_drop_down_dark_24dp"
+					android:gravity="center"
+					android:lines="@integer/integer_one"
+					android:minEms="@integer/integer_three"
+					android:layout_marginStart="@dimen/dimen_4dp"
+					tools:text="+0"/>
+			</LinearLayout>
+
+			<View
+				android:layout_width="1dp"
+				android:layout_height="match_parent"
+				android:background="#787878" />
+
+			<android.support.v7.widget.AppCompatEditText
+				android:id="@+id/et_phone"
+				style="@style/EditTextPhoneValidator"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				tools:text="2612422532"/>
+		</LinearLayout>
+	</android.support.v7.widget.CardView>
+
+	<!-- Inline Error. -->
+	<TextView
+		android:id="@+id/tv_error"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="@dimen/dimen_20dp"
+		android:layout_marginEnd="@dimen/dimen_20dp"
+		android:ellipsize="end"
+		android:maxLines="@integer/integer_two"
+		android:textAlignment="textEnd"
+		android:textColor="@color/color_custom_view_edit_text_error"
+		android:textSize="@dimen/text_12sp"
+		tools:text="Inline error text" />
+</LinearLayout>

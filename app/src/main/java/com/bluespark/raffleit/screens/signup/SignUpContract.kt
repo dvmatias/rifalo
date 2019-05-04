@@ -1,5 +1,6 @@
 package com.bluespark.raffleit.screens.signup
 
+import com.bluespark.raffleit.common.model.objects.Country
 import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenter
 import com.bluespark.raffleit.common.mvp.BaseView
@@ -7,26 +8,28 @@ import com.bluespark.raffleit.common.mvp.BaseView
 interface SignUpContract {
 
 	interface View : BaseView {
-
-		//UI feedback
+		// UI feedback
 		fun setFlowButtonLabel(label: String)
-
-		//User actions
+		fun showLoading(show: Boolean)
+		fun showSelectedCountry()
+		fun showAgreementWarningDialog()
+		// User actions
 		fun onBackButtonClicked()
 		fun onFlowButtonClicked()
-
-		//Flow
+		// Flow
 		fun goToValidatePhoneFragment()
 		fun goToSignUpUserInfoFragment()
+		fun goToChooseCountryScreen()
+		fun goToRegisterPhoneFragment()
+		//
+		fun setSelectedCountry(country: Country)
 
 	}
 
 	interface Presenter : BasePresenter<View> {
 
-		fun isValidUser(signUpUser: SignUpUser)
-		fun isValidEmail(email: String?): Pair<Boolean, String>
-		fun isValidPassword(password: String?): Pair<Boolean, String>
-		fun isValidPasswordConfirmation(passwordConfirmation: String?): Pair<Boolean, String>
+		fun fetchCountryCodes()
+		fun setSignUpUser(signUpUser: SignUpUser)
 
 	}
 

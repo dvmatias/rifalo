@@ -58,7 +58,6 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		facebook.sign_in_facebook_btn.setOnClickListener(this)
 		google.sign_in_google_btn.setOnClickListener(this)
 		tv_sign_up.setOnClickListener(this)
-
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

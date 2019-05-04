@@ -3,13 +3,15 @@ package com.bluespark.raffleit.common.views
 import android.content.Context
 import android.graphics.Color
 import android.support.annotation.Nullable
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import com.bluespark.raffleit.R
 import kotlinx.android.synthetic.main.custom_view_edit_text.view.*
 
-class EditTextCustomView : LinearLayout {
+class EditTextCustomView : LinearLayout, TextWatcher {
 
 	private var _titleText: String =
 		context.resources.getString(R.string.title_custom_view_edit_text_default_string)
@@ -84,6 +86,7 @@ class EditTextCustomView : LinearLayout {
 		init(attrs, defStyleAttr)
 	}
 
+	@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 	private fun init(attrs: AttributeSet?, defStyle: Int) {
 		View.inflate(context, R.layout.custom_view_edit_text, this)
 		// Load attributes
@@ -92,7 +95,7 @@ class EditTextCustomView : LinearLayout {
 		)
 
 		try {
-			val indexCount = typedArray.getIndexCount()
+			val indexCount = typedArray.indexCount
 			for (i in 0 until indexCount) {
 				val attr = typedArray.getIndex(i)
 
@@ -139,12 +142,9 @@ class EditTextCustomView : LinearLayout {
 		} catch (e: Exception) {
 			e.printStackTrace()
 		} finally {
-//			tv_title.text = titleText
-//			tv_title.setTextColor(Color.parseColor(titleColor))
-//			et.hint = hintText
+			et.addTextChangedListener(this)
 
 			setStatusNormal()
-			hideError()
 
 			typedArray.recycle()
 		}
@@ -152,12 +152,13 @@ class EditTextCustomView : LinearLayout {
 
 	@Suppress("unused")
 	fun setStatusNormal() {
-		cv.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_normal)
+		v_bgr.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_normal)
+		hideError()
 	}
 
 	@Suppress("unused")
 	fun setStatusError(@Nullable errorMsg: String) {
-		cv.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_error)
+		v_bgr.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_error)
 		_errorText = errorMsg
 		if (!_errorText.isBlank()) {
 			errorText = _errorText
@@ -167,19 +168,39 @@ class EditTextCustomView : LinearLayout {
 
 	@Suppress("unused")
 	fun setStatusValid() {
-		cv.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_valid)
+		v_bgr .setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_valid)
 	}
 
 	private fun hideError() {
-		tv_error.visibility = View.GONE
+		tv_error.visibility = View.INVISIBLE
 	}
 
 	private fun showError() {
 		tv_error.visibility = View.VISIBLE
 	}
 
+	fun setText(text: String) {
+		et.setText(text)
+	}
+
 	fun getText(): String {
 		return et.text.toString()
 	}
 
+	/**
+	 * [TextWatcher] implementation.
+	 */
+
+	override fun afterTextChanged(s: Editable?) {
+
+	}
+
+	override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+	}
+
+	override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+		// Set to normal status.
+		setStatusNormal()
+	}
 }

@@ -4,6 +4,7 @@
 	package="com.bluespark.raffleit">
 
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 	<application
 		android:name=".common.injection.application.MyApplication"
@@ -34,8 +35,12 @@
 		<activity android:name=".screens.main.MainActivity" />
 
 		<!-- Activity Sign Up -->
-		<activity android:name=".screens.signup.SignUpActivity"
+		<activity
+			android:name=".screens.signup.SignUpActivity"
 			android:theme="@style/ActivitySignUpTheme" />
+
+		<!-- Activity Choose Country -->
+		<activity android:name=".screens.choosecountry.ChooseCountryActivity" />
 	</application>
 
 </manifest>
