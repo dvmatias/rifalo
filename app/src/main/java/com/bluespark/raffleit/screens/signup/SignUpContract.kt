@@ -19,6 +19,7 @@ interface SignUpContract {
 		fun goToValidatePhoneFragment()
 		fun goToSignUpUserInfoFragment()
 		fun goToChooseCountryScreen()
+		fun goToRegisterPhoneFragment()
 		//
 		fun setSelectedCountry(country: Country)
 

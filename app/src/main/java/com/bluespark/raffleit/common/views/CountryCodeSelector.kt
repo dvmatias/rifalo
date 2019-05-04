@@ -17,6 +17,8 @@ class CountryCodeSelector(context: Context, attrs: AttributeSet) :
 
 	private lateinit var listener: Listener
 	var phoneNumber: String
+	var country: Country = Country("XX", "+0", "", "")
+
 
 	init {
 		inflate(context, R.layout.view_country_code_selector, this)
@@ -68,11 +70,12 @@ class CountryCodeSelector(context: Context, attrs: AttributeSet) :
 		imageLoader: ImageLoader,
 		phoneManager: PhoneManager
 	) {
-		imageLoader.loadImage(iv_flag, selectedCountry.url)
-		tv_code.text = phoneManager.getFormattedCountryCodeForRegion(selectedCountry.code)
+		country = selectedCountry
+		imageLoader.loadImage(iv_flag, country.url)
+		tv_code.text = phoneManager.getFormattedCountryCodeForRegion(country.code)
 	}
 
-	private fun showError(errorMessage: String) {
+	fun showError(errorMessage: String) {
 		tv_error.text = errorMessage
 		tv_error.visibility = View.VISIBLE
 	}

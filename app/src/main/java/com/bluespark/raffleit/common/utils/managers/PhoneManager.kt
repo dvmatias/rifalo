@@ -12,6 +12,8 @@ class PhoneManager(var phoneNumberUtil: PhoneNumberUtil) {
 	}
 
 	fun isValidNumber(number: String, nameCode: String): Boolean {
+		if (number.length < 2 || nameCode.isEmpty())
+			return false
 		return phoneNumberUtil.isValidNumber(parse(number, nameCode))
 	}
 

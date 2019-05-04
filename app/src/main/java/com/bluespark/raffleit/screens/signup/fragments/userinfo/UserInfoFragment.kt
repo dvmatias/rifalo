@@ -72,7 +72,7 @@ class UserInfoFragment : BaseFragmentImpl(), UserInfoContract.View {
 	 * TODO desc
 	 */
 	interface Listener {
-		fun onValidUser()
+		fun onValidEmailAndPassword()
 	}
 
 	companion object {
@@ -105,11 +105,11 @@ class UserInfoFragment : BaseFragmentImpl(), UserInfoContract.View {
 		etcv_user_password_confirmation.setStatusError(errorMsg)
 	}
 
-	override fun onValidUser() {
-		listener?.onValidUser()
+	override fun onValidEmailAndPassword() {
+		listener?.onValidEmailAndPassword()
 	}
 
-	fun validateUser() {
+	fun validateEmailAndPassword() {
 		presenter.validateUser(
 			SignUpUser(
 				etcv_user_email.getText(),

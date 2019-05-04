@@ -34,7 +34,7 @@ class UserInfoPresenterImpl(
 		)
 
 		if (isValidEmail && isValidPassword && isValidPasswordConfirmation) {
-			view?.onValidUser()
+			view?.onValidEmailAndPassword()
 		}
 	}
 

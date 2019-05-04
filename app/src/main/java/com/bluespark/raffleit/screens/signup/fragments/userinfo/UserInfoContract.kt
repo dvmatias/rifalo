@@ -14,7 +14,7 @@ interface UserInfoContract {
 		fun setPasswordConfirmationError(errorMsg: String)
 
 		// Flow.
-		fun onValidUser()
+		fun onValidEmailAndPassword()
 
 	}
 

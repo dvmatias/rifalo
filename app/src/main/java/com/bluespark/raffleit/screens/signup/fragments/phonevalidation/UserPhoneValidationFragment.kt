@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.model.objects.Country
 import com.bluespark.raffleit.common.mvp.BaseFragmentImpl
@@ -81,15 +82,35 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 		listener = null
 	}
 
-	fun showSelectedCountry(selectedCountry: Country) {
-		v_country_code_selector.showCountryInfo(selectedCountry, imageLoader, phoneManager)
+	override fun showSelectedCountry(country: Country) {
+		v_country_code_selector.showCountryInfo(country, imageLoader, phoneManager)
+	}
+
+	override fun showLoadingDialog(show: Boolean) {
+		Toast.makeText(context, "showLoadingDialog() $show", Toast.LENGTH_SHORT).show()
+	}
+
+	override fun showNoConnectionErrorDialog() {
+		Toast.makeText(context, "showNoConnectionErrorDialog()", Toast.LENGTH_SHORT).show()
+	}
+
+	override fun showWrongCountryError(errorMsg: String) {
+		v_country_code_selector.showError(errorMsg)
+	}
+
+	override fun showWrongNumberError(errorMsg: String) {
+		v_country_code_selector.showError(errorMsg)
+	}
+
+	override fun onValidPhone() {
+		listener?.onValidPhone()
 	}
 
 	/**
 	 * TODO desc
 	 */
 	interface Listener {
-
+		fun onValidPhone()
 	}
 
 	/**
@@ -98,5 +119,9 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 
 	override fun enableTermsAndConditions(isEnabled: Boolean) {
 		v_agreement._isEnabled = isEnabled
+	}
+
+	fun validatePhone() {
+		presenter.validatePhoneNumber(v_country_code_selector.country.code, v_country_code_selector.phoneNumber)
 	}
 }

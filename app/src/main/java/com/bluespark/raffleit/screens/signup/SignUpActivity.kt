@@ -118,7 +118,9 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	override fun onFlowButtonClicked() {
 		val currentFragment = getCurrentFragment()
 		if (currentFragment is UserInfoFragment)
-			currentFragment.validateUser()
+			currentFragment.validateEmailAndPassword()
+		if (currentFragment is UserPhoneValidationFragment)
+			currentFragment.validatePhone()
 	}
 
 	override fun goToValidatePhoneFragment() {
@@ -144,6 +146,10 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		startActivityForResult(intent, REQUEST_CODE_CHOOSE_COUNTRY_ACTIVITY)
 	}
 
+	override fun goToRegisterPhoneFragment() {
+		// TODO You must check if the agreement is accepted.
+	}
+
 	override fun setSelectedCountry(country: Country) {
 		this.selectedCountry = country
 		showSelectedCountry()
@@ -153,14 +159,22 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	 * [UserInfoFragment.Listener] implementation.
 	 */
 
-	override fun onValidUser() {
+	override fun onValidEmailAndPassword() {
 		goToValidatePhoneFragment()
+	}
+
+	/**
+	 * [UserPhoneValidationFragment.Listener] implementation.
+	 */
+
+	override fun onValidPhone() {
+		goToRegisterPhoneFragment()
 	}
 
 	/**
 	 * [CountryCodeSelector.Listener] implementation.
 	 */
-	// TODO
+
 	override fun onCountryClick() {
 		goToChooseCountryScreen()
 	}
