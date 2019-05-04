@@ -187,7 +187,7 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 		animShake.interpolator = BounceInterpolator()
 		tv_error.startAnimation(animShake)
 	}
-	
+
 	fun setText(text: String) {
 		et.setText(text)
 	}

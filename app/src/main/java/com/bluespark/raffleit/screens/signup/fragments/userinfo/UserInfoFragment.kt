@@ -105,6 +105,12 @@ class UserInfoFragment : BaseFragmentImpl(), UserInfoContract.View {
 		etcv_user_password_confirmation.setStatusError(errorMsg)
 	}
 
+	override fun hideErrors() {
+		etcv_user_email.setStatusNormal()
+		etcv_user_password.setStatusNormal()
+		etcv_user_password_confirmation.setStatusNormal()
+	}
+
 	override fun onValidEmailAndPassword() {
 		listener?.onValidEmailAndPassword()
 	}

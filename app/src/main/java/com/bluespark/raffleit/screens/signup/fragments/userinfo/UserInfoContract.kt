@@ -12,6 +12,7 @@ interface UserInfoContract {
 		fun setEmailError(errorMsg: String)
 		fun setPasswordError(errorMsg: String)
 		fun setPasswordConfirmationError(errorMsg: String)
+		fun hideErrors()
 
 		// Flow.
 		fun onValidEmailAndPassword()
