@@ -80,7 +80,7 @@ class CountryCodeSelector(context: Context, attrs: AttributeSet) :
 		tv_error.visibility = View.VISIBLE
 	}
 
-	private fun hideError() {
+	fun hideError() {
 		tv_error.visibility = View.INVISIBLE
 	}
 

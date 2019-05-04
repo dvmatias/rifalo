@@ -12,7 +12,7 @@ class PhoneManager(var phoneNumberUtil: PhoneNumberUtil) {
 	}
 
 	fun isValidNumber(number: String, nameCode: String): Boolean {
-		if (number.length < 2 || nameCode.isEmpty())
+		if (number.length < 2 || nameCode.isEmpty() || !isValidCountryName(nameCode))
 			return false
 		return phoneNumberUtil.isValidNumber(parse(number, nameCode))
 	}

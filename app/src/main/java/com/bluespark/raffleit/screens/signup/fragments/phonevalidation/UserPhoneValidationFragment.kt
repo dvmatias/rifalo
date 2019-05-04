@@ -87,19 +87,28 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	}
 
 	override fun showLoadingDialog(show: Boolean) {
-		Toast.makeText(context, "showLoadingDialog() $show", Toast.LENGTH_SHORT).show()
+		listener?.showLoadingDialog(show)
 	}
 
 	override fun showNoConnectionErrorDialog() {
 		Toast.makeText(context, "showNoConnectionErrorDialog()", Toast.LENGTH_SHORT).show()
 	}
 
-	override fun showWrongCountryError(errorMsg: String) {
+	override fun showInlinePhoneError(validCountry: Boolean, validNumber: Boolean) {
+		var errorMsg = ""
+		if (!validCountry && !validNumber) {
+			errorMsg += activity?.getString(R.string.msg_error_country_and_number)
+		} else {
+			if (!validCountry)
+				errorMsg += activity?.getString(R.string.msg_error_country)
+			if (!validNumber)
+				errorMsg += activity?.getString(R.string.msg_error_number)
+		}
 		v_country_code_selector.showError(errorMsg)
 	}
 
-	override fun showWrongNumberError(errorMsg: String) {
-		v_country_code_selector.showError(errorMsg)
+	override fun hideInlinePhoneError() {
+		v_country_code_selector.hideError()
 	}
 
 	override fun onValidPhone() {
@@ -111,6 +120,7 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	 */
 	interface Listener {
 		fun onValidPhone()
+		fun showLoadingDialog(show: Boolean)
 	}
 
 	/**
@@ -122,6 +132,9 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	}
 
 	fun validatePhone() {
-		presenter.validatePhoneNumber(v_country_code_selector.country.code, v_country_code_selector.phoneNumber)
+		presenter.validatePhoneNumber(
+			v_country_code_selector.country.code,
+			v_country_code_selector.phoneNumber
+		)
 	}
 }

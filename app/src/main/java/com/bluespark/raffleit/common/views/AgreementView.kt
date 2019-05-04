@@ -24,7 +24,7 @@ class AgreementView(context: Context, attrs: AttributeSet) : LinearLayout(contex
 
 	override fun onClick(v: View?) {
 		when (v?.id) {
-//			iv_checkbox.id -> setChecked(!iv_checkbox.isSelected)
+			check_box_view.id -> setChecked(check_box_view.isChecked)
 		}
 	}
 
@@ -39,6 +39,12 @@ class AgreementView(context: Context, attrs: AttributeSet) : LinearLayout(contex
 		check_box_view.isEnabled = false
 		setClickListener()
 		_isEnabled = false
+		check_box_view.setOnCheckedChangedListener(object: CheckBoxView.OnCheckedChangeListener{
+			override fun onCheckedChanged(checkableView: View, isChecked: Boolean) {
+				setChecked(isChecked)
+			}
+
+		})
 	}
 
 	private fun setClickListener() {
@@ -57,7 +63,6 @@ class AgreementView(context: Context, attrs: AttributeSet) : LinearLayout(contex
 	}
 
 	private fun setChecked(isChecked: Boolean) {
-//		iv_checkbox.isSelected = isChecked
 		setCheckStatus(isChecked)
 	}
 

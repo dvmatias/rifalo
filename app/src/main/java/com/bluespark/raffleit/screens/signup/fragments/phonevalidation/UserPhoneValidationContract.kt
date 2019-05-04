@@ -12,8 +12,8 @@ interface UserPhoneValidationContract {
 		fun showSelectedCountry(country: Country)
 		fun showLoadingDialog(show: Boolean)
 		fun showNoConnectionErrorDialog()
-		fun showWrongCountryError(errorMsg: String)
-		fun showWrongNumberError(errorMsg: String)
+		fun showInlinePhoneError(validCountry: Boolean, validNumber: Boolean)
+		fun hideInlinePhoneError()
 		// Flow.
 		fun onValidPhone()
 	}
@@ -24,7 +24,6 @@ interface UserPhoneValidationContract {
 		fun validatePhoneNumber(countryCode: String, phoneNumber: String)
 		fun isValidPhoneNumber(): Boolean
 		fun isValidCountry(): Boolean
-		fun registerPhoneNumber()
 
 	}
 }

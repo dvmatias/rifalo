@@ -40,6 +40,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	lateinit var gson: Gson
 
 	private lateinit var selectedCountry: Country
+	private var isAgreementAccepted: Boolean = false
 
 	companion object {
 		@Suppress("unused")
@@ -147,12 +148,20 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	override fun goToRegisterPhoneFragment() {
-		// TODO You must check if the agreement is accepted.
+		if (isAgreementAccepted) {
+			Toast.makeText(applicationContext, "Go to Register Phone Fragment.", Toast.LENGTH_SHORT).show()
+		} else {
+
+		}
 	}
 
 	override fun setSelectedCountry(country: Country) {
 		this.selectedCountry = country
 		showSelectedCountry()
+	}
+
+	override fun showAgreementWarningDialog() {
+		Toast.makeText(applicationContext, "Show agreement warning dialog.", Toast.LENGTH_SHORT).show()
 	}
 
 	/**
@@ -169,6 +178,10 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	override fun onValidPhone() {
 		goToRegisterPhoneFragment()
+	}
+
+	override fun showLoadingDialog(show: Boolean) {
+		showLoading(show)
 	}
 
 	/**
@@ -235,10 +248,10 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	 */
 
 	override fun onAgreementAccepted() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		isAgreementAccepted = true
 	}
 
 	override fun onAgreementRejected() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		isAgreementAccepted = false
 	}
 }

@@ -12,6 +12,7 @@ interface SignUpContract {
 		fun setFlowButtonLabel(label: String)
 		fun showLoading(show: Boolean)
 		fun showSelectedCountry()
+		fun showAgreementWarningDialog()
 		// User actions
 		fun onBackButtonClicked()
 		fun onFlowButtonClicked()
