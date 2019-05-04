@@ -15,7 +15,8 @@ import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.bluespark.raffleit.common.utils.managers.DialogsManager
 import com.bluespark.raffleit.common.views.AgreementView
 import com.bluespark.raffleit.common.views.CountryCodeSelector
-import com.bluespark.raffleit.common.views.LoadingDialogFragment
+import com.bluespark.raffleit.common.views.dialogs.LoadingDialogFragment
+import com.bluespark.raffleit.common.views.dialogs.WarningDialogFragmentImpl
 import com.bluespark.raffleit.screens.choosecountry.ChooseCountryActivity
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationFragment
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserInfoFragment
@@ -36,6 +37,8 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	lateinit var dialogsManager: DialogsManager
 	@Inject
 	lateinit var loadingDialogFragment: LoadingDialogFragment
+	@Inject
+	lateinit var warningDialogFragment: WarningDialogFragmentImpl
 	@Inject
 	lateinit var gson: Gson
 
@@ -149,9 +152,10 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	override fun goToRegisterPhoneFragment() {
 		if (isAgreementAccepted) {
-			Toast.makeText(applicationContext, "Go to Register Phone Fragment.", Toast.LENGTH_SHORT).show()
+			Toast.makeText(applicationContext, "Go to Register Phone Fragment.", Toast.LENGTH_SHORT)
+				.show()
 		} else {
-
+			showAgreementWarningDialog()
 		}
 	}
 
@@ -161,7 +165,12 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	override fun showAgreementWarningDialog() {
-		Toast.makeText(applicationContext, "Show agreement warning dialog.", Toast.LENGTH_SHORT).show()
+		warningDialogFragment.setup(
+			getString(R.string.title_warning_agreement),
+			getString(R.string.msg_warning_agreement),
+			getString(R.string.label_btn_warning_agreement)
+		)
+		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
 	}
 
 	/**

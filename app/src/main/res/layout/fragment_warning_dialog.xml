@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_gravity="center"
+	android:orientation="vertical"
+	android:paddingStart="@dimen/dimen_24dp"
+	android:paddingTop="@dimen/dimen_16dp"
+	android:paddingEnd="@dimen/dimen_24dp"
+	android:paddingBottom="@dimen/dimen_16dp">
+
+	<TextView
+		android:id="@+id/tv_title"
+		style="@style/DialogTitleTheme"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		tools:text="Title" />
+
+	<TextView
+		android:id="@+id/tv_msg"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		tools:text="Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet." />
+
+	<TextView
+		android:id="@+id/tv_btn"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:layout_marginTop="@dimen/dimen_28dp"
+		android:minWidth="80dp"
+		android:paddingStart="@dimen/dimen_12dp"
+		android:paddingTop="@dimen/dimen_6dp"
+		android:paddingEnd="@dimen/dimen_12dp"
+		android:paddingBottom="@dimen/dimen_6dp"
+		android:textAlignment="center"
+		android:textAllCaps="true"
+		android:textSize="@dimen/text_18sp"
+		android:textStyle="bold"
+		android:textColor="@color/color_custom_view_edit_text_error"
+		tools:text="ok" />
+</LinearLayout>

@@ -17,6 +17,9 @@
 	<string name="label_btn_next">next</string>
 	<string name="label_btn_validate_phone">validate phone</string>
 	<string name="label_btn_verify_phone">verify phone</string>
+	<string name="title_warning_agreement">Sorry!</string>
+	<string name="msg_warning_agreement">You must accept the Raffle !T agreement to continue with the registration. If you\'re agree with the terms and conditions and the private policy, please check the box.</string>
+	<string name="label_btn_warning_agreement">accept</string>
 
 	<!-- Fragment User Info -->
 	<string name="title_fragment_user_info_sign_up">Sign Up</string>

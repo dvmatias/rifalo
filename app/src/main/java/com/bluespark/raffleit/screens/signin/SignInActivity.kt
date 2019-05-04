@@ -3,16 +3,12 @@ package com.bluespark.raffleit.screens.signin
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
-import android.widget.CompoundButton
-import android.widget.RadioGroup
 import android.widget.Toast
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.bluespark.raffleit.common.utils.managers.FirebaseSignInGoogleManager
-import com.bluespark.raffleit.common.views.CheckBoxView
 import com.bluespark.raffleit.screens.main.MainActivity
 import com.bluespark.raffleit.screens.signup.SignUpActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn

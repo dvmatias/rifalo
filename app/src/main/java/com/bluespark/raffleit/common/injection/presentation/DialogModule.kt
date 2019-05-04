@@ -2,7 +2,8 @@ package com.bluespark.raffleit.common.injection.presentation
 
 import android.support.v4.app.FragmentManager
 import com.bluespark.raffleit.common.utils.managers.DialogsManager
-import com.bluespark.raffleit.common.views.LoadingDialogFragment
+import com.bluespark.raffleit.common.views.dialogs.LoadingDialogFragment
+import com.bluespark.raffleit.common.views.dialogs.WarningDialogFragmentImpl
 import dagger.Module
 import dagger.Provides
 
@@ -15,5 +16,9 @@ class DialogModule {
 
 	@Provides
 	fun getLoadingDialogFragment(): LoadingDialogFragment = LoadingDialogFragment.newInstance()
+
+	@Provides
+	fun getWarningDialogFragmentImpl(): WarningDialogFragmentImpl =
+		WarningDialogFragmentImpl.newInstance()
 
 }

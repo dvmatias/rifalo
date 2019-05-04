@@ -57,7 +57,7 @@ class LoadingDialogFragment : DialogFragment() {
 		val width = widthDisplay * 0.8
 		val height = LinearLayout.LayoutParams.WRAP_CONTENT
 		dialog.window!!.setLayout(width.toInt(), height)
-		dialog.window!!.setBackgroundDrawableResource(R.drawable.loading_fragment_bgr)
+		dialog.window!!.setBackgroundDrawableResource(R.drawable.shpae_dialog_fragment_bgr)
 
 		val rotate = RotateAnimation(
 			0f,
