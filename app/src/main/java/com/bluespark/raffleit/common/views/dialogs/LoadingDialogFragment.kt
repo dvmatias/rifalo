@@ -1,18 +1,13 @@
 package com.bluespark.raffleit.common.views.dialogs
 
-import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.LinearLayout
-import com.bluespark.raffleit.R
-import android.view.animation.LinearInterpolator
 import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
+import com.bluespark.raffleit.R
 import kotlinx.android.synthetic.main.fragment_loading_dialog.*
 
 /**
@@ -70,12 +65,12 @@ class LoadingDialogFragment : MyDialogFragment() {
 			Animation.RELATIVE_TO_SELF,
 			ROTATION_PIVOT_Y_VALUE
 		)
-		rotate.duration = ROTATION_DURATION
-		rotate.interpolator = LinearInterpolator()
-		rotate.repeatCount = Animation.INFINITE
+		rotate.apply {
+			duration = ROTATION_DURATION
+			interpolator = LinearInterpolator()
+			repeatCount = Animation.INFINITE
+		}
 
 		iv_loading.startAnimation(rotate)
-
-		dialog.setCancelable(false)
 	}
 }
