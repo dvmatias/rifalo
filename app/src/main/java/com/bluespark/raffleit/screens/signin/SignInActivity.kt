@@ -2,7 +2,6 @@ package com.bluespark.raffleit.screens.signin
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import com.bluespark.raffleit.R
@@ -16,7 +15,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_sign_in.*
-import kotlinx.android.synthetic.main.view_login_btn.view.*
 import kotlinx.android.synthetic.main.view_sign_in_facebook_btn.view.*
 import kotlinx.android.synthetic.main.view_sign_in_google_btn.view.*
 import javax.inject.Inject
@@ -93,16 +91,10 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 	override fun onLoginClick() {
 		val email: String = etcv_user_email.getText()
 		val password: String = etcv_user_password.getText()
+		presenter.validateCredentials(email, password)
+	}
 
-		if (TextUtils.isEmpty(email)) {
-			Toast.makeText(applicationContext, "Please enter email...", Toast.LENGTH_LONG).show()
-			return
-		}
-		if (TextUtils.isEmpty(password)) {
-			Toast.makeText(applicationContext, "Please enter password!", Toast.LENGTH_LONG).show()
-			return
-		}
-
+	override fun onSignInEmailPassword(email: String, password: String) {
 		firebaseAuth.signInWithEmailAndPassword(email, password)
 			.addOnCompleteListener { task ->
 				if (task.isSuccessful) {
@@ -141,6 +133,14 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 
 	override fun showNoInternetDialog(show: Boolean) {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+
+	override fun setEmailError(errorMsg: String) {
+		etcv_user_email.setStatusError(errorMsg)
+	}
+
+	override fun setPasswordError(errorMsg: String) {
+		etcv_user_password.setStatusError(errorMsg)
 	}
 
 	override fun goToMainScreen() {
