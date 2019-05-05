@@ -24,11 +24,12 @@ import kotlinx.android.synthetic.main.custom_viewflow_button.view.*
  *
  * @author matias.delv.dom@gmail.com
  */
+@Suppress("KDocUnresolvedReference")
 class FlowButtonCustomView : CardView {
 
 	private val listenerAdapter = InternalListener()
 
-	private var _labelText: String =
+	private var _labelText: String? =
 		resources.getString(R.string.label_flow_button_custom_view_default_string)
 	private var _labelColor: Int =
 		ContextCompat.getColor(context, R.color.label_flow_button_custom_view_default_color)
@@ -38,7 +39,7 @@ class FlowButtonCustomView : CardView {
 	/**
 	 * Button label text.
 	 */
-	var labelText: String
+	var labelText: String?
 		get() = _labelText
 		set(value) {
 			_labelText = value
@@ -96,14 +97,15 @@ class FlowButtonCustomView : CardView {
 		)
 
 		try {
-			val indexCount = typedArray.getIndexCount()
+			val indexCount = typedArray.indexCount
 			for (i in 0 until indexCount) {
 				val attr = typedArray.getIndex(i)
 
 				when (attr) {
 					R.styleable.FlowButtonCustomView_labelText -> {
 						//
-						_labelText = typedArray.getString(R.styleable.EditTextCustomView_titleText)
+						_labelText =
+							typedArray.getString(R.styleable.FlowButtonCustomView_labelText)
 					}
 					R.styleable.FlowButtonCustomView_labelColor -> {
 						//

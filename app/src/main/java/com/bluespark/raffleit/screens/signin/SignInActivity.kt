@@ -40,7 +40,7 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 	override fun onClick(v: View?) {
 		when (v?.id) {
 			tv_get_help.id -> onGetHelpClick()
-			login.login_btn.id -> onLoginClick()
+			login_btn.id -> onLoginClick()
 			facebook.sign_in_facebook_btn.id -> onSignInFacebookClick()
 			google.sign_in_google_btn.id -> onSignInGoogleClick()
 			tv_sign_up.id -> onSignUpClick()
@@ -54,7 +54,7 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		getPresentationComponent().inject(this)
 
 		tv_get_help.setOnClickListener(this)
-		login.login_btn.setOnClickListener(this)
+		login_btn.setOnClickListener(this)
 		facebook.sign_in_facebook_btn.setOnClickListener(this)
 		google.sign_in_google_btn.setOnClickListener(this)
 		tv_sign_up.setOnClickListener(this)
@@ -91,8 +91,8 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 	}
 
 	override fun onLoginClick() {
-		val email: String = et_user_name.text.toString()
-		val password: String = et_user_password.text.toString()
+		val email: String = etcv_user_email.getText()
+		val password: String = etcv_user_password.getText()
 
 		if (TextUtils.isEmpty(email)) {
 			Toast.makeText(applicationContext, "Please enter email...", Toast.LENGTH_LONG).show()

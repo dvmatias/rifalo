@@ -64,8 +64,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
-			app:buttonColor="#ffd900"
-			app:labelText="next"/>
+			app:buttonColor="#ffd900" />
 	</FrameLayout>
 
 </LinearLayout>

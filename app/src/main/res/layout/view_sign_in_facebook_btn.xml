@@ -14,7 +14,7 @@
 		android:foreground="?android:attr/selectableItemBackground"
 		app:cardBackgroundColor="@color/color_facebook"
 		app:cardCornerRadius="@dimen/dimen_sign_in_components_corner_radius"
-		app:cardElevation="@dimen/dimen_3dp">
+		app:cardElevation="@dimen/dimen_1dp">
 
 		<RelativeLayout
 			android:layout_width="match_parent"
