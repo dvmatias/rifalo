@@ -16,6 +16,7 @@ class UserInfoPresenterImpl(
 	private var isValidEmail: Boolean
 	private var isValidPassword: Boolean
 	private var isValidPasswordConfirmation: Boolean
+	private var signUpUser: SignUpUser? = null
 
 	init {
 		bind(view)
@@ -24,18 +25,22 @@ class UserInfoPresenterImpl(
 		isValidPasswordConfirmation = false
 	}
 
-	override fun validateUser(signUpUser: SignUpUser) {
+	override fun validateEmailAndPassword(
+		email: String?,
+		password: String?,
+		passwordConfirmation: String?
+	) {
 		view?.hideErrors()
-		validateEmailInteractor.execute(this, signUpUser.email)
-		validatePasswordInteractor.execute(this, signUpUser.password)
+		validateEmailInteractor.execute(this, email)
+		validatePasswordInteractor.execute(this, password)
 		validatePasswordConfirmationInteractor.execute(
 			this,
-			signUpUser.passwordConfirmation,
-			signUpUser.password
+			passwordConfirmation,
+			password
 		)
 
 		if (isValidEmail && isValidPassword && isValidPasswordConfirmation) {
-			view?.onValidEmailAndPassword()
+			view?.onValidEmailAndPassword(email!!, password!!)
 		}
 	}
 

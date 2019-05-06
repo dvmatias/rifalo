@@ -3,6 +3,7 @@ package com.bluespark.raffleit.screens.signup
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -11,8 +12,8 @@ import com.bluespark.raffleit.common.Constants.Companion.EXTRA_KEY_COUNTRY_LIST
 import com.bluespark.raffleit.common.Constants.Companion.EXTRA_KEY_SELECTED_COUNTRY
 import com.bluespark.raffleit.common.Constants.Companion.REQUEST_CODE_CHOOSE_COUNTRY_ACTIVITY
 import com.bluespark.raffleit.common.model.objects.Country
+import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
-import com.bluespark.raffleit.common.utils.managers.DialogsManager
 import com.bluespark.raffleit.common.views.AgreementView
 import com.bluespark.raffleit.common.views.CountryCodeSelector
 import com.bluespark.raffleit.common.views.dialogs.LoadingDialogFragment
@@ -20,6 +21,7 @@ import com.bluespark.raffleit.common.views.dialogs.WarningDialogFragmentImpl
 import com.bluespark.raffleit.screens.choosecountry.ChooseCountryActivity
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationFragment
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserInfoFragment
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import javax.inject.Inject
@@ -37,9 +39,12 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	lateinit var warningDialogFragment: WarningDialogFragmentImpl
 	@Inject
 	lateinit var gson: Gson
+	@Inject
+	lateinit var firebaseAuth: FirebaseAuth
 
 	private lateinit var selectedCountry: Country
 	private var isAgreementAccepted: Boolean = false
+	private var signUpUser: SignUpUser = SignUpUser("", "", null)
 
 	companion object {
 		@Suppress("unused")
@@ -141,8 +146,34 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	override fun goToRegisterPhoneFragment() {
 		if (isAgreementAccepted) {
-			Toast.makeText(applicationContext, "Go to Register Phone Fragment.", Toast.LENGTH_SHORT)
-				.show()
+			//create user
+			showLoadingDialog(true)
+			Handler().postDelayed({
+				firebaseAuth.createUserWithEmailAndPassword(signUpUser.email, signUpUser.password)
+					.addOnCompleteListener(
+						this
+					) { task ->
+						Toast.makeText(
+							this, "createUserWithEmail:onComplete:" + task.isSuccessful,
+							Toast.LENGTH_SHORT
+						).show()
+						// If sign in fails, display a message to the user. If sign in succeeds
+						// the auth state listener will be notified and logic to handle the
+						// signed in user can be handled in the listener.
+						if (!task.isSuccessful) {
+							Toast.makeText(
+								this, "Authentication failed." + task.exception!!,
+								Toast.LENGTH_SHORT
+							).show()
+						} else {
+							Toast.makeText(
+								this, "Authentication successful.",
+								Toast.LENGTH_SHORT
+							).show()
+						}
+						showLoadingDialog(false)
+					}
+			}, 1000)
 		} else {
 			showAgreementWarningDialog()
 		}
@@ -166,7 +197,10 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	 * [UserInfoFragment.Listener] implementation.
 	 */
 
-	override fun onValidEmailAndPassword() {
+	override fun onValidEmailAndPassword(email: String, password: String) {
+		// Create an user with valid email and password, the phone is set in next fragment.
+		signUpUser.email = email
+		signUpUser.password = password
 		goToValidatePhoneFragment()
 	}
 
@@ -179,7 +213,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	override fun showLoadingDialog(show: Boolean) {
-		showLoading(show)
+		super.showLoading(show)
 	}
 
 	/**

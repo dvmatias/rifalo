@@ -5,7 +5,6 @@ import android.support.annotation.NonNull
 import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.model.databaseschemas.CountryCodeSchema
 import com.bluespark.raffleit.common.model.objects.Country
-import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
 import java.util.*
 import kotlin.collections.ArrayList
@@ -16,7 +15,6 @@ class SignUpPresenterImpl(
 ) : BasePresenterImpl<SignUpContract.View>(),
 	SignUpContract.Presenter, SignUpFetchCountryCodesInteractor.Listener {
 
-	private var signUpUser: SignUpUser? = null
 	private var countryCodeScheme: CountryCodeSchema? = null
 	var countryList: ArrayList<Country>? = null
 
@@ -32,10 +30,6 @@ class SignUpPresenterImpl(
 				signUpFetchCountryCodesInteractor.execute(this)
 			}, Constants.DELAY_FETCH_COUNTRY_CODES)
 		}
-	}
-
-	override fun setSignUpUser(signUpUser: SignUpUser) {
-		this.signUpUser = signUpUser
 	}
 
 	private fun setCountryList() {

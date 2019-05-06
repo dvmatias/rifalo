@@ -1,6 +1,5 @@
 package com.bluespark.raffleit.screens.signup.fragments.userinfo
 
-import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenter
 import com.bluespark.raffleit.common.mvp.BaseView
 
@@ -15,13 +14,17 @@ interface UserInfoContract {
 		fun hideErrors()
 
 		// Flow.
-		fun onValidEmailAndPassword()
+		fun onValidEmailAndPassword(email: String, password: String)
 
 	}
 
 	interface Presenter : BasePresenter<View> {
 
-		fun validateUser(signUpUser: SignUpUser)
+		fun validateEmailAndPassword(
+			email: String?,
+			password: String?,
+			passwordConfirmation: String?
+		)
 		fun manageEmailError(errorMsg: String)
 		fun managePasswordError(errorMsg: String)
 		fun managePasswordConfirmationError(errorMsg: String)

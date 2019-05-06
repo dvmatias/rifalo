@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluespark.raffleit.R
-import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BaseFragmentImpl
 import kotlinx.android.synthetic.main.fragment_user_info.*
 import javax.inject.Inject
@@ -72,7 +71,7 @@ class UserInfoFragment : BaseFragmentImpl(), UserInfoContract.View {
 	 * TODO desc
 	 */
 	interface Listener {
-		fun onValidEmailAndPassword()
+		fun onValidEmailAndPassword(email: String, password: String)
 	}
 
 	companion object {
@@ -111,18 +110,15 @@ class UserInfoFragment : BaseFragmentImpl(), UserInfoContract.View {
 		etcv_user_password_confirmation.setStatusNormal()
 	}
 
-	override fun onValidEmailAndPassword() {
-		listener?.onValidEmailAndPassword()
+	override fun onValidEmailAndPassword(email: String, password: String) {
+		listener?.onValidEmailAndPassword(email, password)
 	}
 
 	fun validateEmailAndPassword() {
-		presenter.validateUser(
-			SignUpUser(
-				etcv_user_email.getText(),
-				etcv_user_password.getText(),
-				etcv_user_password_confirmation.getText(),
-				null
-			)
+		presenter.validateEmailAndPassword(
+			etcv_user_email.getText(),
+			etcv_user_password.getText(),
+			etcv_user_password_confirmation.getText()
 		)
 	}
 

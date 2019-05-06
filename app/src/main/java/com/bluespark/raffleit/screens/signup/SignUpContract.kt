@@ -29,7 +29,6 @@ interface SignUpContract {
 	interface Presenter : BasePresenter<View> {
 
 		fun fetchCountryCodes()
-		fun setSignUpUser(signUpUser: SignUpUser)
 
 	}
 
