@@ -11,7 +11,7 @@ interface ChooseCountryContract {
 		fun setData(countryList: List<Country>)
 		// UI Feedback.
 		fun showEmptyState()
-		fun showLoading(show: Boolean)
+		fun showLoadingDialog(show: Boolean)
 		fun showRetryState()
 	}
 

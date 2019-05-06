@@ -1,5 +1,6 @@
 package com.bluespark.raffleit.screens.signin
 
+import android.os.Handler
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidateEmailInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordInteractor
@@ -11,6 +12,7 @@ class SignInPresenterImpl(
 ) : BasePresenterImpl<SignInContract.View>(),
 	SignInContract.Presenter, ValidateEmailInteractor.Listener,
 	ValidatePasswordInteractor.Listener {
+
 	private var isValidEmail: Boolean
 	private var isValidPassword: Boolean
 
@@ -31,6 +33,12 @@ class SignInPresenterImpl(
 	override fun validateCredentials(email: String?, password: String?) {
 		validateEmailInteractor.execute(this, email)
 		validatePasswordInteractor.execute(this, password)
+
+		if (isValidEmail && isValidPassword) {
+			view?.showLoadingDialog(true)
+			view?.onSignInEmailPassword(email!!, password!!)
+		} else {
+		}
 	}
 
 	/**

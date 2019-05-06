@@ -100,7 +100,7 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 				if (task.isSuccessful) {
 					Toast.makeText(applicationContext, "Login successful!", Toast.LENGTH_LONG)
 						.show()
-//					progressBar.setVisibility(View.GONE)
+					showLoadingDialog(false)
 
 					goToMainScreen()
 				} else {
@@ -109,7 +109,7 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 						"Login failed! Please try again later",
 						Toast.LENGTH_LONG
 					).show()
-//					progressBar.setVisibility(View.GONE)
+					showLoadingDialog(false)
 				}
 			}
 	}
@@ -127,8 +127,10 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		goToSignUpScreen()
 	}
 
-	override fun showLoading(show: Boolean) {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+
+	override fun showLoadingDialog(show: Boolean) {
+		super.showLoading(show)
 	}
 
 	override fun showNoInternetDialog(show: Boolean) {

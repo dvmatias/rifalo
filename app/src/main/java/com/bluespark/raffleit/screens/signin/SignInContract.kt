@@ -14,13 +14,15 @@ interface SignInContract {
 		fun onSignInGoogleClick()
 		fun onSignUpClick()
 		// UI feedback
-		fun showLoading(show: Boolean)
 		fun showNoInternetDialog(show: Boolean)
 		fun setEmailError(errorMsg: String)
 		fun setPasswordError(errorMsg: String)
 		// Flow
 		fun goToMainScreen()
 		fun goToSignUpScreen()
+		fun showLoadingDialog(show: Boolean) {
+
+		}
 	}
 
 	interface Presenter : BasePresenter<View> {

@@ -124,7 +124,7 @@ class ChooseCountryActivity : BaseActivityImpl(),
 		// TODO
 	}
 
-	override fun showLoading(show: Boolean) {
+	override fun showLoadingDialog(show: Boolean) {
 		if (show) {
 			rv_country.visibility = View.GONE
 //			progress.visibility = View.VISIBLE TODO

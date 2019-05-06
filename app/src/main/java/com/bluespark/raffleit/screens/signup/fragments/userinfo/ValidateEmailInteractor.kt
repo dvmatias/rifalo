@@ -1,6 +1,7 @@
 package com.bluespark.raffleit.screens.signup.fragments.userinfo
 
 import android.content.Context
+import android.support.annotation.UiThread
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.Constants
 import java.util.regex.Pattern
@@ -12,6 +13,7 @@ class ValidateEmailInteractor(private var context: Context) {
 		fun onInvalidEmail(errorMsg: String)
 	}
 
+	@UiThread
 	fun execute(listener: ValidateEmailInteractor.Listener, email: String?) {
 		if (email.isNullOrEmpty()) {
 			listener.onInvalidEmail(context.getString(R.string.msg_empty_email_error))
@@ -21,9 +23,12 @@ class ValidateEmailInteractor(private var context: Context) {
 					.matcher(email)
 
 			listener.run {
-				if (matcher.matches()) onValidEmail() else onInvalidEmail(
-					context.getString(R.string.msg_invalid_email_error)
-				)
+				if (matcher.matches())
+					onValidEmail()
+				else
+					onInvalidEmail(
+						context.getString(R.string.msg_invalid_email_error)
+					)
 			}
 		}
 	}
