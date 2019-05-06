@@ -72,7 +72,7 @@
 	<dimen name="size_flow_button_label">18sp</dimen>
 
 	<!-- Sign In Activity -->
-	<dimen name="dimen_sign_in_logo_height">46dp</dimen>
+	<dimen name="dimen_sign_in_logo_height">32dp</dimen>
 	<dimen name="dimen_sign_in_components_height">46dp</dimen>
 	<dimen name="dimen_sign_in_components_corner_radius">23dp</dimen>
 	<dimen name="text_sign_in_components">18sp</dimen>
