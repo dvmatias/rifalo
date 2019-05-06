@@ -87,7 +87,7 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	}
 
 	override fun showLoadingDialog(show: Boolean) {
-		listener?.showLoadingDialog(show)
+		listener?.onLoading(show)
 	}
 
 	override fun showNoConnectionErrorDialog() {
@@ -120,7 +120,7 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	 */
 	interface Listener {
 		fun onValidPhone()
-		fun showLoadingDialog(show: Boolean)
+		fun onLoading(show: Boolean)
 	}
 
 	/**

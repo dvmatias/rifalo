@@ -10,7 +10,7 @@ interface SignUpContract {
 	interface View : BaseView {
 		// UI feedback
 		fun setFlowButtonLabel(label: String)
-		fun showLoading(show: Boolean)
+		fun showLoadingDialog(show: Boolean)
 		fun showSelectedCountry()
 		fun showAgreementWarningDialog()
 		// User actions

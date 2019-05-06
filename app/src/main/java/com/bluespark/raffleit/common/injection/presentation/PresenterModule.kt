@@ -35,8 +35,16 @@ class PresenterModule {
 		)
 
 	@Provides
-	fun getSignInPresenterImpl(view: BaseView): SignInPresenterImpl =
-		SignInPresenterImpl(view as SignInContract.View)
+	fun getSignInPresenterImpl(
+		view: BaseView,
+		validateEmailInteractor: ValidateEmailInteractor,
+		validatePasswordInteractor: ValidatePasswordInteractor
+	): SignInPresenterImpl =
+		SignInPresenterImpl(
+			view as SignInContract.View,
+			validateEmailInteractor,
+			validatePasswordInteractor
+		)
 
 	@Provides
 	fun getSignUpPresenterImpl(

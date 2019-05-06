@@ -34,10 +34,6 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	@Inject
 	lateinit var adapter: SignUpFragmentAdapter
 	@Inject
-	lateinit var dialogsManager: DialogsManager
-	@Inject
-	lateinit var loadingDialogFragment: LoadingDialogFragment
-	@Inject
 	lateinit var warningDialogFragment: WarningDialogFragmentImpl
 	@Inject
 	lateinit var gson: Gson
@@ -98,15 +94,8 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		flow_btn.labelText = label
 	}
 
-	override fun showLoading(show: Boolean) {
-		if (show) {
-			dialogsManager.showRetainedDialogWithId(
-				loadingDialogFragment,
-				LoadingDialogFragment.TAG
-			)
-		} else {
-			dialogsManager.dismissCurrentlyShownDialog()
-		}
+	override fun onLoading(show: Boolean) {
+		super.showLoading(show)
 	}
 
 	override fun showSelectedCountry() {

@@ -27,7 +27,7 @@ class SignUpPresenterImpl(
 
 	override fun fetchCountryCodes() {
 		if (countryCodeScheme == null) {
-			view?.showLoading(Constants.SHOW_LOADING)
+			view?.showLoadingDialog(Constants.SHOW_LOADING)
 			Handler().postDelayed({
 				signUpFetchCountryCodesInteractor.execute(this)
 			}, Constants.DELAY_FETCH_COUNTRY_CODES)
@@ -67,10 +67,10 @@ class SignUpPresenterImpl(
 	override fun onSuccess(@NonNull countryCodeScheme: CountryCodeSchema) {
 		this.countryCodeScheme = countryCodeScheme
 		setCountryList()
-		view?.showLoading(Constants.HIDE_LOADING)
+		view?.showLoadingDialog(Constants.HIDE_LOADING)
 	}
 
 	override fun onFail() {
-		view?.showLoading(Constants.HIDE_LOADING)
+		view?.showLoadingDialog(Constants.HIDE_LOADING)
 	}
 }
