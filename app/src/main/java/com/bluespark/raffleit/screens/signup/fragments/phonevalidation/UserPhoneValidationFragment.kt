@@ -116,7 +116,8 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	}
 
 	/**
-	 * TODO desc
+	 * Interface to be implemented by calling Activity. This interface is the bridge to communicate
+	 * this fragment with his parent Activity.
 	 */
 	interface Listener {
 		fun onValidPhone()

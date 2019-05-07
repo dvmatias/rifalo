@@ -3,7 +3,6 @@ package com.bluespark.raffleit.screens.signup
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -20,6 +19,7 @@ import com.bluespark.raffleit.common.views.dialogs.LoadingDialogFragment
 import com.bluespark.raffleit.common.views.dialogs.WarningDialogFragmentImpl
 import com.bluespark.raffleit.screens.choosecountry.ChooseCountryActivity
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationFragment
+import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPhoneRegistrationFragment
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserInfoFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
@@ -29,7 +29,7 @@ import javax.inject.Inject
 
 class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickListener,
 	UserInfoFragment.Listener, UserPhoneValidationFragment.Listener,
-	CountryCodeSelector.Listener, AgreementView.Listener {
+	CountryCodeSelector.Listener, AgreementView.Listener, UserPhoneRegistrationFragment.Listener {
 
 	@Inject
 	lateinit var presenter: SignUpPresenterImpl
@@ -81,11 +81,6 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	private fun setupPager() {
-		adapter.addFragment(UserInfoFragment.newInstance(), UserInfoFragment.TAG)
-		adapter.addFragment(
-			UserPhoneValidationFragment.newInstance(),
-			UserPhoneValidationFragment.TAG
-		)
 		pager.adapter = adapter
 	}
 
@@ -126,11 +121,6 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		setFlowButtonLabel(getString(R.string.label_btn_validate_phone))
 	}
 
-	override fun goToSignUpUserInfoFragment() {
-		Toast.makeText(applicationContext, "Go to UserInfoFragment", Toast.LENGTH_SHORT)
-			.show()
-	}
-
 	override fun goToChooseCountryScreen() {
 		val intent = Intent(this, ChooseCountryActivity::class.java)
 		intent.putExtra(
@@ -145,7 +135,8 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	override fun goToRegisterPhoneFragment() {
-		// TODO
+		pager.setCurrentItem(2, true)
+		setFlowButtonLabel(getString(R.string.label_btn_verify_phone))
 	}
 
 	override fun setSelectedCountry(country: Country) {
@@ -197,6 +188,10 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	override fun showLoadingDialog(show: Boolean) {
 		super.showLoading(show)
 	}
+
+	/**
+	 * [UserPhoneRegistrationFragment.Listener] implementation.
+	 */
 
 	/**
 	 * [CountryCodeSelector.Listener] implementation.

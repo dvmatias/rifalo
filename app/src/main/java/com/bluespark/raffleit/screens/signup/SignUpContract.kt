@@ -18,7 +18,6 @@ interface SignUpContract {
 		fun onFlowButtonClicked()
 		// Flow
 		fun goToValidatePhoneFragment()
-		fun goToSignUpUserInfoFragment()
 		fun goToChooseCountryScreen()
 		fun goToRegisterPhoneFragment()
 		//
