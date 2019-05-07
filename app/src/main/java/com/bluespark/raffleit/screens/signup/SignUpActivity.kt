@@ -135,8 +135,12 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	override fun goToRegisterPhoneFragment() {
-		pager.setCurrentItem(2, true)
-		setFlowButtonLabel(getString(R.string.label_btn_verify_phone))
+		if (isAgreementAccepted) {
+			pager.setCurrentItem(2, true)
+			setFlowButtonLabel(getString(R.string.label_btn_verify_phone))
+		} else {
+			showAgreementWarningDialog()
+		}
 	}
 
 	override fun setSelectedCountry(country: Country) {
@@ -150,11 +154,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	 * [UserPhoneRegistrationFragment], once the user enter the OTP number and click [flow_btn].
 	 */
 	override fun registerUser() {
-		if (isAgreementAccepted) {
-			presenter.registerFirebaseUser(signUpUser)
-		} else {
-			showAgreementWarningDialog()
-		}
+		presenter.registerFirebaseUser(signUpUser)
 	}
 
 	override fun showAgreementWarningDialog() {
