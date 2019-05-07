@@ -19,7 +19,7 @@ import com.bluespark.raffleit.common.views.dialogs.LoadingDialogFragment
 import com.bluespark.raffleit.common.views.dialogs.WarningDialogFragmentImpl
 import com.bluespark.raffleit.screens.choosecountry.ChooseCountryActivity
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationFragment
-import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPhoneRegistrationFragment
+import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPhoneVerificationFragment
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserInfoFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
@@ -29,7 +29,7 @@ import javax.inject.Inject
 
 class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickListener,
 	UserInfoFragment.Listener, UserPhoneValidationFragment.Listener,
-	CountryCodeSelector.Listener, AgreementView.Listener, UserPhoneRegistrationFragment.Listener {
+	CountryCodeSelector.Listener, AgreementView.Listener, UserPhoneVerificationFragment.Listener {
 
 	@Inject
 	lateinit var presenter: SignUpPresenterImpl
@@ -151,7 +151,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	/**
 	 * Method called when an [SignUpUser] has been created by the user. This method must be called
 	 * once the user validate his info trough [UserInfoFragment], [UserPhoneValidationFragment] and
-	 * [UserPhoneRegistrationFragment], once the user enter the OTP number and click [flow_btn].
+	 * [UserPhoneVerificationFragment], once the user enter the OTP number and click [flow_btn].
 	 */
 	override fun registerUser() {
 		presenter.registerFirebaseUser(signUpUser)
@@ -190,7 +190,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	/**
-	 * [UserPhoneRegistrationFragment.Listener] implementation.
+	 * [UserPhoneVerificationFragment.Listener] implementation.
 	 */
 
 	/**

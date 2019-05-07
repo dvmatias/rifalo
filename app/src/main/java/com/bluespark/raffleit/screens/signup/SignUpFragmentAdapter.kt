@@ -3,7 +3,7 @@ package com.bluespark.raffleit.screens.signup
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPhoneRegistrationFragment
+import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPhoneVerificationFragment
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationFragment
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserInfoFragment
 
@@ -18,8 +18,8 @@ class SignUpFragmentAdapter(fragmentManager: FragmentManager) :
 		fragmentTitleList.add(UserInfoFragment.TAG)
 		fragmentList.add(UserPhoneValidationFragment.newInstance())
 		fragmentTitleList.add(UserPhoneValidationFragment.TAG)
-		fragmentList.add(UserPhoneRegistrationFragment.newInstance())
-		fragmentTitleList.add(UserPhoneRegistrationFragment.TAG)
+		fragmentList.add(UserPhoneVerificationFragment.newInstance())
+		fragmentTitleList.add(UserPhoneVerificationFragment.TAG)
 	}
 
 	override fun getItem(position: Int): Fragment {

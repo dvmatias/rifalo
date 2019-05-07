@@ -45,12 +45,19 @@
 
 	<!-- Fragment Phone Validation -->
 	<string name="title_fragment_phone_validation">Phone Validation</string>
-	<string name="title_fragment_phone_validation_explanation">Now we have to validate you phone. Please choose the region code an enter you phone number.</string>
+	<string name="explanation_fragment_phone_validation">Now we have to validate you phone. Please choose the region code an enter you phone number.</string>
 	<string name="title_input_box_phone">Enter your cellphone number</string>
 	<string name="text_fragment_phone_validation_agreement">By checking the box I confirm that I am over 18 years old and that I have read and accept the Terms and Conditions and Private Policy.</string>
 	<string name="msg_error_country_and_number">You must pick a country and enter a valid number</string>
 	<string name="msg_error_country">You must pick a country</string>
 	<string name="msg_error_number">You must enter a valid number</string>
+
+	<!-- Fragment Phone Verification -->
+	<string name="title_fragment_phone_verification">Phone Verification</string>
+	<string name="explanation_fragment_phone_verification">Almost done! Now we are going to verify you cell phone number. You\'ll receive an SMS with the OTP code. Please introduce this code in the box. If the SMS has not arrived, please wait for a moment.</string>
+	<string name="title_input_box_otp">Enter the OTP code</string>
+	<string name="title_otp_etcv">OTP code</string>
+	<string name="hint_otp_etcv">Enter the 6 digits code</string>
 
 	<!-- Edit Text Custom View -->
 	<string name="title_custom_view_edit_text_default_string">Title</string>

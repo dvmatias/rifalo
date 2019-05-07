@@ -11,25 +11,25 @@ import com.bluespark.raffleit.R
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [UserPhoneRegistrationFragment.Listener] interface
+ * [UserPhoneVerificationFragment.Listener] interface
  * to handle interaction events.
- * Use the [UserPhoneRegistrationFragment.newInstance] factory method to
+ * Use the [UserPhoneVerificationFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  * @author matias.delv.dom@gmail.com
  */
-class UserPhoneRegistrationFragment : Fragment() {
+class UserPhoneVerificationFragment : Fragment() {
 	private var listener: Listener? = null
 
 	companion object {
-		val TAG: String = UserPhoneRegistrationFragment::class.java.simpleName
+		val TAG: String = UserPhoneVerificationFragment::class.java.simpleName
 
 		/**
-		 * Factory method to create a new instance of [UserPhoneRegistrationFragment].
+		 * Factory method to create a new instance of [UserPhoneVerificationFragment].
 		 */
 		@JvmStatic
 		fun newInstance() =
-			UserPhoneRegistrationFragment().apply {
+			UserPhoneVerificationFragment().apply {
 				arguments = Bundle().apply {}
 			}
 	}
@@ -45,7 +45,7 @@ class UserPhoneRegistrationFragment : Fragment() {
 		savedInstanceState: Bundle?
 	): View? {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_user_phone_registration, container, false)
+		return inflater.inflate(R.layout.fragment_user_phone_verification, container, false)
 	}
 
 	override fun onAttach(context: Context) {
@@ -53,7 +53,7 @@ class UserPhoneRegistrationFragment : Fragment() {
 		if (context is Listener) {
 			listener = context
 		} else {
-			throw RuntimeException("Calling Activity must implement UserPhoneRegistrationFragment.Listener")
+			throw RuntimeException("Calling Activity must implement UserPhoneVerificationFragment.Listener")
 		}
 	}
 
