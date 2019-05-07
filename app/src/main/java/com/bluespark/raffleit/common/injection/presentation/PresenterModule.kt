@@ -6,6 +6,7 @@ import com.bluespark.raffleit.screens.choosecountry.ChooseCountryContract
 import com.bluespark.raffleit.screens.choosecountry.ChooseCountryPresenterImpl
 import com.bluespark.raffleit.screens.signin.SignInContract
 import com.bluespark.raffleit.screens.signin.SignInPresenterImpl
+import com.bluespark.raffleit.screens.signup.RegisterFirebaseUserInteractor
 import com.bluespark.raffleit.screens.signup.SignUpContract
 import com.bluespark.raffleit.screens.signup.SignUpFetchCountryCodesInteractor
 import com.bluespark.raffleit.screens.signup.SignUpPresenterImpl
@@ -49,9 +50,13 @@ class PresenterModule {
 	@Provides
 	fun getSignUpPresenterImpl(
 		view: BaseView,
-		signUpFetchCountryCodesInteractor: SignUpFetchCountryCodesInteractor
+		signUpFetchCountryCodesInteractor: SignUpFetchCountryCodesInteractor,
+		registerFirebaseUserInteractor: RegisterFirebaseUserInteractor
 	): SignUpPresenterImpl =
-		SignUpPresenterImpl(view as SignUpContract.View, signUpFetchCountryCodesInteractor)
+		SignUpPresenterImpl(
+			view as SignUpContract.View, signUpFetchCountryCodesInteractor,
+			registerFirebaseUserInteractor
+		)
 
 	@Provides
 	fun getSignUpUserInfoPresenterImpl(

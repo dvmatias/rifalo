@@ -1,13 +1,17 @@
 package com.bluespark.raffleit.common.injection.presentation
 
+import android.app.Activity
 import android.content.Context
+import android.support.v7.app.AppCompatActivity
 import com.bluespark.raffleit.common.utils.managers.InternetConnectivityManager
+import com.bluespark.raffleit.screens.signup.RegisterFirebaseUserInteractor
 import com.bluespark.raffleit.screens.signup.SignUpFetchCountryCodesInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidateEmailInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordConfirmationInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckCredentialsInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import dagger.Module
 import dagger.Provides
@@ -39,5 +43,12 @@ class InteractorModule {
 	@Provides
 	fun getValidatePasswordConfirmationInteractor(context: Context): ValidatePasswordConfirmationInteractor =
 		ValidatePasswordConfirmationInteractor(context)
+
+	@Provides
+	fun getRegisterFirebaseUserInteractor(
+		activity: AppCompatActivity,
+		firebaseAuth: FirebaseAuth
+	): RegisterFirebaseUserInteractor =
+		RegisterFirebaseUserInteractor(activity, firebaseAuth)
 
 }

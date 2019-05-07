@@ -145,43 +145,25 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	override fun goToRegisterPhoneFragment() {
-		if (isAgreementAccepted) {
-			//create user
-			showLoadingDialog(true)
-			Handler().postDelayed({
-				firebaseAuth.createUserWithEmailAndPassword(signUpUser.email, signUpUser.password)
-					.addOnCompleteListener(
-						this
-					) { task ->
-						Toast.makeText(
-							this, "createUserWithEmail:onComplete:" + task.isSuccessful,
-							Toast.LENGTH_SHORT
-						).show()
-						// If sign in fails, display a message to the user. If sign in succeeds
-						// the auth state listener will be notified and logic to handle the
-						// signed in user can be handled in the listener.
-						if (!task.isSuccessful) {
-							Toast.makeText(
-								this, "Authentication failed." + task.exception!!,
-								Toast.LENGTH_SHORT
-							).show()
-						} else {
-							Toast.makeText(
-								this, "Authentication successful.",
-								Toast.LENGTH_SHORT
-							).show()
-						}
-						showLoadingDialog(false)
-					}
-			}, 1000)
-		} else {
-			showAgreementWarningDialog()
-		}
+		// TODO
 	}
 
 	override fun setSelectedCountry(country: Country) {
 		this.selectedCountry = country
 		showSelectedCountry()
+	}
+
+	/**
+	 * Method called when an [SignUpUser] has been created by the user. This method must be called
+	 * once the user validate his info trough [UserInfoFragment], [UserPhoneValidationFragment] and
+	 * [UserPhoneRegistrationFragment], once the user enter the OTP number and click [flow_btn].
+	 */
+	override fun registerUser() {
+		if (isAgreementAccepted) {
+			presenter.registerFirebaseUser(signUpUser)
+		} else {
+			showAgreementWarningDialog()
+		}
 	}
 
 	override fun showAgreementWarningDialog() {

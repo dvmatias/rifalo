@@ -23,12 +23,14 @@ interface SignUpContract {
 		fun goToRegisterPhoneFragment()
 		//
 		fun setSelectedCountry(country: Country)
+		fun registerUser()
 
 	}
 
 	interface Presenter : BasePresenter<View> {
 
 		fun fetchCountryCodes()
+		fun registerFirebaseUser(signUpUser: SignUpUser)
 
 	}
 
