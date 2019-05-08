@@ -9,7 +9,7 @@ interface UserPhoneVerificationContract {
 	interface View : BaseView {
 		fun showLoadingDialog(show: Boolean)
 		fun onVerifiedPhone(phoneNumber: String)
-		fun setAutoOtpCode(otpCode: String)
+		fun writeAutoOtpCode(otpCode: String)
 	}
 
 	interface Presenter : BasePresenter<View> {

@@ -12,6 +12,8 @@ class UserPhoneVerificationPresenterImpl(
 	BasePresenterImpl<UserPhoneVerificationContract.View>(),
 	UserPhoneVerificationContract.Presenter {
 
+	var verificationId: String? = null
+
 	init {
 		bind(view)
 	}
@@ -35,32 +37,21 @@ class UserPhoneVerificationPresenterImpl(
 	 */
 	private val sendOtpInteractorListener = object : SendFirebaseOtpInteractor.Listener {
 		override fun onVerificationCompleted(otpCode: String?) {
-			view.showLoadingDialog(Constants.HIDE_LOADING)
 			if (otpCode != null) {
-				view.setAutoOtpCode(otpCode)
+				view.writeAutoOtpCode(otpCode)
 			}
+			view.showLoadingDialog(Constants.HIDE_LOADING)
 		}
 
 		override fun onVerificationFailed() {
 			// TODO
+			view.showLoadingDialog(Constants.HIDE_LOADING)
 		}
 
 		override fun onCodeSent(verificationId: String?) {
 			// TODO
-		}
-
-	}
-
-	/**
-	 * [SplashCheckNetworkInteractor.Listener] implementation.
-	 */
-	private val networkInteractorListener = object : SplashCheckNetworkInteractor.Listener {
-		override fun onInternetConnected() {
-			TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-		}
-
-		override fun onInternetNotConnected() {
-			TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+			view.showLoadingDialog(Constants.HIDE_LOADING)
+			this@UserPhoneVerificationPresenterImpl.verificationId = verificationId
 		}
 
 	}

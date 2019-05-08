@@ -2,12 +2,15 @@ package com.bluespark.raffleit.screens.signup.fragments.phoneregistration
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.mvp.BaseFragmentImpl
+import com.bluespark.raffleit.common.utils.managers.FirebaseSignInPhoneManager
+import com.bluespark.raffleit.screens.signup.SignUpActivity
 import kotlinx.android.synthetic.main.fragment_user_phone_verification.*
 import javax.inject.Inject
 
@@ -25,6 +28,8 @@ class UserPhoneVerificationFragment : BaseFragmentImpl(), UserPhoneVerificationC
 
 	@Inject
 	lateinit var presenter: UserPhoneVerificationPresenterImpl
+	@Inject
+	lateinit var firebaseSignInPhoneManager: FirebaseSignInPhoneManager
 
 	private var listener: Listener? = null
 
@@ -71,10 +76,6 @@ class UserPhoneVerificationFragment : BaseFragmentImpl(), UserPhoneVerificationC
 		listener = null
 	}
 
-	private fun setOtpCode(otpCode: String) {
-		etcv_otp.setText(otpCode)
-	}
-
 	/**
 	 * [UserPhoneVerificationContract.View] implementation.
 	 */
@@ -87,8 +88,8 @@ class UserPhoneVerificationFragment : BaseFragmentImpl(), UserPhoneVerificationC
 		listener?.onVerifiedPhone(phoneNumber)
 	}
 
-	override fun setAutoOtpCode(otpCode: String) {
-		setOtpCode(otpCode)
+	override fun writeAutoOtpCode(otpCode: String) {
+		etcv_otp.setText(otpCode)
 	}
 
 	/**
@@ -101,7 +102,17 @@ class UserPhoneVerificationFragment : BaseFragmentImpl(), UserPhoneVerificationC
 	}
 
 	fun sendOtpCode(phoneNumber: String) {
-		presenter.sendOtpCode(phoneNumber)
+		Handler().postDelayed({
+			presenter.sendOtpCode(phoneNumber)
+		}, 750)
+	}
+
+	fun verifyOtp() {
+		firebaseSignInPhoneManager.firebaseSignInWithPhone(
+			activity as SignUpActivity,
+			presenter.verificationId!!,
+			etcv_otp.getText()
+		)
 	}
 
 }

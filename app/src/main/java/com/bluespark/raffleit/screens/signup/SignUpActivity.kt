@@ -90,14 +90,23 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	 * [SignUpContract.View] implementation.
 	 */
 
+	/**
+	 * Set main button label.
+	 */
 	override fun setFlowButtonLabel(label: String) {
 		flow_btn.labelText = label
 	}
 
+	/**
+	 * The phone has been verified trough OTP code.
+	 */
 	override fun onVerifiedPhone(phoneNumber: String) {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
+	/**
+	 * Show/Hide loading fragment.
+	 */
 	override fun onLoading(show: Boolean) {
 		super.showLoading(show)
 	}
@@ -108,16 +117,24 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 			currentFragment.showSelectedCountry(this.selectedCountry)
 	}
 
+	/**
+	 * Back button clicked.
+	 */
 	override fun onBackButtonClicked() {
 		Toast.makeText(applicationContext, "Back clicked!", Toast.LENGTH_SHORT).show()
 	}
 
+	/**
+	 * Flow button click.
+	 */
 	override fun onFlowButtonClicked() {
 		val currentFragment = getCurrentFragment()
 		if (currentFragment is UserInfoFragment)
 			currentFragment.validateEmailAndPassword()
 		if (currentFragment is UserPhoneValidationFragment)
 			currentFragment.validatePhone()
+		if (currentFragment is UserPhoneVerificationFragment)
+			currentFragment.verifyOtp()
 	}
 
 	override fun goToValidatePhoneFragment() {
