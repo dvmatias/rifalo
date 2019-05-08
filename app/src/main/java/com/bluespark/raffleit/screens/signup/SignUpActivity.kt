@@ -18,8 +18,8 @@ import com.bluespark.raffleit.common.views.CountryCodeSelector
 import com.bluespark.raffleit.common.views.dialogs.LoadingDialogFragment
 import com.bluespark.raffleit.common.views.dialogs.WarningDialogFragmentImpl
 import com.bluespark.raffleit.screens.choosecountry.ChooseCountryActivity
-import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationFragment
 import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPhoneVerificationFragment
+import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationFragment
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserInfoFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
@@ -94,6 +94,10 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		flow_btn.labelText = label
 	}
 
+	override fun onVerifiedPhone(phoneNumber: String) {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+
 	override fun onLoading(show: Boolean) {
 		super.showLoading(show)
 	}
@@ -134,10 +138,13 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		startActivityForResult(intent, REQUEST_CODE_CHOOSE_COUNTRY_ACTIVITY)
 	}
 
-	override fun goToRegisterPhoneFragment() {
+	override fun goToRegisterPhoneFragment(phoneNumber: String) {
 		if (isAgreementAccepted) {
 			pager.setCurrentItem(2, true)
 			setFlowButtonLabel(getString(R.string.label_btn_verify_phone))
+			val currentFragment = getCurrentFragment()
+			if (currentFragment is UserPhoneVerificationFragment)
+				currentFragment.sendOtpCode(phoneNumber)
 		} else {
 			showAgreementWarningDialog()
 		}
@@ -181,8 +188,8 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	 * [UserPhoneValidationFragment.Listener] implementation.
 	 */
 
-	override fun onValidPhone() {
-		goToRegisterPhoneFragment()
+	override fun onValidPhone(phoneNumber: String) {
+		goToRegisterPhoneFragment(phoneNumber)
 	}
 
 	override fun showLoadingDialog(show: Boolean) {
@@ -192,6 +199,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	/**
 	 * [UserPhoneVerificationFragment.Listener] implementation.
 	 */
+
 
 	/**
 	 * [CountryCodeSelector.Listener] implementation.

@@ -10,6 +10,9 @@ import com.bluespark.raffleit.screens.signup.RegisterFirebaseUserInteractor
 import com.bluespark.raffleit.screens.signup.SignUpContract
 import com.bluespark.raffleit.screens.signup.SignUpFetchCountryCodesInteractor
 import com.bluespark.raffleit.screens.signup.SignUpPresenterImpl
+import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.SendFirebaseOtpInteractor
+import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPhoneVerificationContract
+import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPhoneVerificationPresenterImpl
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationContract
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationPresenterImpl
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.*
@@ -73,7 +76,7 @@ class PresenterModule {
 		)
 
 	@Provides
-	fun getSignUpUserPhoneValidationPresenterImpl(
+	fun getUserPhoneValidationPresenterImpl(
 		view: BaseView,
 		checkNetworkInteractor: SplashCheckNetworkInteractor,
 		phoneManager: PhoneManager
@@ -87,5 +90,17 @@ class PresenterModule {
 	@Provides
 	fun getChooseCountryPresenterImpl(view: BaseView): ChooseCountryPresenterImpl =
 		ChooseCountryPresenterImpl(view as ChooseCountryContract.View)
+
+	@Provides
+	fun getUserPhoneVerificationPresenterImpl(
+		view: BaseView,
+		checkNetworkInteractor: SplashCheckNetworkInteractor,
+		sendFirebaseOtpInteractor: SendFirebaseOtpInteractor
+	): UserPhoneVerificationPresenterImpl =
+		UserPhoneVerificationPresenterImpl(
+			view as UserPhoneVerificationContract.View,
+			checkNetworkInteractor,
+			sendFirebaseOtpInteractor
+		)
 
 }

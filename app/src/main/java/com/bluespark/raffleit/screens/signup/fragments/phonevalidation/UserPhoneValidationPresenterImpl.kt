@@ -36,7 +36,11 @@ class UserPhoneValidationPresenterImpl(
 	 * are valid values, then it try to register the user's phone number. For non valid fields
 	 * it call [view] methods to show corresponding inline error.
 	 */
-	override fun validatePhoneNumber(countryCode: String, phoneNumber: String) {
+	override fun validatePhoneNumber(
+		countryCode: String,
+		phoneNumber: String,
+		dialCode: String
+	) {
 		this.countryCode = countryCode
 		this.phoneNumber = phoneNumber
 		val validCountry = isValidCountry()
@@ -46,7 +50,7 @@ class UserPhoneValidationPresenterImpl(
 			view?.showInlinePhoneError(validCountry, validNumber)
 		} else {
 			view?.hideInlinePhoneError()
-			view?.onValidPhone()
+			view?.onValidPhone(dialCode + phoneNumber)
 		}
 	}
 

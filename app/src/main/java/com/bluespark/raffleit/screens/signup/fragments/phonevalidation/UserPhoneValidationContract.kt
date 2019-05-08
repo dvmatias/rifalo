@@ -15,13 +15,17 @@ interface UserPhoneValidationContract {
 		fun showInlinePhoneError(validCountry: Boolean, validNumber: Boolean)
 		fun hideInlinePhoneError()
 		// Flow.
-		fun onValidPhone()
+		fun onValidPhone(phoneNumber: String)
 	}
 
 	interface Presenter : BasePresenter<View> {
 
 		fun checkInternetConnectionStatus()
-		fun validatePhoneNumber(countryCode: String, phoneNumber: String)
+		fun validatePhoneNumber(
+			countryCode: String,
+			phoneNumber: String,
+			dialCode: String
+		)
 		fun isValidPhoneNumber(): Boolean
 		fun isValidCountry(): Boolean
 

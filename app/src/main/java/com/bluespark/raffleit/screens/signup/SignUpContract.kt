@@ -19,7 +19,7 @@ interface SignUpContract {
 		// Flow
 		fun goToValidatePhoneFragment()
 		fun goToChooseCountryScreen()
-		fun goToRegisterPhoneFragment()
+		fun goToRegisterPhoneFragment(phoneNumber: String)
 		//
 		fun setSelectedCountry(country: Country)
 		fun registerUser()

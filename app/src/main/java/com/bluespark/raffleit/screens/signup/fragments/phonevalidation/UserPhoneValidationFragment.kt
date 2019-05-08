@@ -111,8 +111,8 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 		v_country_code_selector.hideError()
 	}
 
-	override fun onValidPhone() {
-		listener?.onValidPhone()
+	override fun onValidPhone(phoneNumber: String) {
+		listener?.onValidPhone(phoneNumber)
 	}
 
 	/**
@@ -120,7 +120,7 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	 * this fragment with his parent Activity.
 	 */
 	interface Listener {
-		fun onValidPhone()
+		fun onValidPhone(phoneNumber: String)
 		fun onLoading(show: Boolean)
 	}
 
@@ -135,7 +135,8 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	fun validatePhone() {
 		presenter.validatePhoneNumber(
 			v_country_code_selector.country.code,
-			v_country_code_selector.phoneNumber
+			v_country_code_selector.phoneNumber,
+			v_country_code_selector.country.dial_code
 		)
 	}
 }

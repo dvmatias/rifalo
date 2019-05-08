@@ -1,11 +1,11 @@
 package com.bluespark.raffleit.common.injection.presentation
 
-import android.app.Activity
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import com.bluespark.raffleit.common.utils.managers.InternetConnectivityManager
 import com.bluespark.raffleit.screens.signup.RegisterFirebaseUserInteractor
 import com.bluespark.raffleit.screens.signup.SignUpFetchCountryCodesInteractor
+import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.SendFirebaseOtpInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidateEmailInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordConfirmationInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordInteractor
@@ -50,5 +50,8 @@ class InteractorModule {
 		firebaseAuth: FirebaseAuth
 	): RegisterFirebaseUserInteractor =
 		RegisterFirebaseUserInteractor(activity, firebaseAuth)
+
+	@Provides
+	fun getSendFirebaseOtpInteractor(): SendFirebaseOtpInteractor = SendFirebaseOtpInteractor()
 
 }

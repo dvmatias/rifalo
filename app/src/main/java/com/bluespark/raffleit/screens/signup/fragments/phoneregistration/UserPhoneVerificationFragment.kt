@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluespark.raffleit.R
+import com.bluespark.raffleit.common.mvp.BaseFragmentImpl
+import kotlinx.android.synthetic.main.fragment_user_phone_verification.*
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
@@ -18,8 +21,14 @@ import com.bluespark.raffleit.R
  *
  * @author matias.delv.dom@gmail.com
  */
-class UserPhoneVerificationFragment : Fragment() {
+class UserPhoneVerificationFragment : BaseFragmentImpl(), UserPhoneVerificationContract.View {
+
+	@Inject
+	lateinit var presenter: UserPhoneVerificationPresenterImpl
+
 	private var listener: Listener? = null
+
+	private lateinit var phoneNumber: String
 
 	companion object {
 		val TAG: String = UserPhoneVerificationFragment::class.java.simpleName
@@ -30,14 +39,14 @@ class UserPhoneVerificationFragment : Fragment() {
 		@JvmStatic
 		fun newInstance() =
 			UserPhoneVerificationFragment().apply {
-				arguments = Bundle().apply {}
+				arguments = Bundle().apply {
+				}
 			}
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		arguments?.let {
-		}
+		getPresentationComponent().inject(this)
 	}
 
 	override fun onCreateView(
@@ -62,11 +71,37 @@ class UserPhoneVerificationFragment : Fragment() {
 		listener = null
 	}
 
+	private fun setOtpCode(otpCode: String) {
+		etcv_otp.setText(otpCode)
+	}
+
+	/**
+	 * [UserPhoneVerificationContract.View] implementation.
+	 */
+
+	override fun showLoadingDialog(show: Boolean) {
+		listener?.onLoading(show)
+	}
+
+	override fun onVerifiedPhone(phoneNumber: String) {
+		listener?.onVerifiedPhone(phoneNumber)
+	}
+
+	override fun setAutoOtpCode(otpCode: String) {
+		setOtpCode(otpCode)
+	}
+
 	/**
 	 * Interface to be implemented by calling Activity. This interface is the bridge to communicate
 	 * this fragment with his parent Activity.
 	 */
 	interface Listener {
+		fun onLoading(show: Boolean)
+		fun onVerifiedPhone(phoneNumber: String)
+	}
+
+	fun sendOtpCode(phoneNumber: String) {
+		presenter.sendOtpCode(phoneNumber)
 	}
 
 }
