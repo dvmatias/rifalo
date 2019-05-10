@@ -1,10 +1,10 @@
-package com.bluespark.raffleit.screens.signup
+package com.bluespark.raffleit.screens.signup.interaactors
 
 import android.app.Activity
 import android.os.Handler
 import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.utils.managers.FirebaseEmailPasswordManager
-import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.FirebaseUser
 
 
 class RegisterFirebaseUserInteractor(
@@ -15,14 +15,13 @@ class RegisterFirebaseUserInteractor(
 	var listener: Listener? = null
 
 	interface Listener {
-		fun onSuccess()
+		fun onSuccess(firebaseUser: FirebaseUser)
 		fun onFail()
 	}
 
 	fun execute(
 		listener: Listener,
-		signUpUser: SignUpUser,
-		phoneAuthCredential: PhoneAuthCredential
+		signUpUser: SignUpUser
 	) {
 		this.listener = listener
 		Handler().postDelayed({
@@ -61,9 +60,9 @@ class RegisterFirebaseUserInteractor(
 //									}
 //								}
 //							}
-//						listener.onSuccess()
+//						listener.onUserCreationSuccess()
 //					} else {
-//						listener.onFail()
+//						listener.onUserCreationFail()
 //					}
 //				}
 		}, 500)
@@ -75,11 +74,11 @@ class RegisterFirebaseUserInteractor(
 	 * [FirebaseEmailPasswordManager.Listener.CreateUserListener] implementation.
 	 */
 	private val createUserListener =  object: FirebaseEmailPasswordManager.Listener.CreateUserListener {
-		override fun onSuccess() {
-			listener?.onSuccess()
+		override fun onUserCreationSuccess(firebaseUser: FirebaseUser) {
+			listener?.onSuccess(firebaseUser)
 		}
 
-		override fun onFail(errorCode: String) {
+		override fun onUserCreationFail(errorCode: String) {
 			listener?.onFail()
 		}
 	}

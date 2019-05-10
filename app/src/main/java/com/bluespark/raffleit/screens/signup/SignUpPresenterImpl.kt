@@ -7,7 +7,10 @@ import com.bluespark.raffleit.common.model.databaseschemas.CountryCodeSchema
 import com.bluespark.raffleit.common.model.objects.Country
 import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
-import com.google.firebase.auth.EmailAuthProvider
+import com.bluespark.raffleit.screens.signup.interaactors.RegisterFirebaseUserInteractor
+import com.bluespark.raffleit.screens.signup.interaactors.SignUpFetchCountryCodesInteractor
+import com.bluespark.raffleit.screens.signup.interaactors.UpdatePhoneFirebaseUserInteractor
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import java.util.*
 import kotlin.collections.ArrayList
@@ -15,11 +18,13 @@ import kotlin.collections.ArrayList
 class SignUpPresenterImpl(
 	view: SignUpContract.View,
 	private var signUpFetchCountryCodesInteractor: SignUpFetchCountryCodesInteractor,
-	private var registerFirebaseUserInteractor: RegisterFirebaseUserInteractor
+	private var registerFirebaseUserInteractor: RegisterFirebaseUserInteractor,
+	private var updatePhoneFirebaseUserInteractor: UpdatePhoneFirebaseUserInteractor
 ) : BasePresenterImpl<SignUpContract.View>(),
 	SignUpContract.Presenter, SignUpFetchCountryCodesInteractor.Listener {
 
 	private var signUpUser: SignUpUser? = null
+	private var phoneAuthCredential: PhoneAuthCredential? = null
 	private var countryCodeScheme: CountryCodeSchema? = null
 	var countryList: ArrayList<Country>? = null
 
@@ -40,10 +45,14 @@ class SignUpPresenterImpl(
 	/**
 	 * Register user by email/password sign in method.
 	 */
-	override fun registerFirebaseUser(signUpUser: SignUpUser, phoneAuthCredential: PhoneAuthCredential) {
+	override fun registerFirebaseUser(
+		signUpUser: SignUpUser,
+		phoneAuthCredential: PhoneAuthCredential
+	) {
 		this.signUpUser = signUpUser
+		this.phoneAuthCredential = phoneAuthCredential
 		view?.showLoadingDialog(Constants.SHOW_LOADING)
-		registerFirebaseUserInteractor.execute(registerFirebaseUserInteractorListener, signUpUser, phoneAuthCredential)
+		registerFirebaseUserInteractor.execute(registerFirebaseUserInteractorListener, signUpUser)
 	}
 
 	private fun setCountryList() {
@@ -88,13 +97,33 @@ class SignUpPresenterImpl(
 
 	private val registerFirebaseUserInteractorListener =
 		object : RegisterFirebaseUserInteractor.Listener {
-			override fun onSuccess() {
-				// TODO User email/password registration successful
-				view.showLoadingDialog(Constants.HIDE_LOADING)
+			override fun onSuccess(firebaseUser: FirebaseUser) {
+				updatePhoneFirebaseUserInteractor.execute(
+					updatePhoneFirebaseUserInteractorListener,
+					firebaseUser,
+					phoneAuthCredential!!
+				)
 			}
 
 			override fun onFail() {
 				// TODO User email/password registration failed
+				view.showLoadingDialog(Constants.HIDE_LOADING)
+			}
+		}
+
+	/**
+	 * [UpdatePhoneFirebaseUserInteractor.Listener] implementation.
+	 */
+
+	private val updatePhoneFirebaseUserInteractorListener =
+		object : UpdatePhoneFirebaseUserInteractor.Listener {
+			override fun onSuccess() {
+				// TODO
+				view.showLoadingDialog(Constants.HIDE_LOADING)
+			}
+
+			override fun onFail() {
+				// TODO
 				view.showLoadingDialog(Constants.HIDE_LOADING)
 			}
 		}

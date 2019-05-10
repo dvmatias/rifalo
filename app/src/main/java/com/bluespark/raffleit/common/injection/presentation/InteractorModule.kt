@@ -4,16 +4,17 @@ import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import com.bluespark.raffleit.common.utils.managers.FirebaseEmailPasswordManager
 import com.bluespark.raffleit.common.utils.managers.FirebaseSignInPhoneManager
+import com.bluespark.raffleit.common.utils.managers.FirebaseUserManager
 import com.bluespark.raffleit.common.utils.managers.InternetConnectivityManager
-import com.bluespark.raffleit.screens.signup.RegisterFirebaseUserInteractor
-import com.bluespark.raffleit.screens.signup.SignUpFetchCountryCodesInteractor
+import com.bluespark.raffleit.screens.signup.interaactors.RegisterFirebaseUserInteractor
+import com.bluespark.raffleit.screens.signup.interaactors.SignUpFetchCountryCodesInteractor
 import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.SendFirebaseOtpInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidateEmailInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordConfirmationInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordInteractor
+import com.bluespark.raffleit.screens.signup.interaactors.UpdatePhoneFirebaseUserInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckCredentialsInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import dagger.Module
 import dagger.Provides
@@ -32,7 +33,9 @@ class InteractorModule {
 
 	@Provides
 	fun getSignUpFetchCountryCodesInteractor(rootDatabaseReference: DatabaseReference): SignUpFetchCountryCodesInteractor =
-		SignUpFetchCountryCodesInteractor(rootDatabaseReference)
+		SignUpFetchCountryCodesInteractor(
+			rootDatabaseReference
+		)
 
 	@Provides
 	fun getValidateEmailInteractor(context: Context): ValidateEmailInteractor =
@@ -51,7 +54,20 @@ class InteractorModule {
 		activity: AppCompatActivity,
 		firebaseEmailPasswordManager: FirebaseEmailPasswordManager
 	): RegisterFirebaseUserInteractor =
-		RegisterFirebaseUserInteractor(activity, firebaseEmailPasswordManager)
+		RegisterFirebaseUserInteractor(
+			activity,
+			firebaseEmailPasswordManager
+		)
+
+	@Provides
+	fun getUpdatePhoneFirebaseUserInteractor(
+		activity: AppCompatActivity,
+		firebaseUserManager: FirebaseUserManager
+	): UpdatePhoneFirebaseUserInteractor =
+		UpdatePhoneFirebaseUserInteractor(
+			activity,
+			firebaseUserManager
+		)
 
 	@Provides
 	fun getSendFirebaseOtpInteractor(

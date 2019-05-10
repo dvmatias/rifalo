@@ -4,7 +4,11 @@ import android.app.Activity
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
+import com.google.firebase.auth.FirebaseUser
 
+/**
+ * TODO desc.
+ */
 class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 
 	companion object {
@@ -14,13 +18,13 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 
 	interface Listener {
 		interface CreateUserListener {
-			fun onSuccess()
-			fun onFail(errorCode: String)
+			fun onUserCreationSuccess(firebaseUser: FirebaseUser)
+			fun onUserCreationFail(errorCode: String)
 		}
 
 		interface SignInListener {
-			fun onSuccess()
-			fun onFail(errorCode: String)
+			fun onEmailPasswordSignInSuccess()
+			fun onEmailPasswordSignInFail(errorCode: String)
 		}
 	}
 
@@ -57,7 +61,10 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 		) { task ->
 			if (task.isSuccessful) {
 				Log.d(TAG, "createUserWithEmailAndPassword:success")
-				listener?.onSuccess()
+				val firebaseUser = firebaseAuth.currentUser
+				if (firebaseUser != null) {
+					listener?.onUserCreationSuccess(firebaseUser)
+				}
 			} else {
 				val errorCode =
 					when ((task.exception as FirebaseAuthUserCollisionException).errorCode) {
@@ -68,7 +75,7 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 						else -> ""
 					}
 				Log.d(TAG, "createUserWithEmailAndPassword:fail - errorCode = $errorCode")
-				listener?.onFail(errorCode)
+				listener?.onUserCreationFail(errorCode)
 			}
 		}
 	}
@@ -122,7 +129,7 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 		) { task ->
 			if (task.isSuccessful) {
 				Log.d(TAG, "signInWithEmailAndPassword:success")
-				listener?.onSuccess()
+				listener?.onEmailPasswordSignInSuccess()
 			} else {
 				val errorCode =
 					when ((task.exception as FirebaseAuthUserCollisionException).errorCode) {
@@ -133,7 +140,7 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 						else -> ""
 					}
 				Log.d(TAG, "signInWithEmailAndPassword:fail - errorCode = $errorCode")
-				listener?.onFail(errorCode)
+				listener?.onEmailPasswordSignInFail(errorCode)
 			}
 		}
 //

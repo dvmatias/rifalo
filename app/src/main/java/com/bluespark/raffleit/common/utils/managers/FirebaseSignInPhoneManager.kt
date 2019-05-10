@@ -10,7 +10,9 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import java.util.concurrent.TimeUnit
 
-
+/**
+ * TODO desc.
+ */
 class FirebaseSignInPhoneManager(private var firebaseAuth: FirebaseAuth) {
 
 	private var verificationListener: Listener.Verification? = null

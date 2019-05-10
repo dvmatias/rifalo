@@ -1,4 +1,4 @@
-package com.bluespark.raffleit.screens.signup
+package com.bluespark.raffleit.screens.signup.interaactors
 
 import android.support.annotation.NonNull
 import com.bluespark.raffleit.common.model.databaseschemas.CountryCodeSchema

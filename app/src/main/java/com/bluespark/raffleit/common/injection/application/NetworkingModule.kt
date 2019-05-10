@@ -1,10 +1,7 @@
 package com.bluespark.raffleit.common.injection.application
 
 import android.content.Context
-import com.bluespark.raffleit.common.utils.managers.FirebaseEmailPasswordManager
-import com.bluespark.raffleit.common.utils.managers.FirebaseSignInGoogleManager
-import com.bluespark.raffleit.common.utils.managers.FirebaseSignInPhoneManager
-import com.bluespark.raffleit.common.utils.managers.InternetConnectivityManager
+import com.bluespark.raffleit.common.utils.managers.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -69,6 +66,14 @@ class NetworkingModule(val context: Context) {
 	@Provides
 	fun getFirebaseSignInPhoneManager(firebaseAuth: FirebaseAuth): FirebaseSignInPhoneManager =
 		FirebaseSignInPhoneManager(firebaseAuth)
+
+	/**
+	 *
+	 */
+	@Singleton
+	@Provides
+	fun getFirebaseUserManager(firebaseAuth: FirebaseAuth): FirebaseUserManager =
+		FirebaseUserManager(firebaseAuth)
 
 	/**
 	 *

@@ -6,9 +6,7 @@ import com.bluespark.raffleit.screens.choosecountry.ChooseCountryContract
 import com.bluespark.raffleit.screens.choosecountry.ChooseCountryPresenterImpl
 import com.bluespark.raffleit.screens.signin.SignInContract
 import com.bluespark.raffleit.screens.signin.SignInPresenterImpl
-import com.bluespark.raffleit.screens.signup.RegisterFirebaseUserInteractor
 import com.bluespark.raffleit.screens.signup.SignUpContract
-import com.bluespark.raffleit.screens.signup.SignUpFetchCountryCodesInteractor
 import com.bluespark.raffleit.screens.signup.SignUpPresenterImpl
 import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.SendFirebaseOtpInteractor
 import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPhoneVerificationContract
@@ -16,6 +14,9 @@ import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPho
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationContract
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationPresenterImpl
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.*
+import com.bluespark.raffleit.screens.signup.interaactors.RegisterFirebaseUserInteractor
+import com.bluespark.raffleit.screens.signup.interaactors.SignUpFetchCountryCodesInteractor
+import com.bluespark.raffleit.screens.signup.interaactors.UpdatePhoneFirebaseUserInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckCredentialsInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
 import com.bluespark.raffleit.screens.splash.SplashContract
@@ -54,11 +55,12 @@ class PresenterModule {
 	fun getSignUpPresenterImpl(
 		view: BaseView,
 		signUpFetchCountryCodesInteractor: SignUpFetchCountryCodesInteractor,
-		registerFirebaseUserInteractor: RegisterFirebaseUserInteractor
+		registerFirebaseUserInteractor: RegisterFirebaseUserInteractor,
+		updatePhoneFirebaseUserInteractor: UpdatePhoneFirebaseUserInteractor
 	): SignUpPresenterImpl =
 		SignUpPresenterImpl(
 			view as SignUpContract.View, signUpFetchCountryCodesInteractor,
-			registerFirebaseUserInteractor
+			registerFirebaseUserInteractor, updatePhoneFirebaseUserInteractor
 		)
 
 	@Provides
