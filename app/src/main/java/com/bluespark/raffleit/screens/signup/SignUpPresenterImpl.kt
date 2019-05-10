@@ -107,9 +107,9 @@ class SignUpPresenterImpl(
 				)
 			}
 
-			override fun onFail() {
-				// TODO User email/password registration failed
+			override fun onFail(errorCode: String) {
 				view.showLoadingDialog(Constants.HIDE_LOADING)
+				view.showUserCreationErrorDialog(errorCode)
 			}
 		}
 

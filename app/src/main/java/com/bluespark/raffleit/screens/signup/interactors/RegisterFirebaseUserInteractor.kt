@@ -16,13 +16,10 @@ class RegisterFirebaseUserInteractor(
 
 	interface Listener {
 		fun onSuccess(firebaseUser: FirebaseUser)
-		fun onFail()
+		fun onFail(errorCode: String)
 	}
 
-	fun execute(
-		listener: Listener,
-		signUpUser: SignUpUser
-	) {
+	fun execute(listener: Listener, signUpUser: SignUpUser) {
 		this.listener = listener
 		Handler().postDelayed({
 			firebaseEmailPasswordManager.createUserWithEmailAndPassword(
@@ -31,40 +28,6 @@ class RegisterFirebaseUserInteractor(
 				signUpUser.email,
 				signUpUser.password
 			)
-
-			//			firebaseAuth.createUserWithEmailAndPassword(signUpUser.email, signUpUser.password)
-//				.addOnCompleteListener(
-//					activity
-//				) { task ->
-//					// If sign in fails, display a message to the user. If sign in succeeds
-//					// the auth state listener will be notified and logic to handle the
-//					// signed in user can be handled in the listener.
-//					if (task.isSuccessful) {
-//						firebaseAuth.currentUser?.updatePhoneNumber(phoneAuthCredential)!!
-//							.addOnCompleteListener(
-//								activity
-//							) { _task ->
-//								if (_task.isSuccessful) {
-//									Log.d(TAG, "signInWithCredential:success")
-//
-//
-//								} else {
-//
-//									(activity as SignUpActivity).laconchadesumadre()
-//									Log.d(TAG, "signInWithCredential:fail")
-//									if (_task.exception is FirebaseAuthInvalidCredentialsException) {
-//										//mVerificationField.setError("Invalid code.");
-//
-//									} else {
-//
-//									}
-//								}
-//							}
-//						listener.onUserCreationSuccess()
-//					} else {
-//						listener.onUserCreationFail()
-//					}
-//				}
 		}, 500)
 
 
@@ -73,15 +36,16 @@ class RegisterFirebaseUserInteractor(
 	/**
 	 * [FirebaseEmailPasswordManager.Listener.CreateUserListener] implementation.
 	 */
-	private val createUserListener =  object: FirebaseEmailPasswordManager.Listener.CreateUserListener {
-		override fun onUserCreationSuccess(firebaseUser: FirebaseUser) {
-			listener?.onSuccess(firebaseUser)
-		}
+	private val createUserListener =
+		object : FirebaseEmailPasswordManager.Listener.CreateUserListener {
+			override fun onUserCreationSuccess(firebaseUser: FirebaseUser) {
+				listener?.onSuccess(firebaseUser)
+			}
 
-		override fun onUserCreationFail(errorCode: String) {
-			listener?.onFail()
+			override fun onUserCreationFail(errorCode: String) {
+				listener?.onFail(errorCode)
+			}
 		}
-	}
 
 	companion object {
 		@Suppress("unused")

@@ -103,6 +103,7 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 					if (firebaseUser != null && firebaseUser.isEmailVerified) {
 						goToMainScreen()
 					}
+					showLoadingDialog(false)
 				} else {
 					// Login fail.
 					showLoadingDialog(false)

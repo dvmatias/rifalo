@@ -59,14 +59,18 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 		firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
 			activity
 		) { task ->
+			@Suppress("CanBeVal") var errorCode: String
 			if (task.isSuccessful) {
 				Log.d(TAG, "createUserWithEmailAndPassword:success")
 				val firebaseUser = firebaseAuth.currentUser
 				if (firebaseUser != null) {
 					listener?.onUserCreationSuccess(firebaseUser)
+				} else {
+					errorCode = "auth/user-null"
+					listener?.onUserCreationFail(errorCode)
 				}
 			} else {
-				val errorCode =
+				errorCode =
 					when ((task.exception as FirebaseAuthUserCollisionException).errorCode) {
 						"ERROR_EMAIL_ALREADY_IN_USE" -> "auth/email-already-in-use"
 						"ERROR_INVALID_EMAIL" -> "auth/invalid-email"

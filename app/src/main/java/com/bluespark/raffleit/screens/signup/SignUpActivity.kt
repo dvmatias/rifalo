@@ -213,7 +213,34 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 				}
 			})
 		}
+		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
+	}
 
+	/**
+	 * Dialog warning to communicate user that the user creation failed.
+	 */
+	override fun showUserCreationErrorDialog(errorCode: String) {
+		val errorMsg =
+			when (errorCode) {
+				"auth/email-already-in-use" -> "auth/email-already-in-use"
+				"auth/invalid-email" -> "auth/invalid-email"
+				"auth/operation-not-allowed" -> "auth/operation-not-allowed"
+				"auth/weak-password" -> "auth/operation-not-allowed"
+				else -> ""
+			}
+		warningDialogFragment.let {
+			it.setup(
+				"Sign In Error",
+				errorMsg,
+				"ok"
+			)
+			it.setOnClickListener(object : WarningDialogFragmentImpl.ButtonClickListener {
+				override fun onOkButtonClick() {
+					it.dismiss()
+					finish()
+				}
+			})
+		}
 		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
 	}
 
