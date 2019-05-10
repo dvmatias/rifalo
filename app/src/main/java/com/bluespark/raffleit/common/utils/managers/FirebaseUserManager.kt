@@ -18,6 +18,7 @@ class FirebaseUserManager(private var firebaseAuth: FirebaseAuth) {
 			fun onPhoneUpdateSuccess()
 			fun onPhoneUpdateFail(errorCode: String)
 		}
+
 		interface SendEmailVerification {
 			fun onEmailSendSuccess()
 			fun onEmailSendFail()
@@ -44,7 +45,8 @@ class FirebaseUserManager(private var firebaseAuth: FirebaseAuth) {
 	fun sendEmailVerification(
 		listener: Listener.SendEmailVerification?,
 		activity: Activity,
-		actionCodeSettings: ActionCodeSettings?) {
+		actionCodeSettings: ActionCodeSettings?
+	) {
 		firebaseAuth.currentUser?.sendEmailVerification()?.addOnCompleteListener(activity) { task ->
 			if (task.isSuccessful) {
 				listener?.onEmailSendSuccess()
@@ -53,7 +55,6 @@ class FirebaseUserManager(private var firebaseAuth: FirebaseAuth) {
 			}
 		}
 	}
-
 
 	/**
 	 * Updates the user's phone number.
