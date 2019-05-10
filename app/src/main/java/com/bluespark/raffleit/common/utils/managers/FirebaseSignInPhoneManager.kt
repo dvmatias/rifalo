@@ -1,21 +1,19 @@
 package com.bluespark.raffleit.common.utils.managers
 
-import android.content.Intent
 import android.support.annotation.NonNull
-import android.support.v4.content.ContextCompat.startActivity
 import android.util.Log
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.TaskExecutors
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 import java.util.concurrent.TimeUnit
 
 
 class FirebaseSignInPhoneManager(private var firebaseAuth: FirebaseAuth) {
 
 	private var verificationListener: Listener.Verification? = null
-	private var phoneAuthCredential: PhoneAuthCredential? = null
 
 	companion object {
 		private val TAG = FirebaseSignInPhoneManager::class.java.simpleName
@@ -29,8 +27,8 @@ class FirebaseSignInPhoneManager(private var firebaseAuth: FirebaseAuth) {
 		}
 
 		interface SignIn {
-			fun onPhoneSignInSuccess()
-			fun onPhoneSignInFail()
+			fun onPhoneSignInSuccess(credential: PhoneAuthCredential)
+			fun onPhoneSignInFail(errorMsg: String)
 		}
 	}
 
@@ -38,7 +36,7 @@ class FirebaseSignInPhoneManager(private var firebaseAuth: FirebaseAuth) {
 		this.verificationListener = verificationListener
 		PhoneAuthProvider.getInstance().verifyPhoneNumber(
 			phoneNumber,
-			60,
+			15,
 			TimeUnit.SECONDS,
 			TaskExecutors.MAIN_THREAD,
 			callback
@@ -73,34 +71,31 @@ class FirebaseSignInPhoneManager(private var firebaseAuth: FirebaseAuth) {
 		verificationId: String,
 		otpCode: String
 	) {
+		if (activity !is FirebaseSignInPhoneManager.Listener.SignIn)
+			throw RuntimeException("Calling Activity must implement FirebaseSignInPhoneManager.Listener.SignIn.")
+		val listener: FirebaseSignInPhoneManager.Listener.SignIn = activity
 		//creating the credential
 		val credential = PhoneAuthProvider.getCredential(verificationId, otpCode)
-
-		firebaseAuth.signInWithCredential(credential)
-			.addOnCompleteListener(activity
-			) { task ->
-				if (task.isSuccessful) {
-					//verification successful we will start the profile activity
-		//						val intent = Intent(ta, ProfileActivity::class.java)
-		//						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-		//						startActivity(intent)
-					// TODO log out phone.
-					// TODO manage login results.
-
-				} else {
-
-					// TODO manage login results.
-					//verification unsuccessful.. display an error message
-
-					var message = "Somthing is wrong, we will fix it soon..."
-
-					if (task.exception is FirebaseAuthInvalidCredentialsException) {
-						message = "Invalid code entered..."
-					}
-
-
-				}
-			}
+		listener.onPhoneSignInSuccess(credential)
+//		firebaseAuth.signInWithCredential(credential)
+//			.addOnCompleteListener(activity) { task ->
+//				if (task.isSuccessful) {
+//					//verification successful.
+//					// TODO manage login results.
+//					listener.onPhoneSignInSuccess(credential)
+//				} else {
+//					//verification unsuccessful
+//					// TODO manage login results... display an error message
+//					var errorMsg = "Invalid code entered..."
+//					if (task.exception is FirebaseAuthInvalidCredentialsException) {
+//
+//					} else {
+//
+//					}
+//
+//					listener.onPhoneSignInFail(errorMsg)
+//				}
+//			}
 
 	}
 

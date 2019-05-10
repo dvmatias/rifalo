@@ -3,6 +3,7 @@ package com.bluespark.raffleit.screens.signup
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -13,6 +14,7 @@ import com.bluespark.raffleit.common.Constants.Companion.REQUEST_CODE_CHOOSE_COU
 import com.bluespark.raffleit.common.model.objects.Country
 import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
+import com.bluespark.raffleit.common.utils.managers.FirebaseSignInPhoneManager
 import com.bluespark.raffleit.common.views.AgreementView
 import com.bluespark.raffleit.common.views.CountryCodeSelector
 import com.bluespark.raffleit.common.views.dialogs.LoadingDialogFragment
@@ -22,14 +24,18 @@ import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPho
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationFragment
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserInfoFragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthCredential
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import javax.inject.Inject
+import android.support.annotation.NonNull
+import android.util.Log
 
 
 class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickListener,
 	UserInfoFragment.Listener, UserPhoneValidationFragment.Listener,
-	CountryCodeSelector.Listener, AgreementView.Listener, UserPhoneVerificationFragment.Listener {
+	CountryCodeSelector.Listener, AgreementView.Listener, UserPhoneVerificationFragment.Listener,
+	FirebaseSignInPhoneManager.Listener.SignIn {
 
 	@Inject
 	lateinit var presenter: SignUpPresenterImpl
@@ -177,8 +183,8 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	 * once the user validate his info trough [UserInfoFragment], [UserPhoneValidationFragment] and
 	 * [UserPhoneVerificationFragment], once the user enter the OTP number and click [flow_btn].
 	 */
-	override fun registerUser() {
-		presenter.registerFirebaseUser(signUpUser)
+	override fun registerUser(phoneAuthCredential: PhoneAuthCredential) {
+		presenter.registerFirebaseUser(signUpUser, phoneAuthCredential)
 	}
 
 	override fun showAgreementWarningDialog() {
@@ -241,6 +247,18 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	/**
+	 * [FirebaseSignInPhoneManager.Listener.SignIn] implementation.
+	 */
+
+	override fun onPhoneSignInSuccess(phoneAuthCredential: PhoneAuthCredential) {
+		registerUser(phoneAuthCredential)
+	}
+
+	override fun onPhoneSignInFail(errorMsg: String) {
+		// TODO
+	}
+
+	/**
 	 *
 	 */
 
@@ -287,5 +305,26 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	override fun onAgreementRejected() {
 		isAgreementAccepted = false
+	}
+
+	fun laconchadesumadre() {
+		Handler().postDelayed({
+			val authStateListener =
+				FirebaseAuth.AuthStateListener { firebaseAuth ->
+					if (firebaseAuth.currentUser == null) {
+						//Do anything here which needs to be done after signout is complete
+						Log.d(TAG, "signInWithCredential:fail")
+					} else {
+						Log.d(TAG, "signInWithCredential:fail")
+					}
+				}
+
+//Init and attach
+			firebaseAuth = FirebaseAuth.getInstance()
+			firebaseAuth.addAuthStateListener(authStateListener)
+
+//Call signOut()
+			firebaseAuth.signOut()
+		}, 5000)
 	}
 }

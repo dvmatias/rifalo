@@ -2,6 +2,7 @@ package com.bluespark.raffleit.common.injection.presentation
 
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
+import com.bluespark.raffleit.common.utils.managers.FirebaseEmailPasswordManager
 import com.bluespark.raffleit.common.utils.managers.FirebaseSignInPhoneManager
 import com.bluespark.raffleit.common.utils.managers.InternetConnectivityManager
 import com.bluespark.raffleit.screens.signup.RegisterFirebaseUserInteractor
@@ -48,9 +49,9 @@ class InteractorModule {
 	@Provides
 	fun getRegisterFirebaseUserInteractor(
 		activity: AppCompatActivity,
-		firebaseAuth: FirebaseAuth
+		firebaseEmailPasswordManager: FirebaseEmailPasswordManager
 	): RegisterFirebaseUserInteractor =
-		RegisterFirebaseUserInteractor(activity, firebaseAuth)
+		RegisterFirebaseUserInteractor(activity, firebaseEmailPasswordManager)
 
 	@Provides
 	fun getSendFirebaseOtpInteractor(

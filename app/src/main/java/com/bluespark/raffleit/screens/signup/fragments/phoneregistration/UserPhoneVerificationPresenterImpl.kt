@@ -22,6 +22,15 @@ class UserPhoneVerificationPresenterImpl(
 	 * [UserPhoneVerificationContract.Presenter] implementation.
 	 */
 
+	override fun isValidOtpCode(otpCode: String?): Boolean {
+		val isValidOtp = !otpCode.isNullOrEmpty() && otpCode.length >= 6
+
+		if (!isValidOtp)
+			view?.showOtpInlineError("Invalid otp code. Try again.")
+
+		return isValidOtp
+	}
+
 	/**
 	 * Send an OTP code to the phone number.
 	 *

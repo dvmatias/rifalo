@@ -7,6 +7,8 @@ import com.bluespark.raffleit.common.model.databaseschemas.CountryCodeSchema
 import com.bluespark.raffleit.common.model.objects.Country
 import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.PhoneAuthCredential
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -17,6 +19,7 @@ class SignUpPresenterImpl(
 ) : BasePresenterImpl<SignUpContract.View>(),
 	SignUpContract.Presenter, SignUpFetchCountryCodesInteractor.Listener {
 
+	private var signUpUser: SignUpUser? = null
 	private var countryCodeScheme: CountryCodeSchema? = null
 	var countryList: ArrayList<Country>? = null
 
@@ -37,9 +40,10 @@ class SignUpPresenterImpl(
 	/**
 	 * Register user by email/password sign in method.
 	 */
-	override fun registerFirebaseUser(signUpUser: SignUpUser) {
+	override fun registerFirebaseUser(signUpUser: SignUpUser, phoneAuthCredential: PhoneAuthCredential) {
+		this.signUpUser = signUpUser
 		view?.showLoadingDialog(Constants.SHOW_LOADING)
-		registerFirebaseUserInteractor.execute(registerFirebaseUserInteractorListener, signUpUser)
+		registerFirebaseUserInteractor.execute(registerFirebaseUserInteractorListener, signUpUser, phoneAuthCredential)
 	}
 
 	private fun setCountryList() {

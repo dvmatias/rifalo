@@ -92,6 +92,10 @@ class UserPhoneVerificationFragment : BaseFragmentImpl(), UserPhoneVerificationC
 		etcv_otp.setText(otpCode)
 	}
 
+	override fun showOtpInlineError(errorMsg: String) {
+		etcv_otp.setStatusError(errorMsg)
+	}
+
 	/**
 	 * Interface to be implemented by calling Activity. This interface is the bridge to communicate
 	 * this fragment with his parent Activity.
@@ -108,11 +112,13 @@ class UserPhoneVerificationFragment : BaseFragmentImpl(), UserPhoneVerificationC
 	}
 
 	fun verifyOtp() {
-		firebaseSignInPhoneManager.firebaseSignInWithPhone(
-			activity as SignUpActivity,
-			presenter.verificationId!!,
-			etcv_otp.getText()
-		)
+		if (presenter.isValidOtpCode(etcv_otp.getText())) {
+			firebaseSignInPhoneManager.firebaseSignInWithPhone(
+				activity as SignUpActivity,
+				presenter.verificationId!!,
+				etcv_otp.getText()
+			)
+		}
 	}
 
 }
