@@ -14,6 +14,7 @@ interface SignUpContract {
 		fun showLoadingDialog(show: Boolean)
 		fun showSelectedCountry()
 		fun showAgreementWarningDialog()
+		fun showEmailVerificationDialog()
 		// User actions
 		fun onBackButtonClicked()
 		fun onFlowButtonClicked()

@@ -6,13 +6,14 @@ import com.bluespark.raffleit.common.utils.managers.FirebaseEmailPasswordManager
 import com.bluespark.raffleit.common.utils.managers.FirebaseSignInPhoneManager
 import com.bluespark.raffleit.common.utils.managers.FirebaseUserManager
 import com.bluespark.raffleit.common.utils.managers.InternetConnectivityManager
-import com.bluespark.raffleit.screens.signup.interaactors.RegisterFirebaseUserInteractor
-import com.bluespark.raffleit.screens.signup.interaactors.SignUpFetchCountryCodesInteractor
 import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.SendFirebaseOtpInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidateEmailInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordConfirmationInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordInteractor
-import com.bluespark.raffleit.screens.signup.interaactors.UpdatePhoneFirebaseUserInteractor
+import com.bluespark.raffleit.screens.signup.interactors.RegisterFirebaseUserInteractor
+import com.bluespark.raffleit.screens.signup.interactors.SendVerificationEmailInteractor
+import com.bluespark.raffleit.screens.signup.interactors.SignUpFetchCountryCodesInteractor
+import com.bluespark.raffleit.screens.signup.interactors.UpdatePhoneFirebaseUserInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckCredentialsInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
 import com.google.firebase.database.DatabaseReference
@@ -74,5 +75,12 @@ class InteractorModule {
 		firebaseSignInPhoneManager: FirebaseSignInPhoneManager
 	): SendFirebaseOtpInteractor =
 		SendFirebaseOtpInteractor(firebaseSignInPhoneManager)
+
+	@Provides
+	fun getSendVerificationEmailInteractor(
+		activity: AppCompatActivity,
+		firebaseUserManager: FirebaseUserManager
+	): SendVerificationEmailInteractor =
+		SendVerificationEmailInteractor(activity, firebaseUserManager)
 
 }

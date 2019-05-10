@@ -7,9 +7,10 @@ import com.bluespark.raffleit.common.model.databaseschemas.CountryCodeSchema
 import com.bluespark.raffleit.common.model.objects.Country
 import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
-import com.bluespark.raffleit.screens.signup.interaactors.RegisterFirebaseUserInteractor
-import com.bluespark.raffleit.screens.signup.interaactors.SignUpFetchCountryCodesInteractor
-import com.bluespark.raffleit.screens.signup.interaactors.UpdatePhoneFirebaseUserInteractor
+import com.bluespark.raffleit.screens.signup.interactors.RegisterFirebaseUserInteractor
+import com.bluespark.raffleit.screens.signup.interactors.SendVerificationEmailInteractor
+import com.bluespark.raffleit.screens.signup.interactors.SignUpFetchCountryCodesInteractor
+import com.bluespark.raffleit.screens.signup.interactors.UpdatePhoneFirebaseUserInteractor
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import java.util.*
@@ -19,7 +20,8 @@ class SignUpPresenterImpl(
 	view: SignUpContract.View,
 	private var signUpFetchCountryCodesInteractor: SignUpFetchCountryCodesInteractor,
 	private var registerFirebaseUserInteractor: RegisterFirebaseUserInteractor,
-	private var updatePhoneFirebaseUserInteractor: UpdatePhoneFirebaseUserInteractor
+	private var updatePhoneFirebaseUserInteractor: UpdatePhoneFirebaseUserInteractor,
+	private var sendVerificationEmailInteractor: SendVerificationEmailInteractor
 ) : BasePresenterImpl<SignUpContract.View>(),
 	SignUpContract.Presenter, SignUpFetchCountryCodesInteractor.Listener {
 
@@ -118,13 +120,28 @@ class SignUpPresenterImpl(
 	private val updatePhoneFirebaseUserInteractorListener =
 		object : UpdatePhoneFirebaseUserInteractor.Listener {
 			override fun onSuccess() {
-				// TODO
 				view.showLoadingDialog(Constants.HIDE_LOADING)
+				view.showEmailVerificationDialog()
+				sendVerificationEmailInteractor.execute(sendVerificationEmailInteractorListener)
+			}
+
+			override fun onFail() {
+				view.showLoadingDialog(Constants.HIDE_LOADING)
+			}
+		}
+
+	/**
+	 * [SendVerificationEmailInteractor.Listener] implementation.
+	 */
+
+	private val sendVerificationEmailInteractorListener =
+		object : SendVerificationEmailInteractor.Listener {
+			override fun onSuccess() {
+				// TODO
 			}
 
 			override fun onFail() {
 				// TODO
-				view.showLoadingDialog(Constants.HIDE_LOADING)
 			}
 		}
 }

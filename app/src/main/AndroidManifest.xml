@@ -18,6 +18,7 @@
 		<!-- Activity Splash -->
 		<activity
 			android:name=".screens.splash.SplashActivity"
+			android:screenOrientation="portrait"
 			android:theme="@style/ActivitySplashTheme">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -29,18 +30,24 @@
 		<!-- Activity Sign In -->
 		<activity
 			android:name=".screens.signin.SignInActivity"
+			android:screenOrientation="portrait"
 			android:theme="@style/ActivitySignInTheme" />
 
 		<!-- Activity Main -->
-		<activity android:name=".screens.main.MainActivity" />
+		<activity
+			android:name=".screens.main.MainActivity"
+			android:screenOrientation="portrait" />
 
 		<!-- Activity Sign Up -->
 		<activity
 			android:name=".screens.signup.SignUpActivity"
+			android:screenOrientation="portrait"
 			android:theme="@style/ActivitySignUpTheme" />
 
 		<!-- Activity Choose Country -->
-		<activity android:name=".screens.choosecountry.ChooseCountryActivity" />
+		<activity
+			android:name=".screens.choosecountry.ChooseCountryActivity"
+			android:screenOrientation="portrait" />
 	</application>
 
 </manifest>

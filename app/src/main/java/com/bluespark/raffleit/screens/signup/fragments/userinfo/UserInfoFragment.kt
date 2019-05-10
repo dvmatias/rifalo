@@ -40,7 +40,7 @@ class UserInfoFragment : BaseFragmentImpl(), UserInfoContract.View {
 		super.onViewCreated(view, savedInstanceState)
 
 		// TODO delete this only used to switch fragments quickly.
-		etcv_user_email.setText("masacresita@gmail.com")
+		etcv_user_email.setText("matias.delv.dom@gmail.com")
 		etcv_user_password.setText("mas@1234")
 		etcv_user_password_confirmation.setText("mas@1234")
 	}

@@ -14,9 +14,10 @@ import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPho
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationContract
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationPresenterImpl
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.*
-import com.bluespark.raffleit.screens.signup.interaactors.RegisterFirebaseUserInteractor
-import com.bluespark.raffleit.screens.signup.interaactors.SignUpFetchCountryCodesInteractor
-import com.bluespark.raffleit.screens.signup.interaactors.UpdatePhoneFirebaseUserInteractor
+import com.bluespark.raffleit.screens.signup.interactors.RegisterFirebaseUserInteractor
+import com.bluespark.raffleit.screens.signup.interactors.SendVerificationEmailInteractor
+import com.bluespark.raffleit.screens.signup.interactors.SignUpFetchCountryCodesInteractor
+import com.bluespark.raffleit.screens.signup.interactors.UpdatePhoneFirebaseUserInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckCredentialsInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
 import com.bluespark.raffleit.screens.splash.SplashContract
@@ -56,11 +57,13 @@ class PresenterModule {
 		view: BaseView,
 		signUpFetchCountryCodesInteractor: SignUpFetchCountryCodesInteractor,
 		registerFirebaseUserInteractor: RegisterFirebaseUserInteractor,
-		updatePhoneFirebaseUserInteractor: UpdatePhoneFirebaseUserInteractor
+		updatePhoneFirebaseUserInteractor: UpdatePhoneFirebaseUserInteractor,
+		sendVerificationEmailInteractor: SendVerificationEmailInteractor
 	): SignUpPresenterImpl =
 		SignUpPresenterImpl(
 			view as SignUpContract.View, signUpFetchCountryCodesInteractor,
-			registerFirebaseUserInteractor, updatePhoneFirebaseUserInteractor
+			registerFirebaseUserInteractor, updatePhoneFirebaseUserInteractor,
+			sendVerificationEmailInteractor
 		)
 
 	@Provides

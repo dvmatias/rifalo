@@ -1,4 +1,4 @@
-package com.bluespark.raffleit.screens.signup.interaactors
+package com.bluespark.raffleit.screens.signup.interactors
 
 import android.app.Activity
 import android.os.Handler

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.bluespark.raffleit.R
@@ -28,8 +29,6 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import javax.inject.Inject
-import android.support.annotation.NonNull
-import android.util.Log
 
 
 class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickListener,
@@ -192,6 +191,19 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 			getString(R.string.title_warning_agreement),
 			getString(R.string.msg_warning_agreement),
 			getString(R.string.label_btn_warning_agreement)
+		)
+		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
+	}
+
+	/**
+	 * Dialog warning to communicate user that a verification email was sent to the
+	 * provided user email in the registration process.
+	 */
+	override fun showEmailVerificationDialog() {
+		warningDialogFragment.setup(
+			"Verify Email Address",
+			"Your email address must be verified before you can sign in. You will receive an email to the email address provided. Please follow the instructions.",
+			"ok"
 		)
 		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
 	}
