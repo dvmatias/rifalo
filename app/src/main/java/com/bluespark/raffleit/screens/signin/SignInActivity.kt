@@ -98,17 +98,13 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		firebaseAuth.signInWithEmailAndPassword(email, password)
 			.addOnCompleteListener { task ->
 				if (task.isSuccessful) {
-					Toast.makeText(applicationContext, "Login successful!", Toast.LENGTH_LONG)
-						.show()
-					showLoadingDialog(false)
-
-					goToMainScreen()
+					// Login successful.
+					val firebaseUser = firebaseAuth.currentUser
+					if (firebaseUser != null && firebaseUser.isEmailVerified) {
+						goToMainScreen()
+					}
 				} else {
-					Toast.makeText(
-						applicationContext,
-						"Login failed! Please try again later",
-						Toast.LENGTH_LONG
-					).show()
+					// Login fail.
 					showLoadingDialog(false)
 				}
 			}

@@ -200,11 +200,20 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	 * provided user email in the registration process.
 	 */
 	override fun showEmailVerificationDialog() {
-		warningDialogFragment.setup(
-			"Verify Email Address",
-			"Your email address must be verified before you can sign in. You will receive an email to the email address provided. Please follow the instructions.",
-			"ok"
-		)
+		warningDialogFragment.let {
+			it.setup(
+				"Verify Email Address",
+				"Your email address must be verified before you can sign in. You will receive an email to the email address provided. Please follow the instructions.",
+				"ok"
+			)
+			it.setOnClickListener(object : WarningDialogFragmentImpl.ButtonClickListener {
+				override fun onOkButtonClick() {
+					it.dismiss()
+					finish()
+				}
+			})
+		}
+
 		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
 	}
 

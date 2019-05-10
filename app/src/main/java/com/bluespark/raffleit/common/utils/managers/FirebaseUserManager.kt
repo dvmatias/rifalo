@@ -25,7 +25,21 @@ class FirebaseUserManager(private var firebaseAuth: FirebaseAuth) {
 	}
 
 	/**
+	 * Sends a verification email to a user.
+	 * The verification process is completed by calling firebase.auth.Auth.applyActionCode
 	 *
+	 * Error Codes:
+	 * auth/missing-android-pkg-name: An Android package name must be provided if the Android app
+	 * is required to be installed.
+	 * auth/missing-continue-uri: A continue URL must be provided in the request.
+	 * auth/missing-ios-bundle-id: An iOS bundle ID must be provided if an App Store ID is provided.
+	 * auth/invalid-continue-uri: The continue URL provided in the request is invalid.
+	 * auth/unauthorized-continue-uri: The domain of the continue URL is not whitelisted. Whitelist
+	 * the domain in the Firebase console.
+	 *
+	 * @param listener [Listener.SendEmailVerification] optional
+	 * @param activity [Activity]
+	 * @param actionCodeSettings [ActionCodeSettings] optional
 	 */
 	fun sendEmailVerification(
 		listener: Listener.SendEmailVerification?,

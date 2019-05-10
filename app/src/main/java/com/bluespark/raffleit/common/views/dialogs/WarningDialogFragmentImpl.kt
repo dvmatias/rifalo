@@ -7,14 +7,17 @@ import android.view.ViewGroup
 import com.bluespark.raffleit.R
 import kotlinx.android.synthetic.main.fragment_warning_dialog.*
 
+
 /**
  * TODO dec.
  */
 
-class WarningDialogFragmentImpl : MyDialogFragment() {
+class WarningDialogFragmentImpl : MyDialogFragment(), View.OnClickListener {
 	private var title: String? = null
 	private var msg: String? = null
 	private var labelButton: String? = null
+
+	private var buttonClickListener: WarningDialogFragmentImpl.ButtonClickListener? = null
 
 	companion object {
 		@JvmStatic
@@ -25,6 +28,16 @@ class WarningDialogFragmentImpl : MyDialogFragment() {
 				val tag = WarningDialogFragmentImpl::class.java.simpleName
 				return if (tag.length <= 23) tag else tag.substring(0, 23)
 			}
+	}
+
+	interface ButtonClickListener {
+		fun onOkButtonClick()
+	}
+
+	override fun onClick(v: View?) {
+		when (v?.id) {
+			tv_btn.id -> buttonClickListener?.onOkButtonClick()
+		}
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +85,7 @@ class WarningDialogFragmentImpl : MyDialogFragment() {
 			else {
 				visibility = View.VISIBLE
 				text = labelButton
-				setOnClickListener { dismiss() }
+				setOnClickListener(this@WarningDialogFragmentImpl)
 			}
 		}
 	}
@@ -81,5 +94,13 @@ class WarningDialogFragmentImpl : MyDialogFragment() {
 		this.title = title
 		this.msg = msg
 		this.labelButton = labelButton
+	}
+
+	fun setOnClickListener(buttonClickListener: ButtonClickListener) {
+		this.buttonClickListener = buttonClickListener
+	}
+
+	fun exasdadit() {
+		dismiss()
 	}
 }
