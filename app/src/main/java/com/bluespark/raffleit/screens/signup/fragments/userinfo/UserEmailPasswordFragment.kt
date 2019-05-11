@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.mvp.BaseFragmentImpl
-import com.bluespark.raffleit.common.views.dialogs.WarningDialogFragmentImpl
 import com.bluespark.raffleit.screens.signup.SignUpActivity
 import kotlinx.android.synthetic.main.fragment_user_info.*
 import javax.inject.Inject
@@ -121,6 +120,8 @@ class UserEmailPasswordFragment : BaseFragmentImpl(), UserEmailPasswordContract.
 	 */
 	interface Listener {
 		fun goToValidatePhoneFragment()
+		fun showLoadingDialog(show: Boolean)
+		fun showUserCreationErrorDialog(errorCode: String)
 	}
 
 	/**
@@ -140,10 +141,10 @@ class UserEmailPasswordFragment : BaseFragmentImpl(), UserEmailPasswordContract.
 	}
 
 	override fun showLoading(show: Boolean) {
-		(activity as SignUpActivity).showLoadingDialog(show)
+		listener?.showLoadingDialog(show)
 	}
 
-	override fun hideErrors() {
+	override fun hideInlineErrors() {
 		etcv_user_email.setStatusNormal()
 		etcv_user_password.setStatusNormal()
 		etcv_user_password_confirmation.setStatusNormal()
@@ -153,7 +154,7 @@ class UserEmailPasswordFragment : BaseFragmentImpl(), UserEmailPasswordContract.
 	 * Dialog warning to communicate user that the user creation failed.
 	 */
 	override fun showUserCreationErrorDialog(errorCode: String) {
-		(activity as SignUpActivity).showUserCreationErrorDialog(errorCode)
+		listener?.showUserCreationErrorDialog(errorCode)
 	}
 
 	override fun onFirebaseUserCreated() {

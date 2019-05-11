@@ -47,7 +47,6 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	private lateinit var selectedCountry: Country
 	private var isAgreementAccepted: Boolean = false
-	private var signUpUser: SignUpUser = SignUpUser("", "", null)
 
 	companion object {
 		@Suppress("unused")
@@ -160,8 +159,8 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	override fun goToRegisterPhoneFragment(phoneNumber: String) {
 		if (isAgreementAccepted) {
-			pager.setCurrentItem(2, true)
 			setFlowButtonLabel(getString(R.string.label_btn_verify_phone))
+			pager.setCurrentItem(2, true)
 			val currentFragment = getCurrentFragment()
 			if (currentFragment is UserPhoneVerificationFragment)
 				currentFragment.sendOtpCode(phoneNumber)
@@ -236,10 +235,6 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	/**
 	 * [UserPhoneValidationFragment.Listener] implementation.
 	 */
-
-	override fun onValidPhone(phoneNumber: String) {
-		goToRegisterPhoneFragment(phoneNumber)
-	}
 
 	override fun showLoadingDialog(show: Boolean) {
 		super.showLoading(show)

@@ -2,11 +2,9 @@ package com.bluespark.raffleit.screens.signup.fragments.phoneregistration
 
 import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
-import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
 
 class UserPhoneVerificationPresenterImpl(
 	view: UserPhoneVerificationContract.View,
-	private var checkNetworkInteractor: SplashCheckNetworkInteractor,
 	private val sendFirebaseOtpInteractor: SendFirebaseOtpInteractor
 ) :
 	BasePresenterImpl<UserPhoneVerificationContract.View>(),

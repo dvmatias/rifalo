@@ -10,11 +10,9 @@ import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
  */
 class UserPhoneValidationPresenterImpl(
 	view: UserPhoneValidationContract.View,
-	private var checkNetworkInteractor: SplashCheckNetworkInteractor,
 	private val phoneManager: PhoneManager
 ) :
-	BasePresenterImpl<UserPhoneValidationContract.View>(), UserPhoneValidationContract.Presenter,
-	SplashCheckNetworkInteractor.Listener {
+	BasePresenterImpl<UserPhoneValidationContract.View>(), UserPhoneValidationContract.Presenter {
 
 	private var countryCode: String = "XX"
 	private var phoneNumber: String = ""
@@ -26,10 +24,6 @@ class UserPhoneValidationPresenterImpl(
 	/**
 	 * [UserPhoneValidationContract.Presenter] implementation.
 	 */
-
-	override fun checkInternetConnectionStatus() {
-		checkNetworkInteractor.execute(this)
-	}
 
 	/**
 	 * It receives [countryCode] and [phoneNumber] and validate for they validity. If booth
@@ -43,8 +37,8 @@ class UserPhoneValidationPresenterImpl(
 	) {
 		this.countryCode = countryCode
 		this.phoneNumber = phoneNumber
-		val validCountry = isValidCountry()
-		val validNumber = isValidPhoneNumber()
+		val validCountry = phoneManager.isValidCountryName(countryCode)
+		val validNumber = phoneManager.isValidNumber(phoneNumber, countryCode)
 
 		if (!validCountry || !validNumber) {
 			view?.showInlinePhoneError(validCountry, validNumber)
@@ -54,30 +48,4 @@ class UserPhoneValidationPresenterImpl(
 		}
 	}
 
-	/**
-	 * It uses [phoneManager] to validate the [phoneNumber] along with the [countryCode].
-	 * It shall not be called if the [countryCode] isn't valid.
-	 */
-	override fun isValidPhoneNumber(): Boolean {
-		return phoneManager.isValidNumber(phoneNumber, countryCode)
-	}
-
-	/**
-	 * It uses [phoneManager] to validate the [countryCode].
-	 */
-	override fun isValidCountry(): Boolean {
-		return phoneManager.isValidCountryName(countryCode)
-	}
-
-	/**
-	 * [SplashCheckNetworkInteractor.Listener] implementation.
-	 */
-
-	override fun onInternetConnected() {
-		Log.d(UserPhoneValidationPresenterImpl::class.java.simpleName, "onInternetConnected()")
-	}
-
-	override fun onInternetNotConnected() {
-		Log.d(UserPhoneValidationPresenterImpl::class.java.simpleName, "onInternetNotConnected()")
-	}
 }

@@ -50,6 +50,7 @@
 	<string name="title_fragment_phone_validation">Phone Validation</string>
 	<string name="explanation_fragment_phone_validation">Now we have to validate you phone. Please choose the region code an enter you phone number.</string>
 	<string name="title_input_box_phone">Enter your cellphone number</string>
+	<string name="default_dial_code">+0</string>
 	<string name="text_fragment_phone_validation_agreement">By checking the box I confirm that I am over 18 years old and that I have read and accept the Terms and Conditions and Private Policy.</string>
 	<string name="msg_error_country_and_number">You must pick a country and enter a valid number</string>
 	<string name="msg_error_country">You must pick a country</string>

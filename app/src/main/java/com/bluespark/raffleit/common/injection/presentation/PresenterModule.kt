@@ -82,12 +82,10 @@ class PresenterModule {
 	@Provides
 	fun getUserPhoneValidationPresenterImpl(
 		view: BaseView,
-		checkNetworkInteractor: SplashCheckNetworkInteractor,
 		phoneManager: PhoneManager
 	): UserPhoneValidationPresenterImpl =
 		UserPhoneValidationPresenterImpl(
 			view as UserPhoneValidationContract.View,
-			checkNetworkInteractor,
 			phoneManager
 		)
 
@@ -98,12 +96,10 @@ class PresenterModule {
 	@Provides
 	fun getUserPhoneVerificationPresenterImpl(
 		view: BaseView,
-		checkNetworkInteractor: SplashCheckNetworkInteractor,
 		sendFirebaseOtpInteractor: SendFirebaseOtpInteractor
 	): UserPhoneVerificationPresenterImpl =
 		UserPhoneVerificationPresenterImpl(
 			view as UserPhoneVerificationContract.View,
-			checkNetworkInteractor,
 			sendFirebaseOtpInteractor
 		)
 

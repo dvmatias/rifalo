@@ -33,8 +33,6 @@ class UserPhoneVerificationFragment : BaseFragmentImpl(), UserPhoneVerificationC
 
 	private var listener: Listener? = null
 
-	private lateinit var phoneNumber: String
-
 	companion object {
 		val TAG: String = UserPhoneVerificationFragment::class.java.simpleName
 

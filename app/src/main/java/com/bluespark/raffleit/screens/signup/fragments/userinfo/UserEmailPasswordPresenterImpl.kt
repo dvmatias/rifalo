@@ -39,7 +39,7 @@ class UserEmailPasswordPresenterImpl(
 		password: String?,
 		passwordConfirmation: String?
 	) {
-		view?.hideErrors()
+		view?.hideInlineErrors()
 		validateEmailInteractor.execute(validateEmailInteractorListener, email)
 		validatePasswordInteractor.execute(validatePasswordInteractorListener, password)
 		validatePasswordConfirmationInteractor.execute(

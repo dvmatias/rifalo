@@ -9,7 +9,7 @@ interface UserEmailPasswordContract {
 
 		/* UI feedback */
 
-		fun hideErrors()
+		fun hideInlineErrors()
 		fun setEmailError(errorMsg: String)
 		fun setPasswordConfirmationError(errorMsg: String)
 		fun setPasswordError(errorMsg: String)

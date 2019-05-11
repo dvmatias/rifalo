@@ -61,7 +61,7 @@
 					android:lines="@integer/integer_one"
 					android:minEms="@integer/integer_three"
 					android:layout_marginStart="@dimen/dimen_4dp"
-					tools:text="+0"/>
+					android:text="@string/default_dial_code"/>
 			</LinearLayout>
 
 			<View

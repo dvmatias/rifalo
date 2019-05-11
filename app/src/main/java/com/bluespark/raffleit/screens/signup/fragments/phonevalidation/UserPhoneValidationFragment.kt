@@ -6,12 +6,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.model.objects.Country
 import com.bluespark.raffleit.common.mvp.BaseFragmentImpl
 import com.bluespark.raffleit.common.utils.ImageLoader
 import com.bluespark.raffleit.common.utils.managers.PhoneManager
+import com.bluespark.raffleit.screens.signup.SignUpActivity
 import kotlinx.android.synthetic.main.fragment_user_phone_validation.*
 import javax.inject.Inject
 
@@ -28,11 +28,11 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	UserPhoneValidationContract.View {
 
 	@Inject
+	lateinit var presenter: UserPhoneValidationPresenterImpl
+	@Inject
 	lateinit var imageLoader: ImageLoader
 	@Inject
 	lateinit var phoneManager: PhoneManager
-	@Inject
-	lateinit var presenter: UserPhoneValidationPresenterImpl
 
 	private var listener: Listener? = null
 
@@ -82,16 +82,16 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 		listener = null
 	}
 
+	/**
+	 * [UserPhoneValidationContract.View] implementation.
+	 */
+
 	override fun showSelectedCountry(country: Country) {
 		v_country_code_selector.showCountryInfo(country, imageLoader, phoneManager)
 	}
 
-	override fun showLoadingDialog(show: Boolean) {
-		listener?.onLoading(show)
-	}
-
-	override fun showNoConnectionErrorDialog() {
-		Toast.makeText(context, "showNoConnectionErrorDialog()", Toast.LENGTH_SHORT).show()
+	override fun showLoading(show: Boolean) {
+		listener?.showLoadingDialog(show)
 	}
 
 	override fun showInlinePhoneError(validCountry: Boolean, validNumber: Boolean) {
@@ -112,7 +112,11 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	}
 
 	override fun onValidPhone(phoneNumber: String) {
-		listener?.onValidPhone(phoneNumber)
+		listener?.goToRegisterPhoneFragment(phoneNumber)
+	}
+
+	override fun enableTermsAndConditions(isEnabled: Boolean) {
+		v_agreement._isEnabled = isEnabled
 	}
 
 	/**
@@ -120,18 +124,16 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 	 * this fragment with his parent Activity.
 	 */
 	interface Listener {
-		fun onValidPhone(phoneNumber: String)
-		fun onLoading(show: Boolean)
+		fun goToRegisterPhoneFragment(phoneNumber: String)
+		fun showLoadingDialog(show: Boolean)
 	}
 
 	/**
-	 * [UserPhoneValidationContract.View] implementation.
+	 * Triggered with [SignUpActivity.onFlowButtonClicked].
+	 *
+	 * This method start the country code and phone number validation flow. If all the info is
+	 * valid, the firebase phone number verification should start.
 	 */
-
-	override fun enableTermsAndConditions(isEnabled: Boolean) {
-		v_agreement._isEnabled = isEnabled
-	}
-
 	fun validatePhone() {
 		presenter.validatePhoneNumber(
 			v_country_code_selector.country.code,
@@ -139,4 +141,5 @@ class UserPhoneValidationFragment : BaseFragmentImpl(),
 			v_country_code_selector.country.dial_code
 		)
 	}
+
 }
