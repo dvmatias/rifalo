@@ -6,7 +6,7 @@
 	android:layout_height="match_parent"
 	android:paddingStart="@dimen/dimen_32dp"
 	android:paddingEnd="@dimen/dimen_32dp"
-	tools:context=".screens.signup.fragments.userinfo.UserInfoFragment">
+	tools:context=".screens.signup.fragments.userinfo.UserEmailPasswordFragment">
 
 	<LinearLayout
 		android:layout_width="match_parent"

@@ -23,7 +23,7 @@ import com.bluespark.raffleit.common.views.dialogs.WarningDialogFragmentImpl
 import com.bluespark.raffleit.screens.choosecountry.ChooseCountryActivity
 import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPhoneVerificationFragment
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationFragment
-import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserInfoFragment
+import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserEmailPasswordFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.gson.Gson
@@ -32,7 +32,7 @@ import javax.inject.Inject
 
 
 class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickListener,
-	UserInfoFragment.Listener, UserPhoneValidationFragment.Listener,
+	UserEmailPasswordFragment.Listener, UserPhoneValidationFragment.Listener,
 	CountryCodeSelector.Listener, AgreementView.Listener, UserPhoneVerificationFragment.Listener,
 	FirebaseSignInPhoneManager.Listener.SignIn {
 
@@ -134,7 +134,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	 */
 	override fun onFlowButtonClicked() {
 		val currentFragment = getCurrentFragment()
-		if (currentFragment is UserInfoFragment)
+		if (currentFragment is UserEmailPasswordFragment)
 			currentFragment.validateEmailAndPassword()
 		if (currentFragment is UserPhoneValidationFragment)
 			currentFragment.validatePhone()
@@ -179,11 +179,11 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	/**
 	 * Method called when an [SignUpUser] has been created by the user. This method must be called
-	 * once the user validate his info trough [UserInfoFragment], [UserPhoneValidationFragment] and
+	 * once the user validate his info trough [UserEmailPasswordFragment], [UserPhoneValidationFragment] and
 	 * [UserPhoneVerificationFragment], once the user enter the OTP number and click [flow_btn].
 	 */
 	override fun registerUser(phoneAuthCredential: PhoneAuthCredential) {
-		presenter.registerFirebaseUser(signUpUser, phoneAuthCredential)
+		presenter.registerFirebaseUser(firebaseAuth.currentUser!!, phoneAuthCredential)
 	}
 
 	override fun showAgreementWarningDialog() {
@@ -200,19 +200,18 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	 * provided user email in the registration process.
 	 */
 	override fun showEmailVerificationDialog() {
-		warningDialogFragment.let {
-			it.setup(
-				"Verify Email Address",
-				"Your email address must be verified before you can sign in. You will receive an email to the email address provided. Please follow the instructions.",
-				"ok"
-			)
-			it.setOnClickListener(object : WarningDialogFragmentImpl.ButtonClickListener {
-				override fun onOkButtonClick() {
-					it.dismiss()
-					finish()
-				}
-			})
-		}
+		warningDialogFragment.setup(
+			"Verify Email Address",
+			"Your email address must be verified before you can sign in. You will receive an email to the email address provided. Please follow the instructions.",
+			"ok"
+		)
+		warningDialogFragment.setOnClickListener(object :
+			WarningDialogFragmentImpl.ButtonClickListener {
+			override fun onOkButtonClick() {
+				warningDialogFragment.dismiss()
+				finish()
+			}
+		})
 		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
 	}
 
@@ -228,31 +227,22 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 				"auth/weak-password" -> "auth/operation-not-allowed"
 				else -> ""
 			}
-		warningDialogFragment.let {
-			it.setup(
-				"Sign In Error",
-				errorMsg,
-				"ok"
-			)
-			it.setOnClickListener(object : WarningDialogFragmentImpl.ButtonClickListener {
-				override fun onOkButtonClick() {
-					it.dismiss()
-					finish()
-				}
-			})
-		}
+		warningDialogFragment.setup(
+			"Sign In Error",
+			errorMsg,
+			"ok"
+		)
 		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
 	}
 
 	/**
-	 * [UserInfoFragment.Listener] implementation.
+	 * [UserEmailPasswordFragment.Listener] implementation.
 	 */
 
 	override fun onValidEmailAndPassword(email: String, password: String) {
 		// Create an user with valid email and password, the phone is set in next fragment.
 		signUpUser.email = email
 		signUpUser.password = password
-		goToValidatePhoneFragment()
 	}
 
 	/**

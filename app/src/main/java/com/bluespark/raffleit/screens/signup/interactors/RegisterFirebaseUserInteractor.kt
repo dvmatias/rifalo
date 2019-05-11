@@ -2,7 +2,6 @@ package com.bluespark.raffleit.screens.signup.interactors
 
 import android.app.Activity
 import android.os.Handler
-import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.utils.managers.FirebaseEmailPasswordManager
 import com.google.firebase.auth.FirebaseUser
 
@@ -19,18 +18,20 @@ class RegisterFirebaseUserInteractor(
 		fun onFail(errorCode: String)
 	}
 
-	fun execute(listener: Listener, signUpUser: SignUpUser) {
+	fun execute(
+		listener: Listener,
+		email: String,
+		password: String
+	) {
 		this.listener = listener
 		Handler().postDelayed({
 			firebaseEmailPasswordManager.createUserWithEmailAndPassword(
 				createUserListener,
 				activity,
-				signUpUser.email,
-				signUpUser.password
+				email,
+				password
 			)
 		}, 500)
-
-
 	}
 
 	/**

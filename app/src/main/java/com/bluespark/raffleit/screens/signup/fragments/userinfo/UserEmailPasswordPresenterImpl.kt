@@ -1,22 +1,28 @@
 package com.bluespark.raffleit.screens.signup.fragments.userinfo
 
+import android.os.Handler
+import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
+import com.bluespark.raffleit.screens.signup.interactors.RegisterFirebaseUserInteractor
+import com.google.firebase.auth.FirebaseUser
 
-class UserInfoPresenterImpl(
-	view: UserInfoContract.View?,
+class UserEmailPasswordPresenterImpl(
+	view: UserEmailPasswordContract.View?,
 	private var validateEmailInteractor: ValidateEmailInteractor,
 	private var validatePasswordInteractor: ValidatePasswordInteractor,
-	private var validatePasswordConfirmationInteractor: ValidatePasswordConfirmationInteractor
+	private var validatePasswordConfirmationInteractor: ValidatePasswordConfirmationInteractor,
+	private var registerFirebaseUserInteractor: RegisterFirebaseUserInteractor
 ) :
-	BasePresenterImpl<UserInfoContract.View>(),
-	UserInfoContract.Presenter, ValidateEmailInteractor.Listener,
+	BasePresenterImpl<UserEmailPasswordContract.View>(),
+	UserEmailPasswordContract.Presenter, ValidateEmailInteractor.Listener,
 	ValidatePasswordInteractor.Listener, ValidatePasswordConfirmationInteractor.Listener {
 
 	private var isValidEmail: Boolean
 	private var isValidPassword: Boolean
 	private var isValidPasswordConfirmation: Boolean
-	private var signUpUser: SignUpUser? = null
+	var email: String? = ""
+	var password: String? = ""
 
 	init {
 		bind(view)
@@ -38,10 +44,20 @@ class UserInfoPresenterImpl(
 			passwordConfirmation,
 			password
 		)
-
+		this.email = email
+		this.password = password
 		if (isValidEmail && isValidPassword && isValidPasswordConfirmation) {
 			view?.onValidEmailAndPassword(email!!, password!!)
 		}
+	}
+
+	override fun createUserWithEmailAndPassword(email: String, password: String) {
+		view?.showLoading(Constants.SHOW_LOADING)
+		registerFirebaseUserInteractor.execute(
+			registerFirebaseUserInteractorListener,
+			email,
+			password
+		)
 	}
 
 	/**
@@ -103,5 +119,24 @@ class UserInfoPresenterImpl(
 		isValidPasswordConfirmation = false
 		managePasswordConfirmationError(errorMsg)
 	}
+
+	/**
+	 * [RegisterFirebaseUserInteractor.Listener] implementation.
+	 */
+
+	private val registerFirebaseUserInteractorListener =
+		object : RegisterFirebaseUserInteractor.Listener {
+			override fun onSuccess(firebaseUser: FirebaseUser) {
+				view?.showLoading(Constants.HIDE_LOADING)
+				view?.goToValidatePhoneFragment()
+			}
+
+			override fun onFail(errorCode: String) {
+				view?.showLoading(Constants.HIDE_LOADING)
+				if (!errorCode.isEmpty()) {
+					view?.showUserCreationErrorDialog(errorCode)
+				}
+			}
+		}
 
 }

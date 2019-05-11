@@ -3,6 +3,7 @@ package com.bluespark.raffleit.common.utils.managers
 import android.app.Activity
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseUser
 
@@ -59,7 +60,7 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 		firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
 			activity
 		) { task ->
-			@Suppress("CanBeVal") var errorCode: String
+			@Suppress("CanBeVal") var errorCode: String = ""
 			if (task.isSuccessful) {
 				Log.d(TAG, "createUserWithEmailAndPassword:success")
 				val firebaseUser = firebaseAuth.currentUser
@@ -70,14 +71,18 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 					listener?.onUserCreationFail(errorCode)
 				}
 			} else {
-				errorCode =
-					when ((task.exception as FirebaseAuthUserCollisionException).errorCode) {
-						"ERROR_EMAIL_ALREADY_IN_USE" -> "auth/email-already-in-use"
-						"ERROR_INVALID_EMAIL" -> "auth/invalid-email"
-						"ERROR_OPERATION_NOT_ALLOWED" -> "auth/operation-not-allowed"
-						"ERROR_WEAK_PASSWORD" -> "auth/weak-password"
-						else -> ""
-					}
+				if (task.exception is FirebaseAuthUserCollisionException) {
+					errorCode =
+						when ((task.exception as FirebaseAuthUserCollisionException).errorCode) {
+							"ERROR_EMAIL_ALREADY_IN_USE" -> "auth/email-already-in-use"
+							"ERROR_INVALID_EMAIL" -> "auth/invalid-email"
+							"ERROR_OPERATION_NOT_ALLOWED" -> "auth/operation-not-allowed"
+							"ERROR_WEAK_PASSWORD" -> "auth/weak-password"
+							else -> ""
+						}
+				} else if (task.exception is FirebaseAuthInvalidCredentialsException) {
+					// TODO
+				}
 				Log.d(TAG, "createUserWithEmailAndPassword:fail - errorCode = $errorCode")
 				listener?.onUserCreationFail(errorCode)
 			}

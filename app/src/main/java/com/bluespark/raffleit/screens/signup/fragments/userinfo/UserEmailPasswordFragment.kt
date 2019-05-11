@@ -8,22 +8,26 @@ import android.view.View
 import android.view.ViewGroup
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.mvp.BaseFragmentImpl
+import com.bluespark.raffleit.common.views.dialogs.WarningDialogFragmentImpl
+import com.bluespark.raffleit.screens.signup.SignUpActivity
 import kotlinx.android.synthetic.main.fragment_user_info.*
 import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [UserInfoFragment.Listener] interface
+ * [UserEmailPasswordFragment.Listener] interface
  * to handle interaction events.
- * Use the [UserInfoFragment.newInstance] factory method to
+ * Use the [UserEmailPasswordFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class UserInfoFragment : BaseFragmentImpl(), UserInfoContract.View {
+class UserEmailPasswordFragment : BaseFragmentImpl(), UserEmailPasswordContract.View {
 
 	@Inject
-	lateinit var presenter: UserInfoPresenterImpl
+	lateinit var presenter: UserEmailPasswordPresenterImpl
+	@Inject
+	lateinit var warningDialogFragment: WarningDialogFragmentImpl
 
 	private var listener: Listener? = null
 
@@ -75,25 +79,29 @@ class UserInfoFragment : BaseFragmentImpl(), UserInfoContract.View {
 	}
 
 	companion object {
-		val TAG: String = UserInfoFragment::class.java.simpleName
+		val TAG: String = UserEmailPasswordFragment::class.java.simpleName
 
 		/**
-		 * Factory method to create a new instance of [UserInfoFragment].
+		 * Factory method to create a new instance of [UserEmailPasswordFragment].
 		 */
 		@JvmStatic
 		fun newInstance() =
-			UserInfoFragment().apply {
+			UserEmailPasswordFragment().apply {
 				arguments = Bundle().apply {
 				}
 			}
 	}
 
 	/**
-	 * [UserInfoContract.View] implementation.
+	 * [UserEmailPasswordContract.View] implementation.
 	 */
 
 	override fun setEmailError(errorMsg: String) {
 		etcv_user_email.setStatusError(errorMsg)
+	}
+
+	override fun showLoading(show: Boolean) {
+		(activity as SignUpActivity).showLoadingDialog(show)
 	}
 
 	override fun setPasswordError(errorMsg: String) {
@@ -110,8 +118,20 @@ class UserInfoFragment : BaseFragmentImpl(), UserInfoContract.View {
 		etcv_user_password_confirmation.setStatusNormal()
 	}
 
+	/**
+	 * Dialog warning to communicate user that the user creation failed.
+	 */
+	override fun showUserCreationErrorDialog(errorCode: String) {
+		(activity as SignUpActivity).showUserCreationErrorDialog(errorCode)
+	}
+
+	override fun goToValidatePhoneFragment() {
+		(activity as SignUpActivity).goToValidatePhoneFragment()
+	}
+
 	override fun onValidEmailAndPassword(email: String, password: String) {
 		listener?.onValidEmailAndPassword(email, password)
+		presenter.createUserWithEmailAndPassword(email, password)
 	}
 
 	fun validateEmailAndPassword() {

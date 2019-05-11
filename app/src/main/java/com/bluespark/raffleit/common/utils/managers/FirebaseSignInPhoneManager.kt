@@ -29,7 +29,7 @@ class FirebaseSignInPhoneManager(private var firebaseAuth: FirebaseAuth) {
 		}
 
 		interface SignIn {
-			fun onPhoneSignInSuccess(credential: PhoneAuthCredential)
+			fun onPhoneSignInSuccess(phoneAuthCredential: PhoneAuthCredential)
 			fun onPhoneSignInFail(errorMsg: String)
 		}
 	}

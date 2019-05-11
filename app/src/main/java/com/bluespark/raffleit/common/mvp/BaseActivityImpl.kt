@@ -83,7 +83,7 @@ abstract class BaseActivityImpl : AppCompatActivity(), BaseView {
 				LoadingDialogFragment.TAG
 			)
 		} else {
-			dialogsManager.dismissCurrentlyShownDialog()
+			dialogsManager.dismissLoadingDialog()
 		}
 	}
 

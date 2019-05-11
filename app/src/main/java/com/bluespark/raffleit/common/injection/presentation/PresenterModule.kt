@@ -15,7 +15,6 @@ import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhone
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationPresenterImpl
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.*
 import com.bluespark.raffleit.screens.signup.interactors.RegisterFirebaseUserInteractor
-import com.bluespark.raffleit.screens.signup.interactors.SendVerificationEmailInteractor
 import com.bluespark.raffleit.screens.signup.interactors.SignUpFetchCountryCodesInteractor
 import com.bluespark.raffleit.screens.signup.interactors.UpdatePhoneFirebaseUserInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckCredentialsInteractor
@@ -56,14 +55,12 @@ class PresenterModule {
 	fun getSignUpPresenterImpl(
 		view: BaseView,
 		signUpFetchCountryCodesInteractor: SignUpFetchCountryCodesInteractor,
-		registerFirebaseUserInteractor: RegisterFirebaseUserInteractor,
-		updatePhoneFirebaseUserInteractor: UpdatePhoneFirebaseUserInteractor,
-		sendVerificationEmailInteractor: SendVerificationEmailInteractor
+		updatePhoneFirebaseUserInteractor: UpdatePhoneFirebaseUserInteractor
 	): SignUpPresenterImpl =
 		SignUpPresenterImpl(
-			view as SignUpContract.View, signUpFetchCountryCodesInteractor,
-			registerFirebaseUserInteractor, updatePhoneFirebaseUserInteractor,
-			sendVerificationEmailInteractor
+			view as SignUpContract.View,
+			signUpFetchCountryCodesInteractor,
+			updatePhoneFirebaseUserInteractor
 		)
 
 	@Provides
@@ -71,13 +68,15 @@ class PresenterModule {
 		view: BaseView,
 		validateEmailInteractor: ValidateEmailInteractor,
 		validatePasswordInteractor: ValidatePasswordInteractor,
-		validatePasswordConfirmationInteractor: ValidatePasswordConfirmationInteractor
-	): UserInfoPresenterImpl =
-		UserInfoPresenterImpl(
-			view as UserInfoContract.View,
+		validatePasswordConfirmationInteractor: ValidatePasswordConfirmationInteractor,
+		registerFirebaseUserInteractor: RegisterFirebaseUserInteractor
+	): UserEmailPasswordPresenterImpl =
+		UserEmailPasswordPresenterImpl(
+			view as UserEmailPasswordContract.View,
 			validateEmailInteractor,
 			validatePasswordInteractor,
-			validatePasswordConfirmationInteractor
+			validatePasswordConfirmationInteractor,
+			registerFirebaseUserInteractor
 		)
 
 	@Provides

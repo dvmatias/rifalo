@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPhoneVerificationFragment
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationFragment
-import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserInfoFragment
+import com.bluespark.raffleit.screens.signup.fragments.userinfo.UserEmailPasswordFragment
 
 class SignUpFragmentAdapter(fragmentManager: FragmentManager) :
 	FragmentPagerAdapter(fragmentManager) {
@@ -14,8 +14,8 @@ class SignUpFragmentAdapter(fragmentManager: FragmentManager) :
 	private val fragmentTitleList = ArrayList<String>()
 
 	init {
-		fragmentList.add(UserInfoFragment.newInstance())
-		fragmentTitleList.add(UserInfoFragment.TAG)
+		fragmentList.add(UserEmailPasswordFragment.newInstance())
+		fragmentTitleList.add(UserEmailPasswordFragment.TAG)
 		fragmentList.add(UserPhoneValidationFragment.newInstance())
 		fragmentTitleList.add(UserPhoneValidationFragment.TAG)
 		fragmentList.add(UserPhoneVerificationFragment.newInstance())

@@ -21,7 +21,7 @@ class UpdatePhoneFirebaseUserInteractor(
 
 	interface Listener {
 		fun onSuccess()
-		fun onFail()
+		fun onFail(errorCode: String)
 	}
 
 	fun execute(
@@ -52,7 +52,7 @@ class UpdatePhoneFirebaseUserInteractor(
 			}
 
 			override fun onPhoneUpdateFail(errorCode: String) {
-				listener?.onFail()
+				listener?.onFail(errorCode)
 			}
 
 		}

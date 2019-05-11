@@ -1,9 +1,9 @@
 package com.bluespark.raffleit.screens.signup
 
 import com.bluespark.raffleit.common.model.objects.Country
-import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenter
 import com.bluespark.raffleit.common.mvp.BaseView
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 
 interface SignUpContract {
@@ -32,7 +32,7 @@ interface SignUpContract {
 	interface Presenter : BasePresenter<View> {
 
 		fun fetchCountryCodes()
-		fun registerFirebaseUser(signUpUser: SignUpUser, phoneAuthCredential: PhoneAuthCredential)
+		fun registerFirebaseUser(firebaseUser: FirebaseUser, phoneAuthCredential: PhoneAuthCredential)
 
 	}
 

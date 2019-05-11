@@ -17,7 +17,13 @@ class WarningDialogFragmentImpl : MyDialogFragment(), View.OnClickListener {
 	private var msg: String? = null
 	private var labelButton: String? = null
 
-	private var buttonClickListener: WarningDialogFragmentImpl.ButtonClickListener? = null
+	private var buttonClickListener: WarningDialogFragmentImpl.ButtonClickListener? =
+		object : ButtonClickListener {
+			override fun onOkButtonClick() {
+				dismiss()
+			}
+
+		}
 
 	companion object {
 		@JvmStatic
@@ -98,9 +104,5 @@ class WarningDialogFragmentImpl : MyDialogFragment(), View.OnClickListener {
 
 	fun setOnClickListener(buttonClickListener: ButtonClickListener) {
 		this.buttonClickListener = buttonClickListener
-	}
-
-	fun exasdadit() {
-		dismiss()
 	}
 }
