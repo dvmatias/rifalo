@@ -7,17 +7,18 @@ interface UserEmailPasswordContract {
 
 	interface View : BaseView {
 
-		// UI feedback
-		fun setEmailError(errorMsg: String)
-		fun showLoading(show: Boolean)
-		fun setPasswordError(errorMsg: String)
-		fun setPasswordConfirmationError(errorMsg: String)
-		fun showUserCreationErrorDialog(errorCode: String)
-		fun goToValidatePhoneFragment()
-		fun hideErrors()
+		/* UI feedback */
 
-		// Flow.
-		fun onValidEmailAndPassword(email: String, password: String)
+		fun hideErrors()
+		fun setEmailError(errorMsg: String)
+		fun setPasswordConfirmationError(errorMsg: String)
+		fun setPasswordError(errorMsg: String)
+		fun showLoading(show: Boolean)
+		fun showUserCreationErrorDialog(errorCode: String)
+
+		/* Actions */
+
+		fun onFirebaseUserCreated()
 
 	}
 
@@ -29,9 +30,6 @@ interface UserEmailPasswordContract {
 			passwordConfirmation: String?
 		)
 		fun createUserWithEmailAndPassword(email: String, password: String)
-		fun manageEmailError(errorMsg: String)
-		fun managePasswordError(errorMsg: String)
-		fun managePasswordConfirmationError(errorMsg: String)
 
 	}
 

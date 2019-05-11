@@ -14,7 +14,7 @@ import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPho
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationContract
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationPresenterImpl
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.*
-import com.bluespark.raffleit.screens.signup.interactors.RegisterFirebaseUserInteractor
+import com.bluespark.raffleit.screens.signup.interactors.CreateUserWithEmailAndPasswordInteractor
 import com.bluespark.raffleit.screens.signup.interactors.SignUpFetchCountryCodesInteractor
 import com.bluespark.raffleit.screens.signup.interactors.UpdatePhoneFirebaseUserInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckCredentialsInteractor
@@ -69,14 +69,14 @@ class PresenterModule {
 		validateEmailInteractor: ValidateEmailInteractor,
 		validatePasswordInteractor: ValidatePasswordInteractor,
 		validatePasswordConfirmationInteractor: ValidatePasswordConfirmationInteractor,
-		registerFirebaseUserInteractor: RegisterFirebaseUserInteractor
+		createUserWithEmailAndPasswordInteractor: CreateUserWithEmailAndPasswordInteractor
 	): UserEmailPasswordPresenterImpl =
 		UserEmailPasswordPresenterImpl(
 			view as UserEmailPasswordContract.View,
 			validateEmailInteractor,
 			validatePasswordInteractor,
 			validatePasswordConfirmationInteractor,
-			registerFirebaseUserInteractor
+			createUserWithEmailAndPasswordInteractor
 		)
 
 	@Provides

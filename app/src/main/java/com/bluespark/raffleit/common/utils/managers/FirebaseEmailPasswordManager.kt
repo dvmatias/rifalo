@@ -33,6 +33,7 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 	 * Creates a new user account associated with the specified email address and password.
 	 * On successful creation of the user account, this user will also be signed in to your
 	 * application.
+	 *
 	 * User account creation can fail if the account already exists or the password is invalid.
 	 *
 	 * Note: The email address acts as a unique identifier for the user and enables an email-based

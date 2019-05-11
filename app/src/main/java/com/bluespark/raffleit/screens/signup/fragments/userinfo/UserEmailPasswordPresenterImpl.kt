@@ -1,10 +1,8 @@
 package com.bluespark.raffleit.screens.signup.fragments.userinfo
 
-import android.os.Handler
 import com.bluespark.raffleit.common.Constants
-import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
-import com.bluespark.raffleit.screens.signup.interactors.RegisterFirebaseUserInteractor
+import com.bluespark.raffleit.screens.signup.interactors.CreateUserWithEmailAndPasswordInteractor
 import com.google.firebase.auth.FirebaseUser
 
 class UserEmailPasswordPresenterImpl(
@@ -12,17 +10,14 @@ class UserEmailPasswordPresenterImpl(
 	private var validateEmailInteractor: ValidateEmailInteractor,
 	private var validatePasswordInteractor: ValidatePasswordInteractor,
 	private var validatePasswordConfirmationInteractor: ValidatePasswordConfirmationInteractor,
-	private var registerFirebaseUserInteractor: RegisterFirebaseUserInteractor
+	private var createUserWithEmailAndPasswordInteractor: CreateUserWithEmailAndPasswordInteractor
 ) :
 	BasePresenterImpl<UserEmailPasswordContract.View>(),
-	UserEmailPasswordContract.Presenter, ValidateEmailInteractor.Listener,
-	ValidatePasswordInteractor.Listener, ValidatePasswordConfirmationInteractor.Listener {
+	UserEmailPasswordContract.Presenter {
 
 	private var isValidEmail: Boolean
 	private var isValidPassword: Boolean
 	private var isValidPasswordConfirmation: Boolean
-	var email: String? = ""
-	var password: String? = ""
 
 	init {
 		bind(view)
@@ -31,104 +26,96 @@ class UserEmailPasswordPresenterImpl(
 		isValidPasswordConfirmation = false
 	}
 
+	/**
+	 * Validate all three fields. If all three of them are valid, then try to create a
+	 * firebase user.
+	 *
+	 * @param email [String] user input email.
+	 * @param password [String] user input password.
+	 * @param passwordConfirmation [String] user input password confirmation.
+	 */
 	override fun validateEmailAndPassword(
 		email: String?,
 		password: String?,
 		passwordConfirmation: String?
 	) {
 		view?.hideErrors()
-		validateEmailInteractor.execute(this, email)
-		validatePasswordInteractor.execute(this, password)
+		validateEmailInteractor.execute(validateEmailInteractorListener, email)
+		validatePasswordInteractor.execute(validatePasswordInteractorListener, password)
 		validatePasswordConfirmationInteractor.execute(
-			this,
+			validatePasswordConfirmationInteractorListener,
 			passwordConfirmation,
 			password
 		)
-		this.email = email
-		this.password = password
+		// Valid email, valid password and password confirmation match password.
 		if (isValidEmail && isValidPassword && isValidPasswordConfirmation) {
-			view?.onValidEmailAndPassword(email!!, password!!)
+			createUserWithEmailAndPassword(email!!, password!!)
 		}
 	}
 
+	/**
+	 * Creates a new user account associated with the specified email address and password.
+	 */
 	override fun createUserWithEmailAndPassword(email: String, password: String) {
 		view?.showLoading(Constants.SHOW_LOADING)
-		registerFirebaseUserInteractor.execute(
-			registerFirebaseUserInteractorListener,
+		createUserWithEmailAndPasswordInteractor.execute(
+			createUserWithEmailAndPasswordInteractorListener,
 			email,
 			password
 		)
 	}
 
 	/**
-	 * Manage error on email field.
-	 */
-	override fun manageEmailError(errorMsg: String) {
-		view?.setEmailError(errorMsg)
-	}
-
-	/**
-	 * Manage error on password field.
-	 */
-	override fun managePasswordError(errorMsg: String) {
-		view?.setPasswordError(errorMsg)
-	}
-
-	/**
-	 * Manage error on password confirmation field.
-	 */
-	override fun managePasswordConfirmationError(errorMsg: String) {
-		view?.setPasswordConfirmationError(errorMsg)
-	}
-
-	/**
 	 * [ValidateEmailInteractor.Listener] implementation.
 	 */
+	private val validateEmailInteractorListener = object : ValidateEmailInteractor.Listener {
+		override fun onValidEmail() {
+			isValidEmail = true
+		}
 
-	override fun onValidEmail() {
-		isValidEmail = true
-	}
-
-	override fun onInvalidEmail(errorMsg: String) {
-		isValidEmail = false
-		manageEmailError(errorMsg)
+		override fun onInvalidEmail(errorMsg: String) {
+			isValidEmail = false
+			view?.setEmailError(errorMsg)
+		}
 	}
 
 	/**
 	 * [ValidatePasswordInteractor.Listener] implementation.
 	 */
+	private val validatePasswordInteractorListener = object : ValidatePasswordInteractor.Listener {
+		override fun onValidPassword() {
+			isValidPassword = true
+		}
 
-	override fun onValidPassword() {
-		isValidPassword = true
-	}
-
-	override fun onInvalidPassword(errorMsg: String) {
-		isValidPassword = false
-		managePasswordError(errorMsg)
+		override fun onInvalidPassword(errorMsg: String) {
+			isValidPassword = false
+			view?.setPasswordError(errorMsg)
+		}
 	}
 
 	/**
 	 * [ValidatePasswordConfirmationInteractor.Listener] implementation.
 	 */
+	private val validatePasswordConfirmationInteractorListener =
+		object : ValidatePasswordConfirmationInteractor.Listener {
+			override fun onValidPasswordConfirmation() {
+				isValidPasswordConfirmation = true
+			}
 
-	override fun onValidPasswordConfirmation() {
-		isValidPasswordConfirmation = true
-	}
-
-	override fun onInvalidPasswordConfirmation(errorMsg: String) {
-		isValidPasswordConfirmation = false
-		managePasswordConfirmationError(errorMsg)
-	}
+			override fun onInvalidPasswordConfirmation(errorMsg: String) {
+				isValidPasswordConfirmation = false
+				view?.setPasswordConfirmationError(errorMsg)
+			}
+		}
 
 	/**
-	 * [RegisterFirebaseUserInteractor.Listener] implementation.
+	 * [CreateUserWithEmailAndPasswordInteractor.Listener] implementation.
 	 */
-
-	private val registerFirebaseUserInteractorListener =
-		object : RegisterFirebaseUserInteractor.Listener {
+	private val createUserWithEmailAndPasswordInteractorListener =
+		object : CreateUserWithEmailAndPasswordInteractor.Listener {
 			override fun onSuccess(firebaseUser: FirebaseUser) {
 				view?.showLoading(Constants.HIDE_LOADING)
-				view?.goToValidatePhoneFragment()
+				view?.onFirebaseUserCreated()
 			}
 
 			override fun onFail(errorCode: String) {

@@ -6,7 +6,7 @@ import com.bluespark.raffleit.common.utils.managers.FirebaseEmailPasswordManager
 import com.google.firebase.auth.FirebaseUser
 
 
-class RegisterFirebaseUserInteractor(
+class CreateUserWithEmailAndPasswordInteractor(
 	private var activity: Activity,
 	private var firebaseEmailPasswordManager: FirebaseEmailPasswordManager
 ) {
@@ -50,7 +50,7 @@ class RegisterFirebaseUserInteractor(
 
 	companion object {
 		@Suppress("unused")
-		private val TAG = RegisterFirebaseUserInteractor::class.java.simpleName
+		private val TAG = CreateUserWithEmailAndPasswordInteractor::class.java.simpleName
 	}
 
 }

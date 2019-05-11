@@ -3,6 +3,8 @@ package com.bluespark.raffleit.screens.signup.fragments.userinfo
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,10 +28,25 @@ class UserEmailPasswordFragment : BaseFragmentImpl(), UserEmailPasswordContract.
 
 	@Inject
 	lateinit var presenter: UserEmailPasswordPresenterImpl
-	@Inject
-	lateinit var warningDialogFragment: WarningDialogFragmentImpl
 
 	private var listener: Listener? = null
+	private var email: String = ""
+	private var password: String = ""
+	private var passwordConfirmation: String = ""
+
+	companion object {
+		val TAG: String = UserEmailPasswordFragment::class.java.simpleName
+
+		/**
+		 * Factory method to create a new instance of [UserEmailPasswordFragment].
+		 */
+		@JvmStatic
+		fun newInstance() =
+			UserEmailPasswordFragment().apply {
+				arguments = Bundle().apply {
+				}
+			}
+	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -43,10 +60,38 @@ class UserEmailPasswordFragment : BaseFragmentImpl(), UserEmailPasswordContract.
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		// TODO delete this only used to switch fragments quickly.
-		etcv_user_email.setText("matias.delv.dom@gmail.com")
-		etcv_user_password.setText("mas@1234")
-		etcv_user_password_confirmation.setText("mas@1234")
+		etcv_user_email.setTextChangedListener(object: TextWatcher{
+			override fun afterTextChanged(s: Editable?) { }
+
+			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+
+			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+				etcv_user_email.setStatusNormal()
+				email = s.toString()
+			}
+		})
+
+		etcv_user_password.setTextChangedListener(object: TextWatcher{
+			override fun afterTextChanged(s: Editable?) { }
+
+			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+
+			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+				etcv_user_password.setStatusNormal()
+				password = s.toString()
+			}
+		})
+
+		etcv_user_password_confirmation.setTextChangedListener(object: TextWatcher{
+			override fun afterTextChanged(s: Editable?) { }
+
+			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+
+			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+				etcv_user_password_confirmation.setStatusNormal()
+				passwordConfirmation = s.toString()
+			}
+		})
 	}
 
 	override fun onCreateView(
@@ -75,21 +120,7 @@ class UserEmailPasswordFragment : BaseFragmentImpl(), UserEmailPasswordContract.
 	 * TODO desc
 	 */
 	interface Listener {
-		fun onValidEmailAndPassword(email: String, password: String)
-	}
-
-	companion object {
-		val TAG: String = UserEmailPasswordFragment::class.java.simpleName
-
-		/**
-		 * Factory method to create a new instance of [UserEmailPasswordFragment].
-		 */
-		@JvmStatic
-		fun newInstance() =
-			UserEmailPasswordFragment().apply {
-				arguments = Bundle().apply {
-				}
-			}
+		fun goToValidatePhoneFragment()
 	}
 
 	/**
@@ -100,16 +131,16 @@ class UserEmailPasswordFragment : BaseFragmentImpl(), UserEmailPasswordContract.
 		etcv_user_email.setStatusError(errorMsg)
 	}
 
-	override fun showLoading(show: Boolean) {
-		(activity as SignUpActivity).showLoadingDialog(show)
-	}
-
 	override fun setPasswordError(errorMsg: String) {
 		etcv_user_password.setStatusError(errorMsg)
 	}
 
 	override fun setPasswordConfirmationError(errorMsg: String) {
 		etcv_user_password_confirmation.setStatusError(errorMsg)
+	}
+
+	override fun showLoading(show: Boolean) {
+		(activity as SignUpActivity).showLoadingDialog(show)
 	}
 
 	override fun hideErrors() {
@@ -125,21 +156,18 @@ class UserEmailPasswordFragment : BaseFragmentImpl(), UserEmailPasswordContract.
 		(activity as SignUpActivity).showUserCreationErrorDialog(errorCode)
 	}
 
-	override fun goToValidatePhoneFragment() {
-		(activity as SignUpActivity).goToValidatePhoneFragment()
+	override fun onFirebaseUserCreated() {
+		listener?.goToValidatePhoneFragment()
 	}
 
-	override fun onValidEmailAndPassword(email: String, password: String) {
-		listener?.onValidEmailAndPassword(email, password)
-		presenter.createUserWithEmailAndPassword(email, password)
-	}
-
+	/**
+	 * Triggered with [SignUpActivity.onFlowButtonClicked].
+	 *
+	 * This method start the email, password and password validation flow. If all the fields
+	 * are valid, then the firebase user creation must begin.
+	 */
 	fun validateEmailAndPassword() {
-		presenter.validateEmailAndPassword(
-			etcv_user_email.getText(),
-			etcv_user_password.getText(),
-			etcv_user_password_confirmation.getText()
-		)
+		presenter.validateEmailAndPassword(email, password, passwordConfirmation)
 	}
 
 }

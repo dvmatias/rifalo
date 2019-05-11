@@ -10,7 +10,7 @@ import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.SendFir
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidateEmailInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordConfirmationInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordInteractor
-import com.bluespark.raffleit.screens.signup.interactors.RegisterFirebaseUserInteractor
+import com.bluespark.raffleit.screens.signup.interactors.CreateUserWithEmailAndPasswordInteractor
 import com.bluespark.raffleit.screens.signup.interactors.SendVerificationEmailInteractor
 import com.bluespark.raffleit.screens.signup.interactors.SignUpFetchCountryCodesInteractor
 import com.bluespark.raffleit.screens.signup.interactors.UpdatePhoneFirebaseUserInteractor
@@ -54,8 +54,8 @@ class InteractorModule {
 	fun getRegisterFirebaseUserInteractor(
 		activity: AppCompatActivity,
 		firebaseEmailPasswordManager: FirebaseEmailPasswordManager
-	): RegisterFirebaseUserInteractor =
-		RegisterFirebaseUserInteractor(
+	): CreateUserWithEmailAndPasswordInteractor =
+		CreateUserWithEmailAndPasswordInteractor(
 			activity,
 			firebaseEmailPasswordManager
 		)

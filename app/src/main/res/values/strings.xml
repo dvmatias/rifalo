@@ -22,6 +22,9 @@
 	<string name="title_warning_agreement">Sorry!</string>
 	<string name="msg_warning_agreement">You must accept the Raffle !T agreement to continue with the registration. If you\'re agree with the terms and conditions and the private policy, please check the box.</string>
 	<string name="label_btn_warning_agreement">accept</string>
+	<string name="title_warning_email_verification">Email Verification</string>
+	<string name="msg_warning_email_verification">Your email address must be verified before you can sign in. You will receive an email to the email address provided. Please follow the instructions.</string>
+	<string name="label_btn_warning_email_verification">ok</string>
 
 	<!-- Fragment User Info -->
 	<string name="title_fragment_user_info_sign_up">Sign Up</string>

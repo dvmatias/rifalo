@@ -3,9 +3,7 @@ package com.bluespark.raffleit.screens.signup
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.bluespark.raffleit.R
@@ -201,9 +199,9 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	 */
 	override fun showEmailVerificationDialog() {
 		warningDialogFragment.setup(
-			"Verify Email Address",
-			"Your email address must be verified before you can sign in. You will receive an email to the email address provided. Please follow the instructions.",
-			"ok"
+			getString(R.string.title_warning_email_verification),
+			getString(R.string.msg_warning_email_verification),
+			getString(R.string.label_btn_warning_email_verification)
 		)
 		warningDialogFragment.setOnClickListener(object :
 			WarningDialogFragmentImpl.ButtonClickListener {
@@ -233,16 +231,6 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 			"ok"
 		)
 		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
-	}
-
-	/**
-	 * [UserEmailPasswordFragment.Listener] implementation.
-	 */
-
-	override fun onValidEmailAndPassword(email: String, password: String) {
-		// Create an user with valid email and password, the phone is set in next fragment.
-		signUpUser.email = email
-		signUpUser.password = password
 	}
 
 	/**
@@ -345,24 +333,4 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		isAgreementAccepted = false
 	}
 
-	fun laconchadesumadre() {
-		Handler().postDelayed({
-			val authStateListener =
-				FirebaseAuth.AuthStateListener { firebaseAuth ->
-					if (firebaseAuth.currentUser == null) {
-						//Do anything here which needs to be done after signout is complete
-						Log.d(TAG, "signInWithCredential:fail")
-					} else {
-						Log.d(TAG, "signInWithCredential:fail")
-					}
-				}
-
-//Init and attach
-			firebaseAuth = FirebaseAuth.getInstance()
-			firebaseAuth.addAuthStateListener(authStateListener)
-
-//Call signOut()
-			firebaseAuth.signOut()
-		}, 5000)
-	}
 }
