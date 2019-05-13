@@ -66,6 +66,7 @@
 	<!-- Edit Text Custom View -->
 	<string name="title_custom_view_edit_text_default_string">Title</string>
 	<string name="title_custom_view_edit_default_color">#FF9800</string>
+	<string name="error_custom_view_edit_default_color">#ed4a4a</string>
 	<string name="hint_custom_view_edit_text_default_string">Hint</string>
 
 	<!-- Edit Text Custom View -->

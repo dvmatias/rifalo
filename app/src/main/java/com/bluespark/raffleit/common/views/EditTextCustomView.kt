@@ -3,6 +3,7 @@ package com.bluespark.raffleit.common.views
 import android.content.Context
 import android.graphics.Color
 import android.support.annotation.Nullable
+import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -19,7 +20,7 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 		context.resources.getString(R.string.title_custom_view_edit_text_default_string)
 
 	private var _titleColor: String =
-		context.resources.getString(R.string.title_custom_view_edit_default_color)
+		context.resources.getString(R.string.error_custom_view_edit_default_color)
 
 	private var _hintText: String =
 		context.resources.getString(R.string.hint_custom_view_edit_text_default_string)
@@ -29,6 +30,10 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 	private var _inputType: Int = 1
 
 	private var _imeOptions: Int = 1
+
+	private var _errorColorText: Int =
+		ContextCompat.getColor(context, R.color.asdasdasdas)
+
 
 	private var titleText: String
 		get() = _titleText
@@ -70,6 +75,13 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 		set(value) {
 			_imeOptions = value
 			et.imeOptions = _imeOptions
+		}
+
+	var errorColorText: Int
+		get() = _errorColorText
+		set(value) {
+			_errorColorText = value
+			tv_error.setTextColor(value)
 		}
 
 	constructor(context: Context) : super(context) {
@@ -133,12 +145,20 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 							typedArray.getInt(R.styleable.EditTextCustomView_android_imeOptions, 1)
 						imeOptions = _imeOptions
 					}
+					R.styleable.EditTextCustomView_errorColorText -> {
+						_errorColorText = typedArray.getColor(
+							R.styleable.EditTextCustomView_errorColorText,
+							_errorColorText
+						)
+						errorColorText = _errorColorText
+					}
 				}
 			}
 			//      TODO: Manage rest of attributes.
 			//		<attr name="titleSize" format="dimension" />
 			//		<attr name="errorText" format="string" />
-			//		<attr name="errorColor" format="color" />
+			//		<attr name="errorColorStroke" format="color" />
+			//		<attr name="errorColorText" format="color" />
 			//		<attr name="errorSize" format="dimension" />
 			//		<attr name="hintColor" format="color" />
 		} catch (e: Exception) {
