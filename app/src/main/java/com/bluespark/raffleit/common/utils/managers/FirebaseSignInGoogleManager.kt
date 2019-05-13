@@ -41,7 +41,7 @@ class FirebaseSignInGoogleManager(
 	) {
 		try {
 			val account = completedTask.getResult(ApiException::class.java)
-			firebaseAuthWithGoogle(activity, account)
+			firebaseSignInWithGoogle(activity, account)
 			Log.w(TAG, "signInResult:success")
 		} catch (e: ApiException) {
 			// The ApiException status code indicates the detailed failure reason.
@@ -51,7 +51,7 @@ class FirebaseSignInGoogleManager(
 		}
 	}
 
-	private fun firebaseAuthWithGoogle(activity: BaseActivityImpl, account: GoogleSignInAccount?) {
+	private fun firebaseSignInWithGoogle(activity: BaseActivityImpl, account: GoogleSignInAccount?) {
 		val credential = GoogleAuthProvider.getCredential(account!!.idToken, null)
 		firebaseAuth.signInWithCredential(credential)
 			.addOnCompleteListener(

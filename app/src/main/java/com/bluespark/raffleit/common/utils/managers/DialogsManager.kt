@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentManager
 import android.text.TextUtils
+import com.bluespark.raffleit.common.views.dialogs.LoadingDialogFragment
 
 class DialogsManager(fragmentManager: FragmentManager) {
 
@@ -80,6 +81,16 @@ class DialogsManager(fragmentManager: FragmentManager) {
 		}
 	}
 
+	fun dismissLoadingDialog() {
+		if (mCurrentlyShownDialog != null && mCurrentlyShownDialog!!.arguments!!.getString(
+				ARGUMENT_DIALOG_ID
+			) == LoadingDialogFragment.TAG
+		) {
+			mCurrentlyShownDialog!!.dismissAllowingStateLoss()
+			mCurrentlyShownDialog = null
+		}
+	}
+
 	/**
 	 * Show dialog and assign it a given "id". Replaces any other currently shown dialog.<br></br>
 	 * The shown dialog will be retained across parent activity re-creation.
@@ -87,7 +98,7 @@ class DialogsManager(fragmentManager: FragmentManager) {
 	 * @param id string that uniquely identifies the dialog; can be null
 	 */
 	fun showRetainedDialogWithId(dialog: DialogFragment, id: String?) {
-		dismissCurrentlyShownDialog()
+//		dismissCurrentlyShownDialog()
 		dialog.retainInstance = true
 		setId(dialog, id)
 		showDialog(dialog)

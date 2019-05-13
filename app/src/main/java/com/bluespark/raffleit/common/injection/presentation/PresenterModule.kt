@@ -6,12 +6,20 @@ import com.bluespark.raffleit.screens.choosecountry.ChooseCountryContract
 import com.bluespark.raffleit.screens.choosecountry.ChooseCountryPresenterImpl
 import com.bluespark.raffleit.screens.signin.SignInContract
 import com.bluespark.raffleit.screens.signin.SignInPresenterImpl
+import com.bluespark.raffleit.screens.signin.SignInWithEmailAnPasswordInteractor
 import com.bluespark.raffleit.screens.signup.SignUpContract
-import com.bluespark.raffleit.screens.signup.SignUpFetchCountryCodesInteractor
 import com.bluespark.raffleit.screens.signup.SignUpPresenterImpl
+import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.CreatePhoneAuthCredentialInteractor
+import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.SendFirebaseOtpInteractor
+import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPhoneVerificationContract
+import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.UserPhoneVerificationPresenterImpl
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationContract
 import com.bluespark.raffleit.screens.signup.fragments.phonevalidation.UserPhoneValidationPresenterImpl
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.*
+import com.bluespark.raffleit.screens.signup.interactors.CreateUserWithEmailAndPasswordInteractor
+import com.bluespark.raffleit.screens.signup.interactors.SendVerificationEmailInteractor
+import com.bluespark.raffleit.screens.signup.interactors.SignUpFetchCountryCodesInteractor
+import com.bluespark.raffleit.screens.signup.interactors.UpdatePhoneFirebaseUserInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckCredentialsInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
 import com.bluespark.raffleit.screens.splash.SplashContract
@@ -38,49 +46,70 @@ class PresenterModule {
 	fun getSignInPresenterImpl(
 		view: BaseView,
 		validateEmailInteractor: ValidateEmailInteractor,
-		validatePasswordInteractor: ValidatePasswordInteractor
+		validatePasswordInteractor: ValidatePasswordInteractor,
+		signInWithEmailAnPasswordInteractor: SignInWithEmailAnPasswordInteractor
 	): SignInPresenterImpl =
 		SignInPresenterImpl(
 			view as SignInContract.View,
 			validateEmailInteractor,
-			validatePasswordInteractor
+			validatePasswordInteractor,
+			signInWithEmailAnPasswordInteractor
 		)
 
 	@Provides
 	fun getSignUpPresenterImpl(
 		view: BaseView,
-		signUpFetchCountryCodesInteractor: SignUpFetchCountryCodesInteractor
+		signUpFetchCountryCodesInteractor: SignUpFetchCountryCodesInteractor,
+		updatePhoneFirebaseUserInteractor: UpdatePhoneFirebaseUserInteractor,
+		sendVerificationEmailInteractor: SendVerificationEmailInteractor
 	): SignUpPresenterImpl =
-		SignUpPresenterImpl(view as SignUpContract.View, signUpFetchCountryCodesInteractor)
+		SignUpPresenterImpl(
+			view as SignUpContract.View,
+			signUpFetchCountryCodesInteractor,
+			updatePhoneFirebaseUserInteractor,
+			sendVerificationEmailInteractor
+		)
 
 	@Provides
 	fun getSignUpUserInfoPresenterImpl(
 		view: BaseView,
 		validateEmailInteractor: ValidateEmailInteractor,
 		validatePasswordInteractor: ValidatePasswordInteractor,
-		validatePasswordConfirmationInteractor: ValidatePasswordConfirmationInteractor
-	): UserInfoPresenterImpl =
-		UserInfoPresenterImpl(
-			view as UserInfoContract.View,
+		validatePasswordConfirmationInteractor: ValidatePasswordConfirmationInteractor,
+		createUserWithEmailAndPasswordInteractor: CreateUserWithEmailAndPasswordInteractor
+	): UserEmailPasswordPresenterImpl =
+		UserEmailPasswordPresenterImpl(
+			view as UserEmailPasswordContract.View,
 			validateEmailInteractor,
 			validatePasswordInteractor,
-			validatePasswordConfirmationInteractor
+			validatePasswordConfirmationInteractor,
+			createUserWithEmailAndPasswordInteractor
 		)
 
 	@Provides
-	fun getSignUpUserPhoneValidationPresenterImpl(
+	fun getUserPhoneValidationPresenterImpl(
 		view: BaseView,
-		checkNetworkInteractor: SplashCheckNetworkInteractor,
 		phoneManager: PhoneManager
 	): UserPhoneValidationPresenterImpl =
 		UserPhoneValidationPresenterImpl(
 			view as UserPhoneValidationContract.View,
-			checkNetworkInteractor,
 			phoneManager
 		)
 
 	@Provides
 	fun getChooseCountryPresenterImpl(view: BaseView): ChooseCountryPresenterImpl =
 		ChooseCountryPresenterImpl(view as ChooseCountryContract.View)
+
+	@Provides
+	fun getUserPhoneVerificationPresenterImpl(
+		view: BaseView,
+		sendFirebaseOtpInteractor: SendFirebaseOtpInteractor,
+		createPhoneAuthCredentialInteractor: CreatePhoneAuthCredentialInteractor
+	): UserPhoneVerificationPresenterImpl =
+		UserPhoneVerificationPresenterImpl(
+			view as UserPhoneVerificationContract.View,
+			sendFirebaseOtpInteractor,
+			createPhoneAuthCredentialInteractor
+		)
 
 }

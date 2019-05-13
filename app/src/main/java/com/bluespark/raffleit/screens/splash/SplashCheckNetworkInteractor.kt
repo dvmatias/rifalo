@@ -18,7 +18,7 @@ class SplashCheckNetworkInteractor(var internetConnectivityManager: InternetConn
 				true -> listener.onInternetConnected()
 				false -> listener.onInternetNotConnected()
 			}
-		}, 1500)
+		}, 500)
 	}
 
 	companion object {

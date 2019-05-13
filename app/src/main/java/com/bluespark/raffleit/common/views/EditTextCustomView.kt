@@ -144,12 +144,16 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 		} catch (e: Exception) {
 			e.printStackTrace()
 		} finally {
-			et.addTextChangedListener(this)
+			setTextChangedListener(this)
 
 			setStatusNormal()
 
 			typedArray.recycle()
 		}
+	}
+
+	fun setTextChangedListener(textWatcher: TextWatcher) {
+		et.addTextChangedListener(textWatcher)
 	}
 
 	@Suppress("unused")

@@ -10,11 +10,9 @@ import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
  */
 class UserPhoneValidationPresenterImpl(
 	view: UserPhoneValidationContract.View,
-	private var checkNetworkInteractor: SplashCheckNetworkInteractor,
 	private val phoneManager: PhoneManager
 ) :
-	BasePresenterImpl<UserPhoneValidationContract.View>(), UserPhoneValidationContract.Presenter,
-	SplashCheckNetworkInteractor.Listener {
+	BasePresenterImpl<UserPhoneValidationContract.View>(), UserPhoneValidationContract.Presenter {
 
 	private var countryCode: String = "XX"
 	private var phoneNumber: String = ""
@@ -27,53 +25,27 @@ class UserPhoneValidationPresenterImpl(
 	 * [UserPhoneValidationContract.Presenter] implementation.
 	 */
 
-	override fun checkInternetConnectionStatus() {
-		checkNetworkInteractor.execute(this)
-	}
-
 	/**
 	 * It receives [countryCode] and [phoneNumber] and validate for they validity. If booth
 	 * are valid values, then it try to register the user's phone number. For non valid fields
 	 * it call [view] methods to show corresponding inline error.
 	 */
-	override fun validatePhoneNumber(countryCode: String, phoneNumber: String) {
+	override fun validatePhoneNumber(
+		countryCode: String,
+		phoneNumber: String,
+		dialCode: String
+	) {
 		this.countryCode = countryCode
 		this.phoneNumber = phoneNumber
-		val validCountry = isValidCountry()
-		val validNumber = isValidPhoneNumber()
+		val validCountry = phoneManager.isValidCountryName(countryCode)
+		val validNumber = phoneManager.isValidNumber(phoneNumber, countryCode)
 
 		if (!validCountry || !validNumber) {
 			view?.showInlinePhoneError(validCountry, validNumber)
 		} else {
 			view?.hideInlinePhoneError()
-			view?.onValidPhone()
+			view?.onValidPhone(dialCode + phoneNumber)
 		}
 	}
 
-	/**
-	 * It uses [phoneManager] to validate the [phoneNumber] along with the [countryCode].
-	 * It shall not be called if the [countryCode] isn't valid.
-	 */
-	override fun isValidPhoneNumber(): Boolean {
-		return phoneManager.isValidNumber(phoneNumber, countryCode)
-	}
-
-	/**
-	 * It uses [phoneManager] to validate the [countryCode].
-	 */
-	override fun isValidCountry(): Boolean {
-		return phoneManager.isValidCountryName(countryCode)
-	}
-
-	/**
-	 * [SplashCheckNetworkInteractor.Listener] implementation.
-	 */
-
-	override fun onInternetConnected() {
-		Log.d(UserPhoneValidationPresenterImpl::class.java.simpleName, "onInternetConnected()")
-	}
-
-	override fun onInternetNotConnected() {
-		Log.d(UserPhoneValidationPresenterImpl::class.java.simpleName, "onInternetNotConnected()")
-	}
 }

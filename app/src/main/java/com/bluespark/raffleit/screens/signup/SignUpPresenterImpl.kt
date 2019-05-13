@@ -5,18 +5,25 @@ import android.support.annotation.NonNull
 import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.model.databaseschemas.CountryCodeSchema
 import com.bluespark.raffleit.common.model.objects.Country
-import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
+import com.bluespark.raffleit.screens.signup.interactors.SendVerificationEmailInteractor
+import com.bluespark.raffleit.screens.signup.interactors.SignUpFetchCountryCodesInteractor
+import com.bluespark.raffleit.screens.signup.interactors.UpdatePhoneFirebaseUserInteractor
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.PhoneAuthCredential
 import java.util.*
 import kotlin.collections.ArrayList
 
 class SignUpPresenterImpl(
 	view: SignUpContract.View,
-	private var signUpFetchCountryCodesInteractor: SignUpFetchCountryCodesInteractor
+	private var signUpFetchCountryCodesInteractor: SignUpFetchCountryCodesInteractor,
+	private var updatePhoneFirebaseUserInteractor: UpdatePhoneFirebaseUserInteractor,
+	private var sendVerificationEmailInteractor: SendVerificationEmailInteractor
 ) : BasePresenterImpl<SignUpContract.View>(),
 	SignUpContract.Presenter, SignUpFetchCountryCodesInteractor.Listener {
 
-	private var signUpUser: SignUpUser? = null
+	private var firebaseUser: FirebaseUser? = null
+	private var phoneAuthCredential: PhoneAuthCredential? = null
 	private var countryCodeScheme: CountryCodeSchema? = null
 	var countryList: ArrayList<Country>? = null
 
@@ -34,8 +41,18 @@ class SignUpPresenterImpl(
 		}
 	}
 
-	override fun setSignUpUser(signUpUser: SignUpUser) {
-		this.signUpUser = signUpUser
+	/**
+	 * Register user by email/password sign in method.
+	 */
+	override fun registerFirebaseUser(
+		firebaseUser: FirebaseUser,
+		phoneAuthCredential: PhoneAuthCredential
+	) {
+		view?.showLoadingDialog(true)
+		this.firebaseUser = firebaseUser
+		this.phoneAuthCredential = phoneAuthCredential
+		updatePhoneFirebaseUserInteractor.execute(updatePhoneInteractorListener,
+			firebaseUser, phoneAuthCredential)
 	}
 
 	private fun setCountryList() {
@@ -73,4 +90,38 @@ class SignUpPresenterImpl(
 	override fun onFail() {
 		view?.showLoadingDialog(Constants.HIDE_LOADING)
 	}
+
+	/**
+	 * [SendVerificationEmailInteractor.Listener] implementation.
+	 */
+
+	private val sendVerificationEmailInteractorListener =
+		object : SendVerificationEmailInteractor.Listener {
+			override fun onSuccess() {
+				view.showLoadingDialog(false)
+				view.showEmailVerificationDialog()
+			}
+
+			override fun onFail() {
+				view.showLoadingDialog(false)
+			}
+		}
+
+
+
+	/**
+	 * [UpdatePhoneFirebaseUserInteractor.Listener] implementation.
+	 */
+
+	private val updatePhoneInteractorListener =
+		object : UpdatePhoneFirebaseUserInteractor.Listener {
+			override fun onSuccess() {
+				sendVerificationEmailInteractor.execute(sendVerificationEmailInteractorListener)
+			}
+
+			override fun onFail(errorCode: String) {
+				view.showLoadingDialog(false)
+				view.showUserPhoneUpdateErrorDialog(errorCode)
+			}
+		}
 }

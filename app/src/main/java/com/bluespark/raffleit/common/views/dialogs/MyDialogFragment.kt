@@ -57,4 +57,8 @@ open class MyDialogFragment : DialogFragment() {
 					View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
 					View.SYSTEM_UI_FLAG_IMMERSIVE
 	}
+
+	override fun dismiss() {
+		super.dismiss()
+	}
 }

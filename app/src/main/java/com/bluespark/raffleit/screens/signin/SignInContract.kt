@@ -9,7 +9,8 @@ interface SignInContract {
 		// UI user actions
 		fun onGetHelpClick()
 		fun onLoginClick()
-		fun onSignInEmailPassword(email: String, password: String)
+		fun onSignInEmailPasswordSuccess()
+		fun onSignInEmailPasswordError(errorCode: String)
 		fun onSignInFacebookClick()
 		fun onSignInGoogleClick()
 		fun onSignUpClick()
@@ -28,6 +29,7 @@ interface SignInContract {
 	interface Presenter : BasePresenter<View> {
 		fun signInGoogle()
 		fun signInFacebook()
+		fun signInEmailAndPassword(email: String, password: String)
 		fun validateCredentials(email: String?, password: String?)
 		fun manageEmailError(errorMsg: String)
 		fun managePasswordError(errorMsg: String)

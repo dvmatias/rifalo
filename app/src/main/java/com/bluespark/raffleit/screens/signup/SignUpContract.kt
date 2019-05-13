@@ -1,9 +1,10 @@
 package com.bluespark.raffleit.screens.signup
 
 import com.bluespark.raffleit.common.model.objects.Country
-import com.bluespark.raffleit.common.model.objects.SignUpUser
 import com.bluespark.raffleit.common.mvp.BasePresenter
 import com.bluespark.raffleit.common.mvp.BaseView
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.PhoneAuthCredential
 
 interface SignUpContract {
 
@@ -13,23 +14,26 @@ interface SignUpContract {
 		fun showLoadingDialog(show: Boolean)
 		fun showSelectedCountry()
 		fun showAgreementWarningDialog()
+		fun showEmailVerificationDialog()
+		fun showUserCreationErrorDialog(errorCode: String)
+		fun showUserPhoneUpdateErrorDialog(errorCode: String)
 		// User actions
 		fun onBackButtonClicked()
 		fun onFlowButtonClicked()
 		// Flow
 		fun goToValidatePhoneFragment()
-		fun goToSignUpUserInfoFragment()
 		fun goToChooseCountryScreen()
-		fun goToRegisterPhoneFragment()
+		fun goToRegisterPhoneFragment(phoneNumber: String)
 		//
 		fun setSelectedCountry(country: Country)
+		fun registerUser(phoneAuthCredential: PhoneAuthCredential)
 
 	}
 
 	interface Presenter : BasePresenter<View> {
 
 		fun fetchCountryCodes()
-		fun setSignUpUser(signUpUser: SignUpUser)
+		fun registerFirebaseUser(firebaseUser: FirebaseUser, phoneAuthCredential: PhoneAuthCredential)
 
 	}
 

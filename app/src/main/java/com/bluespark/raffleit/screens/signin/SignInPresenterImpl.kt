@@ -1,6 +1,6 @@
 package com.bluespark.raffleit.screens.signin
 
-import android.os.Handler
+import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidateEmailInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordInteractor
@@ -8,7 +8,8 @@ import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePassword
 class SignInPresenterImpl(
 	view: SignInContract.View?,
 	private var validateEmailInteractor: ValidateEmailInteractor,
-	private var validatePasswordInteractor: ValidatePasswordInteractor
+	private var validatePasswordInteractor: ValidatePasswordInteractor,
+	private var signInWithEmailAnPasswordInteractor: SignInWithEmailAnPasswordInteractor
 ) : BasePresenterImpl<SignInContract.View>(),
 	SignInContract.Presenter, ValidateEmailInteractor.Listener,
 	ValidatePasswordInteractor.Listener {
@@ -20,6 +21,14 @@ class SignInPresenterImpl(
 		bind(view)
 		isValidEmail = false
 		isValidPassword = false
+	}
+
+	override fun signInEmailAndPassword(email: String, password: String) {
+		signInWithEmailAnPasswordInteractor.execute(
+			signInWithEmailAnPasswordInteractorListener,
+			email,
+			password
+		)
 	}
 
 	override fun signInGoogle() {
@@ -36,7 +45,7 @@ class SignInPresenterImpl(
 
 		if (isValidEmail && isValidPassword) {
 			view?.showLoadingDialog(true)
-			view?.onSignInEmailPassword(email!!, password!!)
+			signInEmailAndPassword(email!!, password!!)
 		} else {
 		}
 	}
@@ -54,6 +63,22 @@ class SignInPresenterImpl(
 	override fun managePasswordError(errorMsg: String) {
 		view?.setPasswordError(errorMsg)
 	}
+
+	/**
+	 * [SignInWithEmailAnPasswordInteractor.Listener] implementation.
+	 */
+
+	private val signInWithEmailAnPasswordInteractorListener =
+		object : SignInWithEmailAnPasswordInteractor.Listener {
+			override fun onSuccess() {// Login successful.
+				view?.onSignInEmailPasswordSuccess()
+				view?.showLoadingDialog(Constants.HIDE_LOADING)
+			}
+
+			override fun onFail(errorCode: String) {
+				view?.showLoadingDialog(Constants.HIDE_LOADING)
+			}
+		}
 
 	/**
 	 * [ValidateEmailInteractor.Listener] implementation.

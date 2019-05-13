@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -18,33 +19,36 @@
 		android:paddingBottom="@dimen/dimen_20dp"
 		tools:ignore="UselessParent">
 
+		<!-- Title -->
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/title_fragment_phone_validation"
+			android:text="@string/title_fragment_phone_verification"
 			android:textAlignment="center"
 			android:textColor="@color/color_white"
 			android:textSize="@dimen/text_18sp"
 			android:textStyle="bold" />
 
+		<!-- Explanation -->
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/dimen_12dp"
-			android:text="@string/explanation_fragment_phone_validation"
+			android:text="@string/explanation_fragment_phone_verification"
 			android:textAlignment="center"
 			android:textColor="@color/color_white"
 			android:textSize="@dimen/text_16sp" />
 
-		<com.bluespark.raffleit.common.views.CountryCodeSelector
-			android:id="@+id/v_country_code_selector"
+		<!--OTP Input Field -->
+		<com.bluespark.raffleit.common.views.EditTextCustomView
+			android:id="@+id/etcv_otp"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content" />
-
-		<com.bluespark.raffleit.common.views.AgreementView
-			android:id="@+id/v_agreement"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content" />
-
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_14dp"
+			android:imeOptions="actionGo"
+			android:inputType="text"
+			app:hintText="@string/hint_otp_etcv"
+			app:titleColor="@color/color_white"
+			app:titleText="@string/title_otp_etcv" />
 	</LinearLayout>
 </FrameLayout>
