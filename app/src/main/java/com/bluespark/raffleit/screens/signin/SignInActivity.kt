@@ -8,6 +8,8 @@ import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.bluespark.raffleit.common.utils.managers.FirebaseSignInGoogleManager
+import com.bluespark.raffleit.common.views.dialogs.LoadingDialogFragment
+import com.bluespark.raffleit.common.views.dialogs.WarningDialogFragmentImpl
 import com.bluespark.raffleit.screens.main.MainActivity
 import com.bluespark.raffleit.screens.signup.SignUpActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -29,6 +31,8 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 	lateinit var firebaseAuth: FirebaseAuth
 	@Inject
 	lateinit var firebaseSignInGoogleManager: FirebaseSignInGoogleManager
+	@Inject
+	lateinit var warningDialogFragment: WarningDialogFragmentImpl
 
 	companion object {
 		@Suppress("unused")
@@ -94,21 +98,31 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		presenter.validateCredentials(email, password)
 	}
 
-	override fun onSignInEmailPassword(email: String, password: String) {
-		firebaseAuth.signInWithEmailAndPassword(email, password)
-			.addOnCompleteListener { task ->
-				if (task.isSuccessful) {
-					// Login successful.
-					val firebaseUser = firebaseAuth.currentUser
-					if (firebaseUser != null && firebaseUser.isEmailVerified) {
-						goToMainScreen()
-					}
-					showLoadingDialog(false)
-				} else {
-					// Login fail.
-					showLoadingDialog(false)
-				}
+	override fun onSignInEmailPasswordSuccess() {
+		val firebaseUser = firebaseAuth.currentUser
+		val isEmailVerified = (firebaseUser?.isEmailVerified)
+		if (firebaseUser != null && firebaseUser.isEmailVerified) {
+			goToMainScreen()
+		} else if (isEmailVerified != null && !isEmailVerified) {
+			setEmailError("You must verify your email.")
+		}
+	}
+
+	override fun onSignInEmailPasswordError(errorCode: String) {
+		val errorMsg =
+			when (errorCode) {
+				"auth/invalid-email" -> "auth/invalid-email"
+				"auth/user-disabled" -> "auth/user-disabled"
+				"auth/user-not-found" -> "auth/user-not-found"
+				"auth/wrong-password" -> "auth/wrong-password"
+				else -> ""
 			}
+		warningDialogFragment.setup(
+			"Sign In Error",
+			errorMsg,
+			"ok"
+		)
+		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
 	}
 
 	override fun onSignInFacebookClick() {

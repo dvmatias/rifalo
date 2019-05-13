@@ -2,6 +2,7 @@ package com.bluespark.raffleit.common.utils.managers
 
 import android.app.Activity
 import android.util.Log
+import com.bluespark.raffleit.common.utils.FirebaseErrorCodeHelper
 import com.google.firebase.auth.*
 
 /**
@@ -75,16 +76,12 @@ class FirebaseUserManager(private var firebaseAuth: FirebaseAuth) {
 		phoneCredential: PhoneAuthCredential
 	) {
 		firebaseUser.updatePhoneNumber(phoneCredential).addOnCompleteListener(activity) { task ->
+			var errorCode: String? = ""
 			if (task.isSuccessful) {
 				Log.d(TAG, "updatePhoneNumber:success")
 				listener?.onPhoneUpdateSuccess()
 			} else {
-				val errorCode =
-					when ((task.exception as FirebaseAuthUserCollisionException).errorCode) {
-						"ERROR_INVALID_VERIFICATION_CODE" -> "auth/invalid-verification-code"
-						"ERROR_INVALID_VERIFICATION_ID" -> "auth/invalid-verification-id"
-						else -> ""
-					}
+				errorCode = FirebaseErrorCodeHelper.getErrorCode(task.exception)
 				Log.d(TAG, "updatePhoneNumber:fail - errorCode = $errorCode")
 				listener?.onPhoneUpdateFail(errorCode)
 			}

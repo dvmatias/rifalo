@@ -4,13 +4,14 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.mvp.BaseFragmentImpl
-import com.bluespark.raffleit.common.utils.managers.FirebaseSignInPhoneManager
-import com.bluespark.raffleit.screens.signup.SignUpActivity
+import com.google.firebase.auth.PhoneAuthCredential
 import kotlinx.android.synthetic.main.fragment_user_phone_verification.*
 import javax.inject.Inject
 
@@ -28,10 +29,9 @@ class UserPhoneVerificationFragment : BaseFragmentImpl(), UserPhoneVerificationC
 
 	@Inject
 	lateinit var presenter: UserPhoneVerificationPresenterImpl
-	@Inject
-	lateinit var firebaseSignInPhoneManager: FirebaseSignInPhoneManager
 
 	private var listener: Listener? = null
+	private var otpCode: String = ""
 
 	companion object {
 		val TAG: String = UserPhoneVerificationFragment::class.java.simpleName
@@ -50,6 +50,21 @@ class UserPhoneVerificationFragment : BaseFragmentImpl(), UserPhoneVerificationC
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		getPresentationComponent().inject(this)
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+
+		etcv_otp.setTextChangedListener(object : TextWatcher {
+			override fun afterTextChanged(s: Editable?) {}
+
+			override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+			override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+				etcv_otp.setStatusNormal()
+				otpCode = s.toString()
+			}
+		})
 	}
 
 	override fun onCreateView(
@@ -94,6 +109,10 @@ class UserPhoneVerificationFragment : BaseFragmentImpl(), UserPhoneVerificationC
 		etcv_otp.setStatusError(errorMsg)
 	}
 
+	override fun onPhoneAuthCredentialCreated(phoneAuthCredential: PhoneAuthCredential) {
+		listener?.onPhoneAuthCredentialCreated(phoneAuthCredential)
+	}
+
 	/**
 	 * Interface to be implemented by calling Activity. This interface is the bridge to communicate
 	 * this fragment with his parent Activity.
@@ -101,22 +120,17 @@ class UserPhoneVerificationFragment : BaseFragmentImpl(), UserPhoneVerificationC
 	interface Listener {
 		fun onLoading(show: Boolean)
 		fun onVerifiedPhone(phoneNumber: String)
+		fun onPhoneAuthCredentialCreated(phoneAuthCredential: PhoneAuthCredential)
 	}
 
 	fun sendOtpCode(phoneNumber: String) {
 		Handler().postDelayed({
 			presenter.sendOtpCode(phoneNumber)
-		}, 750)
+		}, 400)
 	}
 
 	fun verifyOtp() {
-		if (presenter.isValidOtpCode(etcv_otp.getText())) {
-			firebaseSignInPhoneManager.firebaseSignInWithPhone(
-				activity as SignUpActivity,
-				presenter.verificationId!!,
-				etcv_otp.getText()
-			)
-		}
+		presenter.verifyOtpCode(otpCode)
 	}
 
 }

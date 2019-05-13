@@ -28,6 +28,10 @@ class FirebaseSignInPhoneManager(private var firebaseAuth: FirebaseAuth) {
 			fun onCodeSent(verificationId: String?)
 		}
 
+		interface PhoneCredential {
+			fun onPhoneAuthCredentialCreated(phoneAuthCredential: PhoneAuthCredential)
+		}
+
 		interface SignIn {
 			fun onPhoneSignInSuccess(phoneAuthCredential: PhoneAuthCredential)
 			fun onPhoneSignInFail(errorMsg: String)
@@ -66,6 +70,23 @@ class FirebaseSignInPhoneManager(private var firebaseAuth: FirebaseAuth) {
 			Log.d(TAG, "onCodeSent()")
 			verificationListener!!.onCodeSent(verificationId)
 		}
+	}
+
+	/**
+	 * Returns a new instance of AuthCredential that is associated with a phone number. Used when
+	 * calling signInWithCredential(AuthCredential) or linkWithCredential(AuthCredential).
+	 *
+	 * @param verificationId [String] A valid verificationId retrieved by calling
+	 * verifyPhoneNumber(String, long, TimeUnit, Activity, OnVerificationStateChangedCallbacks)
+	 * @param otpCode [String] The 6 digit SMS-code sent to the user
+	 */
+	fun getPhoneAuthCredential(
+		listener: Listener.PhoneCredential,
+		verificationId: String,
+		otpCode: String
+	) {
+		val phoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, otpCode)
+		listener.onPhoneAuthCredentialCreated(phoneAuthCredential)
 	}
 
 	fun firebaseSignInWithPhone(

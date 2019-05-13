@@ -31,8 +31,7 @@ import javax.inject.Inject
 
 class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickListener,
 	UserEmailPasswordFragment.Listener, UserPhoneValidationFragment.Listener,
-	CountryCodeSelector.Listener, AgreementView.Listener, UserPhoneVerificationFragment.Listener,
-	FirebaseSignInPhoneManager.Listener.SignIn {
+	CountryCodeSelector.Listener, AgreementView.Listener, UserPhoneVerificationFragment.Listener {
 
 	@Inject
 	lateinit var presenter: SignUpPresenterImpl
@@ -183,6 +182,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		presenter.registerFirebaseUser(firebaseAuth.currentUser!!, phoneAuthCredential)
 	}
 
+
 	override fun showAgreementWarningDialog() {
 		warningDialogFragment.setup(
 			getString(R.string.title_warning_agreement),
@@ -233,6 +233,24 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	}
 
 	/**
+	 * Dialog warning to communicate user that the user creation failed.
+	 */
+	override fun showUserPhoneUpdateErrorDialog(errorCode: String) {
+		val errorMsg =
+			when (errorCode) {
+				"auth/invalid-verification-code" -> "auth/invalid-verification-code"
+				"auth/invalid-verification-id" -> "auth/invalid-verification-id"
+				else -> ""
+			}
+		warningDialogFragment.setup(
+			"Phone Verification Error",
+			errorMsg,
+			"ok"
+		)
+		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
+	}
+
+	/**
 	 * [UserPhoneValidationFragment.Listener] implementation.
 	 */
 
@@ -271,13 +289,10 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 	 * [FirebaseSignInPhoneManager.Listener.SignIn] implementation.
 	 */
 
-	override fun onPhoneSignInSuccess(phoneAuthCredential: PhoneAuthCredential) {
+	override fun onPhoneAuthCredentialCreated(phoneAuthCredential: PhoneAuthCredential) {
 		registerUser(phoneAuthCredential)
 	}
 
-	override fun onPhoneSignInFail(errorMsg: String) {
-		// TODO
-	}
 
 	/**
 	 *

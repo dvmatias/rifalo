@@ -6,6 +6,8 @@ import com.bluespark.raffleit.common.utils.managers.FirebaseEmailPasswordManager
 import com.bluespark.raffleit.common.utils.managers.FirebaseSignInPhoneManager
 import com.bluespark.raffleit.common.utils.managers.FirebaseUserManager
 import com.bluespark.raffleit.common.utils.managers.InternetConnectivityManager
+import com.bluespark.raffleit.screens.signin.SignInWithEmailAnPasswordInteractor
+import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.CreatePhoneAuthCredentialInteractor
 import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.SendFirebaseOtpInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidateEmailInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordConfirmationInteractor
@@ -82,5 +84,18 @@ class InteractorModule {
 		firebaseUserManager: FirebaseUserManager
 	): SendVerificationEmailInteractor =
 		SendVerificationEmailInteractor(activity, firebaseUserManager)
+
+	@Provides
+	fun getCreatePhoneAuthCredentialInteractor(
+		firebaseSignInPhoneManager: FirebaseSignInPhoneManager
+	): CreatePhoneAuthCredentialInteractor =
+		CreatePhoneAuthCredentialInteractor(firebaseSignInPhoneManager)
+
+	@Provides
+	fun getSignInWithEmailAnPasswordInteractor(
+		activity: AppCompatActivity,
+		firebaseEmailPasswordManager: FirebaseEmailPasswordManager
+	): SignInWithEmailAnPasswordInteractor =
+		SignInWithEmailAnPasswordInteractor(activity, firebaseEmailPasswordManager)
 
 }

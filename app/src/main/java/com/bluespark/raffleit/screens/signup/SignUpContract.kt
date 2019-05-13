@@ -16,6 +16,7 @@ interface SignUpContract {
 		fun showAgreementWarningDialog()
 		fun showEmailVerificationDialog()
 		fun showUserCreationErrorDialog(errorCode: String)
+		fun showUserPhoneUpdateErrorDialog(errorCode: String)
 		// User actions
 		fun onBackButtonClicked()
 		fun onFlowButtonClicked()

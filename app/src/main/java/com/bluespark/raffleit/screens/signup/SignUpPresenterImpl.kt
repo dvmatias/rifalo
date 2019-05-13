@@ -17,7 +17,8 @@ import kotlin.collections.ArrayList
 class SignUpPresenterImpl(
 	view: SignUpContract.View,
 	private var signUpFetchCountryCodesInteractor: SignUpFetchCountryCodesInteractor,
-	private var updatePhoneFirebaseUserInteractor: UpdatePhoneFirebaseUserInteractor
+	private var updatePhoneFirebaseUserInteractor: UpdatePhoneFirebaseUserInteractor,
+	private var sendVerificationEmailInteractor: SendVerificationEmailInteractor
 ) : BasePresenterImpl<SignUpContract.View>(),
 	SignUpContract.Presenter, SignUpFetchCountryCodesInteractor.Listener {
 
@@ -97,30 +98,30 @@ class SignUpPresenterImpl(
 	private val sendVerificationEmailInteractorListener =
 		object : SendVerificationEmailInteractor.Listener {
 			override fun onSuccess() {
-				// TODO
+				view.showLoadingDialog(false)
+				view.showEmailVerificationDialog()
 			}
 
 			override fun onFail() {
-				// TODO
+				view.showLoadingDialog(false)
 			}
 		}
 
 
 
 	/**
-	 * [SendVerificationEmailInteractor.Listener] implementation.
+	 * [UpdatePhoneFirebaseUserInteractor.Listener] implementation.
 	 */
 
 	private val updatePhoneInteractorListener =
 		object : UpdatePhoneFirebaseUserInteractor.Listener {
 			override fun onSuccess() {
-				view.showLoadingDialog(false)
-				view.showEmailVerificationDialog()
+				sendVerificationEmailInteractor.execute(sendVerificationEmailInteractorListener)
 			}
 
 			override fun onFail(errorCode: String) {
-				// TODO
 				view.showLoadingDialog(false)
+				view.showUserPhoneUpdateErrorDialog(errorCode)
 			}
 		}
 }

@@ -2,6 +2,7 @@ package com.bluespark.raffleit.common.utils.managers
 
 import android.app.Activity
 import android.util.Log
+import com.bluespark.raffleit.common.utils.FirebaseErrorCodeHelper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -72,18 +73,7 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 					listener?.onUserCreationFail(errorCode)
 				}
 			} else {
-				if (task.exception is FirebaseAuthUserCollisionException) {
-					errorCode =
-						when ((task.exception as FirebaseAuthUserCollisionException).errorCode) {
-							"ERROR_EMAIL_ALREADY_IN_USE" -> "auth/email-already-in-use"
-							"ERROR_INVALID_EMAIL" -> "auth/invalid-email"
-							"ERROR_OPERATION_NOT_ALLOWED" -> "auth/operation-not-allowed"
-							"ERROR_WEAK_PASSWORD" -> "auth/weak-password"
-							else -> ""
-						}
-				} else if (task.exception is FirebaseAuthInvalidCredentialsException) {
-					// TODO
-				}
+				errorCode = FirebaseErrorCodeHelper.getErrorCode(task.exception)
 				Log.d(TAG, "createUserWithEmailAndPassword:fail - errorCode = $errorCode")
 				listener?.onUserCreationFail(errorCode)
 			}
@@ -141,39 +131,11 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 				Log.d(TAG, "signInWithEmailAndPassword:success")
 				listener?.onEmailPasswordSignInSuccess()
 			} else {
-				val errorCode =
-					when ((task.exception as FirebaseAuthUserCollisionException).errorCode) {
-						"ERROR_INVALID_EMAIL" -> "auth/invalid-email"
-						"ERROR_USER_DISABLED" -> "auth/user-disabled"
-						"ERROR_USER_NOT_FOUND" -> "auth/user-not-found"
-						"ERROR_WRONG_PASSWORD" -> "auth/wrong-password"
-						else -> ""
-					}
+				val errorCode = FirebaseErrorCodeHelper.getErrorCode(task.exception)
 				Log.d(TAG, "signInWithEmailAndPassword:fail - errorCode = $errorCode")
 				listener?.onEmailPasswordSignInFail(errorCode)
 			}
 		}
-//
-//
-//
-//
-//		firebaseAuth.signInWithEmailAndPassword(email, password)
-//			.addOnCompleteListener { task ->
-//				if (task.isSuccessful) {
-//					Toast.makeText(applicationContext, "Login successful!", Toast.LENGTH_LONG)
-//						.show()
-//					showLoadingDialog(false)
-//
-//					goToMainScreen()
-//				} else {
-//					Toast.makeText(
-//						applicationContext,
-//						"Login failed! Please try again later",
-//						Toast.LENGTH_LONG
-//					).show()
-//					showLoadingDialog(false)
-//				}
-//			}
 	}
 
 }

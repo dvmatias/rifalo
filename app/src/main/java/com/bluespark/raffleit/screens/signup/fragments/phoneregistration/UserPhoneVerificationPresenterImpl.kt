@@ -2,10 +2,12 @@ package com.bluespark.raffleit.screens.signup.fragments.phoneregistration
 
 import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
+import com.google.firebase.auth.PhoneAuthCredential
 
 class UserPhoneVerificationPresenterImpl(
 	view: UserPhoneVerificationContract.View,
-	private val sendFirebaseOtpInteractor: SendFirebaseOtpInteractor
+	private val sendFirebaseOtpInteractor: SendFirebaseOtpInteractor,
+	private val createPhoneAuthCredentialInteractor: CreatePhoneAuthCredentialInteractor
 ) :
 	BasePresenterImpl<UserPhoneVerificationContract.View>(),
 	UserPhoneVerificationContract.Presenter {
@@ -20,15 +22,6 @@ class UserPhoneVerificationPresenterImpl(
 	 * [UserPhoneVerificationContract.Presenter] implementation.
 	 */
 
-	override fun isValidOtpCode(otpCode: String?): Boolean {
-		val isValidOtp = !otpCode.isNullOrEmpty() && otpCode.length >= 6
-
-		if (!isValidOtp)
-			view?.showOtpInlineError("Invalid otp code. Try again.")
-
-		return isValidOtp
-	}
-
 	/**
 	 * Send an OTP code to the phone number.
 	 *
@@ -37,6 +30,29 @@ class UserPhoneVerificationPresenterImpl(
 	override fun sendOtpCode(phoneNumber: String) {
 		view?.showLoadingDialog(Constants.SHOW_LOADING)
 		sendFirebaseOtpInteractor.execute(sendOtpInteractorListener, phoneNumber)
+	}
+
+	override fun verifyOtpCode(otpCode: String) {
+		if (isValidOtpCode(otpCode)) {
+			createPhoneAuthCredentialInteractor.execute(
+				createPhoneAuthCredentialInteractorListener,
+				verificationId!!,
+				otpCode
+			)
+		}
+	}
+
+	/**
+	 * Validate if the otp code string entered by the user is valid. If not, displays the proper
+	 * inline error
+	 */
+	override fun isValidOtpCode(otpCode: String?): Boolean {
+		val isValidOtp = !otpCode.isNullOrEmpty() && otpCode.length >= 6
+
+		if (!isValidOtp)
+			view?.showOtpInlineError("Invalid otp code. Try again.")
+
+		return isValidOtp
 	}
 
 	/**
@@ -57,9 +73,20 @@ class UserPhoneVerificationPresenterImpl(
 
 		override fun onCodeSent(verificationId: String?) {
 			// TODO
-			view.showLoadingDialog(Constants.HIDE_LOADING)
 			this@UserPhoneVerificationPresenterImpl.verificationId = verificationId
+			view.showLoadingDialog(Constants.HIDE_LOADING)
 		}
 
 	}
+
+	/**
+	 * [CreatePhoneAuthCredentialInteractor.Listener] implementation
+	 */
+	private val createPhoneAuthCredentialInteractorListener =
+		object : CreatePhoneAuthCredentialInteractor.Listener {
+			override fun onPhoneAuthCredentialCreated(phoneAuthCredential: PhoneAuthCredential) {
+				view.onPhoneAuthCredentialCreated(phoneAuthCredential)
+			}
+		}
+
 }
