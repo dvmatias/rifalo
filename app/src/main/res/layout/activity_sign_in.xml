@@ -38,7 +38,7 @@
 			android:paddingEnd="@dimen/dimen_28dp">
 
 			<!-- User Name Input -->
-			<com.bluespark.raffleit.common.views.EditTextCustomView
+			<com.bluespark.raffleit.common.views.TitleErrorEditText
 				android:id="@+id/etcv_user_email"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
 				app:titleText="@string/title_sign_in_user_email" />
 
 			<!-- User Password Input -->
-			<com.bluespark.raffleit.common.views.EditTextCustomView
+			<com.bluespark.raffleit.common.views.TitleErrorEditText
 				android:id="@+id/etcv_user_password"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"

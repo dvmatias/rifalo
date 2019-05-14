@@ -38,7 +38,7 @@
 			android:textColor="@color/color_white"
 			android:textSize="@dimen/text_16sp" />
 
-		<com.bluespark.raffleit.common.views.EditTextCustomView
+		<com.bluespark.raffleit.common.views.TitleErrorEditText
 			android:id="@+id/etcv_user_email"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
 			app:titleColor="@color/color_white"
 			app:titleText="@string/title_user_email_name_etcv" />
 
-		<com.bluespark.raffleit.common.views.EditTextCustomView
+		<com.bluespark.raffleit.common.views.TitleErrorEditText
 			android:id="@+id/etcv_user_password"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
 			app:titleColor="@color/color_white"
 			app:titleText="@string/title_user_password_name_etcv" />
 
-		<com.bluespark.raffleit.common.views.EditTextCustomView
+		<com.bluespark.raffleit.common.views.TitleErrorEditText
 			android:id="@+id/etcv_user_password_confirmation"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"

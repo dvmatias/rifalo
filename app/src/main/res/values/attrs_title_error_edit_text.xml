@@ -1,5 +1,5 @@
 <resources>
-	<declare-styleable name="EditTextCustomView">
+	<declare-styleable name="TitleErrorEditText">
 		<attr name="titleText" format="string" />
 		<attr name="titleColor" format="string|color" />
 		<attr name="titleSize" format="dimension" />

@@ -38,6 +38,6 @@
 		android:textAllCaps="true"
 		android:textSize="@dimen/text_18sp"
 		android:textStyle="bold"
-		android:textColor="@color/color_custom_view_edit_text_error"
+		android:textColor="@color/color_title_error_edit_text_edit_text_error"
 		tools:text="ok" />
 </LinearLayout>

@@ -12,9 +12,9 @@ import android.view.animation.AnimationUtils
 import android.view.animation.BounceInterpolator
 import android.widget.LinearLayout
 import com.bluespark.raffleit.R
-import kotlinx.android.synthetic.main.custom_view_edit_text.view.*
+import kotlinx.android.synthetic.main.edit_text_title_error.view.*
 
-class EditTextCustomView : LinearLayout, TextWatcher {
+class TitleErrorEditText : LinearLayout, TextWatcher {
 
 	private var _titleText: String =
 		context.resources.getString(R.string.title_custom_view_edit_text_default_string)
@@ -102,10 +102,10 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 
 	@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 	private fun init(attrs: AttributeSet?, defStyle: Int) {
-		View.inflate(context, R.layout.custom_view_edit_text, this)
+		View.inflate(context, R.layout.edit_text_title_error, this)
 		// Load attributes
 		val typedArray = context.obtainStyledAttributes(
-			attrs, R.styleable.EditTextCustomView, defStyle, 0
+			attrs, R.styleable.TitleErrorEditText, defStyle, 0
 		)
 
 		try {
@@ -114,40 +114,40 @@ class EditTextCustomView : LinearLayout, TextWatcher {
 				val attr = typedArray.getIndex(i)
 
 				when (attr) {
-					R.styleable.EditTextCustomView_titleText -> {
+					R.styleable.TitleErrorEditText_titleText -> {
 						//
-						_titleText = typedArray.getString(R.styleable.EditTextCustomView_titleText)
+						_titleText = typedArray.getString(R.styleable.TitleErrorEditText_titleText)
 						if (!_titleText.isBlank())
 							titleText = _titleText
 					}
-					R.styleable.EditTextCustomView_titleColor -> {
+					R.styleable.TitleErrorEditText_titleColor -> {
 						//
 						_titleColor =
-							typedArray.getString(R.styleable.EditTextCustomView_titleColor)
+							typedArray.getString(R.styleable.TitleErrorEditText_titleColor)
 						if (!_titleColor.isBlank())
 							titleColor = _titleColor
 					}
-					R.styleable.EditTextCustomView_hintText -> {
+					R.styleable.TitleErrorEditText_hintText -> {
 						//
-						_hintText = typedArray.getString(R.styleable.EditTextCustomView_hintText)
+						_hintText = typedArray.getString(R.styleable.TitleErrorEditText_hintText)
 						if (!_hintText.isBlank())
 							hintText = _hintText
 					}
-					R.styleable.EditTextCustomView_android_inputType -> {
+					R.styleable.TitleErrorEditText_android_inputType -> {
 						//
 						_inputType =
-							typedArray.getInt(R.styleable.EditTextCustomView_android_inputType, 1)
+							typedArray.getInt(R.styleable.TitleErrorEditText_android_inputType, 1)
 						inputType = _inputType
 					}
-					R.styleable.EditTextCustomView_android_imeOptions -> {
+					R.styleable.TitleErrorEditText_android_imeOptions -> {
 						//
 						_imeOptions =
-							typedArray.getInt(R.styleable.EditTextCustomView_android_imeOptions, 1)
+							typedArray.getInt(R.styleable.TitleErrorEditText_android_imeOptions, 1)
 						imeOptions = _imeOptions
 					}
-					R.styleable.EditTextCustomView_errorColorText -> {
+					R.styleable.TitleErrorEditText_errorColorText -> {
 						_errorColorText = typedArray.getColor(
-							R.styleable.EditTextCustomView_errorColorText,
+							R.styleable.TitleErrorEditText_errorColorText,
 							_errorColorText
 						)
 						errorColorText = _errorColorText
