@@ -4,8 +4,6 @@ import android.app.Activity
 import android.util.Log
 import com.bluespark.raffleit.common.utils.FirebaseErrorCodeHelper
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseUser
 
 /**
@@ -62,7 +60,7 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 		firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
 			activity
 		) { task ->
-			@Suppress("CanBeVal") var errorCode: String = ""
+			var errorCode: String = ""
 			if (task.isSuccessful) {
 				Log.d(TAG, "createUserWithEmailAndPassword:success")
 				val firebaseUser = firebaseAuth.currentUser
@@ -73,8 +71,7 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 					listener?.onUserCreationFail(errorCode)
 				}
 			} else {
-				errorCode = FirebaseErrorCodeHelper.getErrorCode(task.exception)
-				Log.d(TAG, "createUserWithEmailAndPassword:fail - errorCode = $errorCode")
+				errorCode = FirebaseErrorCodeHelper.getFirebaseErrorCode(task.exception)
 				listener?.onUserCreationFail(errorCode)
 			}
 		}
@@ -131,7 +128,7 @@ class FirebaseEmailPasswordManager(private var firebaseAuth: FirebaseAuth) {
 				Log.d(TAG, "signInWithEmailAndPassword:success")
 				listener?.onEmailPasswordSignInSuccess()
 			} else {
-				val errorCode = FirebaseErrorCodeHelper.getErrorCode(task.exception)
+				val errorCode = FirebaseErrorCodeHelper.getFirebaseErrorCode(task.exception)
 				Log.d(TAG, "signInWithEmailAndPassword:fail - errorCode = $errorCode")
 				listener?.onEmailPasswordSignInFail(errorCode)
 			}

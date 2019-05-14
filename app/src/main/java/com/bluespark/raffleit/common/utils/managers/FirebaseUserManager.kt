@@ -81,8 +81,7 @@ class FirebaseUserManager(private var firebaseAuth: FirebaseAuth) {
 				Log.d(TAG, "updatePhoneNumber:success")
 				listener?.onPhoneUpdateSuccess()
 			} else {
-				errorCode = FirebaseErrorCodeHelper.getErrorCode(task.exception)
-				Log.d(TAG, "updatePhoneNumber:fail - errorCode = $errorCode")
+				errorCode = FirebaseErrorCodeHelper.getFirebaseErrorCode(task.exception)
 				listener?.onPhoneUpdateFail(errorCode)
 			}
 		}
