@@ -88,7 +88,7 @@
 		android:ellipsize="end"
 		android:maxLines="@integer/integer_two"
 		android:textAlignment="textEnd"
-		android:textColor="@color/color_title_error_edit_text_edit_text_error"
+		android:textColor="@color/color_title_error_edit_text_error"
 		android:textSize="@dimen/text_12sp"
 		tools:text="Inline error text" />
 </LinearLayout>

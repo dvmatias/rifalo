@@ -178,13 +178,13 @@ class TitleErrorEditText : LinearLayout, TextWatcher {
 
 	@Suppress("unused")
 	fun setStatusNormal() {
-		v_bgr.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_normal)
+		v_bgr.setBackgroundResource(R.drawable.bgr_title_error_edit_text_normal)
 		hideError()
 	}
 
 	@Suppress("unused")
 	fun setStatusError(@Nullable errorMsg: String) {
-		v_bgr.setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_error)
+		v_bgr.setBackgroundResource(R.drawable.bgr_title_error_edit_text_error)
 		_errorText = errorMsg
 		if (!_errorText.isBlank()) {
 			errorText = _errorText
@@ -194,7 +194,7 @@ class TitleErrorEditText : LinearLayout, TextWatcher {
 
 	@Suppress("unused")
 	fun setStatusValid() {
-		v_bgr .setBackgroundResource(R.drawable.bgr_sign_in_activity_edit_text_valid)
+		v_bgr .setBackgroundResource(R.drawable.bgr_title_error_edit_text_valid)
 	}
 
 	private fun hideError() {
