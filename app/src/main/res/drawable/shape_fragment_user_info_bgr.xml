@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-	android:shape="rectangle">
-
-	<solid android:color="@color/color_sign_up_fragments_bgr" />
-
-	<corners android:radius="@dimen/dimen_sign_in_components_corner_radius" />
-
-</shape>
