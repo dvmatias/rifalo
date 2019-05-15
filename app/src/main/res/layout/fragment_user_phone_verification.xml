@@ -40,7 +40,7 @@
 			android:textSize="@dimen/text_16sp" />
 
 		<!--OTP Input Field -->
-		<com.bluespark.raffleit.common.views.EditTextCustomView
+		<com.bluespark.raffleit.common.views.TitleErrorEditText
 			android:id="@+id/etcv_otp"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"

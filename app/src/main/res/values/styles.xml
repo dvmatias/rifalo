@@ -31,7 +31,7 @@
 
 	<!-- Edit Text Login Theme. -->
 	<style name="EditTextLoginTheme" parent="Base.V7.Widget.AppCompat.EditText">
-		<item name="android:background">@drawable/bgr_sign_in_activity_edit_text_normal</item>
+		<item name="android:background">@drawable/bgr_title_error_edit_text_normal</item>
 		<item name="android:colorControlActivated">@color/color_transparent</item>
 		<item name="android:colorControlNormal">@color/color_transparent</item>
 		<item name="android:layout_marginStart">@dimen/dimen_8dp</item>
@@ -44,14 +44,15 @@
 	</style>
 
 	<!-- Edit Text Sign Up Theme. -->
-	<style name="EditTextLoginSignUpTheme" parent="Base.V7.Widget.AppCompat.EditText">
+	<style name="ThemeTitleErrorEditText" parent="Base.V7.Widget.AppCompat.EditText">
 		<item name="android:background">@drawable/shape_custom_view_edit_text_bgr</item>
 		<item name="android:colorControlActivated">@color/color_transparent</item>
 		<item name="android:colorControlNormal">@color/color_transparent</item>
 		<item name="android:maxLength">25</item>
 		<item name="android:paddingEnd">@dimen/dimen_16dp</item>
 		<item name="android:paddingStart">@dimen/dimen_16dp</item>
-		<item name="android:textColorHint">@color/color_custom_view_edit_text_hint</item>
+		<item name="android:textColorHint">@color/color_title_error_edit_text_hint</item>
+		<item name="android:textCursorDrawable">@drawable/shape_title_error_edit_text_cursor_drawable</item>
 	</style>
 
 	<!-- Edit Text Phone Validator Theme. -->
@@ -62,7 +63,7 @@
 		<item name="android:maxLength">13</item>
 		<item name="android:paddingEnd">@dimen/dimen_16dp</item>
 		<item name="android:paddingStart">@dimen/dimen_12dp</item>
-		<item name="android:textColorHint">@color/color_custom_view_edit_text_hint</item>
+		<item name="android:textColorHint">@color/color_title_error_edit_text_hint</item>
 		<item name="android:textAlignment">center</item>
 		<item name="android:inputType">number</item>
 	</style>

@@ -23,10 +23,14 @@
 	<color name="color_transparent">#00000000</color>
 	<color name="color_white">#FFFFFFFF</color>
 	<color name="color_black">#FF000000</color>
-	<color name="color_custom_view_card_view_bgr">#FFFFFFFF</color>
-	<color name="color_custom_view_edit_text_shape">#33000000</color>
-	<color name="color_custom_view_edit_text_hint">@color/color_custom_view_edit_text_shape</color>
-	<color name="color_custom_view_edit_text_error">#ed4a4a</color>
+
+	<!-- Title Error Edit Text -->
+	<color name="color_title_error_edit_text_card_view_bgr">#FFFFFFFF</color>
+	<color name="color_title_error_edit_text_shape">#33000000</color>
+	<color name="color_title_error_edit_text_hint">@color/color_title_error_edit_text_shape</color>
+	<color name="color_title_error_edit_text_error">#ed4a4a</color>
+	<color name="color_title_error_edit_text_cursor">@color/color_primary_dark</color>
+
 	<color name="color_sign_up_fragments_bgr">#64ffffff</color>
 	<color name="label_flow_button_custom_view_default_color">#464646</color>
 	<color name="button_flow_button_custom_view_default_color">#ed4a4a</color>

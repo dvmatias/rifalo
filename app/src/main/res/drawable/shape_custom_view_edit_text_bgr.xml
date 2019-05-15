@@ -19,5 +19,5 @@
 
 	<stroke
 		android:width="0dp"
-		android:color="@color/color_custom_view_edit_text_shape" />
+		android:color="@color/color_title_error_edit_text_shape" />
 </shape>

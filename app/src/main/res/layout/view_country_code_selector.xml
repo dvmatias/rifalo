@@ -21,7 +21,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/dimen_sign_in_components_height"
 		android:layout_margin="@dimen/dimen_4dp"
-		app:cardBackgroundColor="@color/color_custom_view_card_view_bgr"
+		app:cardBackgroundColor="@color/color_title_error_edit_text_card_view_bgr"
 		app:cardCornerRadius="@dimen/dimen_sign_in_components_corner_radius"
 		app:cardElevation="@dimen/dimen_1dp"
 		app:cardUseCompatPadding="false">
@@ -88,7 +88,7 @@
 		android:ellipsize="end"
 		android:maxLines="@integer/integer_two"
 		android:textAlignment="textEnd"
-		android:textColor="@color/color_custom_view_edit_text_error"
+		android:textColor="@color/color_title_error_edit_text_error"
 		android:textSize="@dimen/text_12sp"
 		tools:text="Inline error text" />
 </LinearLayout>
