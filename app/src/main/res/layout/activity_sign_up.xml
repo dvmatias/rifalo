@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/container_main"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".screens.signup.SignUpActivity">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@drawable/degrade_activity_bgr"
+		android:orientation="vertical">
+
+		<!-- Go Back Button -->
+		<TextView
+			android:id="@+id/back_btn"
+			android:layout_width="wrap_content"
+			android:layout_height="@dimen/dimen_44dp"
+			android:layout_marginStart="@dimen/dimen_32dp"
+			android:layout_marginTop="@dimen/dimen_48dp"
+			android:drawableStart="@drawable/ic_arrow_back_24dp"
+			android:drawablePadding="@dimen/dimen_8dp"
+			android:gravity="center_vertical"
+			android:text="@string/label_go_back_sign_up_activity_btn"
+			android:textColor="@color/color_white"
+			android:textSize="@dimen/text_18sp"
+			android:textStyle="bold" />
+
+		<!-- App Name -->
+		<FrameLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingStart="@dimen/dimen_32dp"
+			android:paddingTop="@dimen/dimen_64dp"
+			android:paddingEnd="@dimen/dimen_32dp">
+
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/dimen_sign_in_components_height"
+				android:layout_gravity="bottom"
+				android:adjustViewBounds="true"
+				android:contentDescription="@null"
+				android:scaleType="center"
+				android:src="@drawable/img_sign_in_app_name" />
+
+		</FrameLayout>
+
+		<!-- Fragments container -->
+		<android.support.v4.view.ViewPager
+			android:id="@+id/pager"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_gravity="center_vertical"
+			android:layout_weight="1" />
+
+		<!-- Flow Button -->
+		<FrameLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/dimen_18dp"
+			android:paddingStart="@dimen/dimen_32dp"
+			android:paddingEnd="@dimen/dimen_32dp"
+			android:paddingBottom="@dimen/dimen_32dp">
+
+			<com.bluespark.raffleit.common.views.FlowButtonCustomView
+				android:id="@+id/flow_btn"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_vertical"
+				app:buttonColor="#ffd900" />
+		</FrameLayout>
+	</LinearLayout>
+</android.support.constraint.ConstraintLayout>

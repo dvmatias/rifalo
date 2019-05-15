@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<android.support.v7.widget.CardView
+		android:id="@+id/sign_in_google_btn"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/dimen_sign_in_components_height"
+		android:layout_margin="@dimen/dimen_8dp"
+		android:clickable="true"
+		android:focusable="true"
+		android:foreground="?android:attr/selectableItemBackground"
+		app:cardBackgroundColor="@color/color_white"
+		app:cardCornerRadius="@dimen/dimen_sign_in_components_corner_radius"
+		app:cardElevation="@dimen/dimen_1dp">
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@color/color_transparent">
+
+			<ImageView
+				android:id="@+id/iv_btn_logo"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentStart="true"
+				android:layout_centerVertical="true"
+				android:layout_marginStart="@dimen/dimen_24dp"
+				android:contentDescription="@null"
+				android:src="@drawable/ic_sign_in_btn_google_24dp" />
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_marginEnd="@dimen/dimen_24dp"
+				android:layout_toEndOf="@id/iv_btn_logo"
+				android:text="@string/title_sign_in_google_btn"
+				android:textAlignment="center"
+				android:textSize="@dimen/text_sign_in_components"
+				android:textStyle="bold" />
+		</RelativeLayout>
+	</android.support.v7.widget.CardView>
+
+</FrameLayout>
