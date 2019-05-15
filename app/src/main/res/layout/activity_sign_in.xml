@@ -69,7 +69,6 @@
 					app:titleText="@string/title_sign_in_user_password" />
 			</LinearLayout>
 
-
 			<!-- Login Button -->
 			<com.bluespark.raffleit.common.views.FlowButtonCustomView
 				android:id="@+id/login_btn"
