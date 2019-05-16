@@ -57,6 +57,7 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 		super.applyImmersiveFullScreen()
 		setContentView(R.layout.activity_sign_up)
 		getPresentationComponent().inject(this)
+		presenter.fetchCountryCodes()
 
 		setFlowButtonLabel(getString(R.string.label_btn_next))
 		setListeners()
@@ -73,7 +74,6 @@ class SignUpActivity : BaseActivityImpl(), SignUpContract.View, View.OnClickList
 
 	override fun onResume() {
 		super.onResume()
-		presenter.fetchCountryCodes()
 	}
 
 	private fun setListeners() {
