@@ -77,6 +77,7 @@ class SignInPresenterImpl(
 
 			override fun onFail(errorCode: String) {
 				view?.showLoadingDialog(Constants.HIDE_LOADING)
+				view?.showUserNotFoundError(errorCode)
 			}
 		}
 

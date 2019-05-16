@@ -139,7 +139,6 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 	}
 
 
-
 	override fun showLoadingDialog(show: Boolean) {
 		super.showLoading(show)
 	}
@@ -154,6 +153,15 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 
 	override fun setPasswordError(errorMsg: String) {
 		etcv_user_password.setStatusError(errorMsg)
+	}
+
+	override fun showUserNotFoundError(errorCode: String) {
+		warningDialogFragment.setup(
+			getString(R.string.title_user_not_found_error_dialog),
+			getString(R.string.msg_user_not_found_error_dialog),
+			getString(R.string.btn_label_user_not_found_error_dialog)
+		)
+		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
 	}
 
 	override fun goToMainScreen() {

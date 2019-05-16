@@ -15,6 +15,11 @@
 	<string name="label_go_back_sign_up_activity_btn">GO BACK</string>
 	<string name="text_please_wait">Please wait…</string>
 
+	<!-- Sing In Activity -->
+	<string name="title_user_not_found_error_dialog">Something Went Wrong</string>
+	<string name="msg_user_not_found_error_dialog">The user does not exists. Please check that you entered your email correctly.</string>
+	<string name="btn_label_user_not_found_error_dialog">ok</string>
+
 	<!-- Sign Up Activity -->
 	<string name="label_btn_next">next</string>
 	<string name="label_btn_validate_phone">validate phone</string>
