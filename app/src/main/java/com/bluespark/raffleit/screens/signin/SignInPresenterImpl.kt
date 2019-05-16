@@ -2,6 +2,7 @@ package com.bluespark.raffleit.screens.signin
 
 import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.mvp.BasePresenterImpl
+import com.bluespark.raffleit.common.utils.FirebaseErrorCodeHelper
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidateEmailInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidatePasswordInteractor
 
@@ -77,7 +78,18 @@ class SignInPresenterImpl(
 
 			override fun onFail(errorCode: String) {
 				view?.showLoadingDialog(Constants.HIDE_LOADING)
-				view?.showUserNotFoundError(errorCode)
+
+				when (errorCode) {
+					FirebaseErrorCodeHelper.ERROR_USER_NOT_FOUND -> {
+						view?.showUserNotFoundErrorDialog()
+						view?.setEmailError("")
+					}
+					FirebaseErrorCodeHelper.ERROR_WRONG_PASSWORD -> {
+						view?.showWrongPasswordErrorDialog()
+						view?.setPasswordError("")
+					}
+				}
+
 			}
 		}
 

@@ -155,11 +155,20 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		etcv_user_password.setStatusError(errorMsg)
 	}
 
-	override fun showUserNotFoundError(errorCode: String) {
+	override fun showUserNotFoundErrorDialog() {
 		warningDialogFragment.setup(
 			getString(R.string.title_user_not_found_error_dialog),
 			getString(R.string.msg_user_not_found_error_dialog),
 			getString(R.string.btn_label_user_not_found_error_dialog)
+		)
+		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
+	}
+
+	override fun showWrongPasswordErrorDialog() {
+		warningDialogFragment.setup(
+			getString(R.string.title_wrong_password_error_dialog),
+			getString(R.string.msg_wrong_password_error_dialog),
+			getString(R.string.btn_label_wrong_password_error_dialog)
 		)
 		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
 	}

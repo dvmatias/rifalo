@@ -6,6 +6,8 @@ class FirebaseErrorCodeHelper {
 
 
 	companion object {
+		const val ERROR_USER_NOT_FOUND = "ERROR_USER_NOT_FOUND"
+		const val ERROR_WRONG_PASSWORD = "ERROR_WRONG_PASSWORD"
 
 		private val TAG = FirebaseErrorCodeHelper::class.java.simpleName
 

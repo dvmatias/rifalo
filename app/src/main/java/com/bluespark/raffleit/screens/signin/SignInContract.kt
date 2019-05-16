@@ -18,7 +18,8 @@ interface SignInContract {
 		fun showNoInternetDialog(show: Boolean)
 		fun setEmailError(errorMsg: String)
 		fun setPasswordError(errorMsg: String)
-		fun showUserNotFoundError(errorCode: String)
+		fun showUserNotFoundErrorDialog()
+		fun showWrongPasswordErrorDialog()
 		// Flow
 		fun goToMainScreen()
 		fun goToSignUpScreen()
