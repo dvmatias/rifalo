@@ -42,7 +42,7 @@ class WarningDialogFragmentImpl : MyDialogFragment(), View.OnClickListener {
 
 	override fun onClick(v: View?) {
 		when (v?.id) {
-			tv_btn.id -> buttonClickListener?.onOkButtonClick()
+			tv_neutral_btn.id -> buttonClickListener?.onOkButtonClick()
 		}
 	}
 
@@ -85,7 +85,7 @@ class WarningDialogFragmentImpl : MyDialogFragment(), View.OnClickListener {
 	}
 
 	private fun setupButton() {
-		tv_btn.apply {
+		tv_neutral_btn.apply {
 			if (labelButton.isNullOrEmpty())
 				visibility = View.GONE
 			else {

@@ -76,5 +76,8 @@
 	<dimen name="dimen_sign_in_components_height">46dp</dimen>
 	<dimen name="dimen_sign_in_components_corner_radius">23dp</dimen>
 	<dimen name="text_sign_in_components">18sp</dimen>
+	<dimen name="title_warning_dialog_margin_top">16dp</dimen>
+	<dimen name="container_warning_dialog_padding_start">24dp</dimen>
+	<dimen name="container_warning_dialog_padding_end">24dp</dimen>
 
 </resources>

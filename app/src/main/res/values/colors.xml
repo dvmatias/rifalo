@@ -24,6 +24,9 @@
 	<color name="color_white">#FFFFFFFF</color>
 	<color name="color_black">#FF000000</color>
 
+	<!-- Warning Dialog Fragment -->
+	<color name="btn_text_color">@color/color_primary</color>
+
 	<!-- Title Error Edit Text -->
 	<color name="color_title_error_edit_text_card_view_bgr">#FFFFFFFF</color>
 	<color name="color_title_error_edit_text_shape">#33000000</color>
