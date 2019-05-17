@@ -2,11 +2,15 @@ package com.bluespark.raffleit.screens.signin
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.Constants
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
+import com.bluespark.raffleit.common.utils.UiHelper
 import com.bluespark.raffleit.common.utils.managers.FirebaseSignInGoogleManager
 import com.bluespark.raffleit.common.views.dialogs.LoadingDialogFragment
 import com.bluespark.raffleit.common.views.dialogs.WarningDialogFragmentImpl
@@ -60,6 +64,14 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		facebook.sign_in_facebook_btn.setOnClickListener(this)
 		google.sign_in_google_btn.setOnClickListener(this)
 		tv_sign_up.setOnClickListener(this)
+		etcv_user_password.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+			if (actionId == EditorInfo.IME_ACTION_GO) {
+				onLoginClick()
+				UiHelper.hideKeyboardFrom(this@SignInActivity, v)
+				return@OnEditorActionListener true
+			}
+			return@OnEditorActionListener false
+		})
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

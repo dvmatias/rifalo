@@ -7,14 +7,18 @@ import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.KeyEvent
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.BounceInterpolator
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.bluespark.raffleit.R
 import kotlinx.android.synthetic.main.edit_text_title_error.view.*
 
 class TitleErrorEditText : LinearLayout, TextWatcher {
+
+	private val listenerAdapter = InternalEditorActionListener()
 
 	private var _titleText: String =
 		context.resources.getString(R.string.title_custom_view_edit_text_default_string)
@@ -33,7 +37,6 @@ class TitleErrorEditText : LinearLayout, TextWatcher {
 
 	private var _errorColorText: Int =
 		ContextCompat.getColor(context, R.color.asdasdasdas)
-
 
 	private var titleText: String
 		get() = _titleText
@@ -165,7 +168,6 @@ class TitleErrorEditText : LinearLayout, TextWatcher {
 			e.printStackTrace()
 		} finally {
 			setTextChangedListener(this)
-
 			setStatusNormal()
 
 			typedArray.recycle()
@@ -174,6 +176,16 @@ class TitleErrorEditText : LinearLayout, TextWatcher {
 
 	fun setTextChangedListener(textWatcher: TextWatcher) {
 		et.addTextChangedListener(textWatcher)
+	}
+
+	/**
+	 * Sets the listener object that is triggered when the view is clicked.
+	 *
+	 * @param onEditorActionListener The instance of the listener to trigger.
+	 */
+	fun setOnEditorActionListener(onEditorActionListener: TextView.OnEditorActionListener) {
+		listenerAdapter.setListener(onEditorActionListener)
+		et.setOnEditorActionListener(listenerAdapter)
 	}
 
 	@Suppress("unused")
@@ -235,5 +247,30 @@ class TitleErrorEditText : LinearLayout, TextWatcher {
 	override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 		// Set to normal status.
 		setStatusNormal()
+	}
+
+	class InternalEditorActionListener : TextView.OnEditorActionListener {
+		private var listener: TextView.OnEditorActionListener? = null
+
+		fun setListener(onEditorActionListener: TextView.OnEditorActionListener) {
+			listener = onEditorActionListener
+		}
+
+		/**
+		 * Called when an action is being performed.
+		 *
+		 * @param v The view that was clicked.
+		 * @param actionId Identifier of the action.  This will be either the
+		 * identifier you supplied, or [ EditorInfo.IME_NULL][EditorInfo.IME_NULL] if being called due to the enter key
+		 * being pressed.
+		 * @param event If triggered by an enter key, this is the event;
+		 * otherwise, this is null.
+		 * @return Return true if you have consumed the action, else false.
+		 */
+		override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+			listener?.onEditorAction(v, actionId, event)
+			return true
+		}
+
 	}
 }
