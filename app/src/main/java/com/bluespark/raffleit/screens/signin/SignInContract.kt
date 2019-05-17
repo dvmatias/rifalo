@@ -10,7 +10,6 @@ interface SignInContract {
 		fun onGetHelpClick()
 		fun onLoginClick()
 		fun onSignInEmailPasswordSuccess()
-		fun onSignInEmailPasswordError(errorCode: String)
 		fun onSignInFacebookClick()
 		fun onSignInGoogleClick()
 		fun onSignUpClick()

@@ -120,23 +120,6 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		}
 	}
 
-	override fun onSignInEmailPasswordError(errorCode: String) {
-		val errorMsg =
-			when (errorCode) {
-				"auth/invalid-email" -> "auth/invalid-email"
-				"auth/user-disabled" -> "auth/user-disabled"
-				"auth/user-not-found" -> "auth/user-not-found"
-				"auth/wrong-password" -> "auth/wrong-password"
-				else -> ""
-			}
-		warningDialogFragment.setup(
-			"Sign In Error",
-			errorMsg,
-			"ok"
-		)
-		dialogsManager.showRetainedDialogWithId(warningDialogFragment, LoadingDialogFragment.TAG)
-	}
-
 	override fun onSignInFacebookClick() {
 		Toast.makeText(this, "onSignInFacebookClick()", Toast.LENGTH_SHORT).show()
 	}
