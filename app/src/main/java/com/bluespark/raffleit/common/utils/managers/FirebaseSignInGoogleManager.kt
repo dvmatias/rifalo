@@ -15,19 +15,19 @@ class FirebaseSignInGoogleManager(
 	private var googleSignInClient: GoogleSignInClient
 ) {
 
+	private lateinit var listener: Listener
+
 	companion object {
 		private val TAG = FirebaseSignInGoogleManager::class.java.simpleName
 	}
 
 	interface Listener {
 		fun onGoogleSignInSuccess()
-		fun onGoogleSignInFail()
+		fun onGoogleSignInFail(errorCode: String)
 	}
 
-	fun signIn(activity: BaseActivityImpl) {
-		if (activity !is Listener) {
-			throw ClassCastException("The $activity class shall implement FirebaseSignInGoogleManager.Listener")
-		}
+	fun signIn(listener: Listener, activity: BaseActivityImpl) {
+		this.listener = listener
 		activity.startActivityForResult(
 			googleSignInClient.signInIntent,
 			Constants.RC_SIGN_IN_GOOGLE
@@ -60,13 +60,12 @@ class FirebaseSignInGoogleManager(
 				activity
 			) { task ->
 				if (task.isSuccessful) {
-					// TODO Store user data.
-					(activity as Listener).onGoogleSignInSuccess()
+					listener.onGoogleSignInSuccess()
 				} else {
 					// If sign in fails, display a message to the user.
 					Log.w(TAG, "signInWithCredential:failure", task.exception)
 					// TODO Manage result.
-					(activity as Listener).onGoogleSignInFail()
+					listener.onGoogleSignInFail("")
 				}
 			}
 	}

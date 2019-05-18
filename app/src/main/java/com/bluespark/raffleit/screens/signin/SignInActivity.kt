@@ -8,7 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.Constants
-import com.bluespark.raffleit.common.model.objects.UserFirebase
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.bluespark.raffleit.common.utils.UiHelper
 import com.bluespark.raffleit.common.utils.managers.FirebaseSignInGoogleManager
@@ -26,8 +25,7 @@ import kotlinx.android.synthetic.main.view_sign_in_google_btn.view.*
 import javax.inject.Inject
 
 
-class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickListener,
-	FirebaseSignInGoogleManager.Listener {
+class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickListener {
 
 	@Inject
 	lateinit var presenter: SignInPresenterImpl
@@ -86,18 +84,6 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 	}
 
 	/**
-	 * [FirebaseSignInGoogleManager.Listener] implementation
-	 */
-
-	override fun onGoogleSignInSuccess() {
-		goToMainScreen()
-	}
-
-	override fun onGoogleSignInFail() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-	}
-
-	/**
 	 * [SignInContract.View] implementation.
 	 */
 	override fun onGetHelpClick() {
@@ -135,8 +121,7 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 	}
 
 	override fun onSignInGoogleClick() {
-		Toast.makeText(this, "onSignInGoogleClick()", Toast.LENGTH_SHORT).show()
-		firebaseSignInGoogleManager.signIn(this)
+		presenter.signInGoogle()
 	}
 
 	override fun onSignUpClick() {
