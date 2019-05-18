@@ -4,6 +4,7 @@ import android.app.Activity
 import android.support.annotation.UiThread
 import android.util.Log
 import com.bluespark.raffleit.common.model.objects.UserFirebase
+import com.bluespark.raffleit.screens.signin.AddUserLogedInWithEmailAndPasswordToDatabaseInteractor.Listener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -27,7 +28,12 @@ class AddUserLogedInWithEmailAndPasswordToDatabaseInteractor(
 ) {
 
 	private var listener: Listener? = null
-	private var flagTaskCompleted = false
+	private lateinit var userId: String
+
+	companion object {
+		private val TAG =
+			AddUserLogedInWithEmailAndPasswordToDatabaseInteractor::class.java.simpleName
+	}
 
 	/**
 	 * This interface must be implemented and be passed as instance into [execute] method.
@@ -50,49 +56,47 @@ class AddUserLogedInWithEmailAndPasswordToDatabaseInteractor(
 		userId: String
 	) {
 		this.listener = listener
+		this.userId = userId
 
-		// First, check if the userId is already a node in "users" Database.
 		FirebaseDatabase.getInstance().reference.child("users").child(userId)
-			.addValueEventListener(object : ValueEventListener {
-				override fun onCancelled(p0: DatabaseError) {
-					// Error trying to verify if the user exists on Database.
-					Log.d(TAG, "Check if user exists on DB error: ${p0.message}")
-					listener?.onFail("ERROR_DB_1")
-				}
-
-				override fun onDataChange(p0: DataSnapshot) {
-					if (!flagTaskCompleted) {
-						// If the user do not exists in database
-						if (!p0.exists()) {
-							// This avoid a second iteration when the user has been added to
-							// the Database.
-							flagTaskCompleted = true
-							// Add user to "users" Database
-							FirebaseDatabase.getInstance().reference.child("users").child(userId)
-								.setValue(getUserFirebase())
-								.addOnCompleteListener(activity) { task ->
-									if (task.isSuccessful) {
-										Log.d(TAG, "success:$userId added to Database")
-										listener?.onSuccess()
-									} else {
-										Log.d(TAG, "fail:$userId not added to Database")
-										listener?.onFail("ERROR_DB_2")
-									}
-								}
-						} else {
-							Log.d(TAG, "neutral:$userId already exists in DB")
-							listener?.onSuccess()
-						}
-					}
-				}
-
-			})
+			.addValueEventListener(valueEventListener)
 
 	}
 
-	companion object {
-		private val TAG =
-			AddUserLogedInWithEmailAndPasswordToDatabaseInteractor::class.java.simpleName
+	/**
+	 * Listener to check if the user exists on "users" Firebase Database. If the user do not
+	 * exists, try to add it. If the user already exists do nothing.
+	 */
+	private val valueEventListener: ValueEventListener = object : ValueEventListener {
+		override fun onCancelled(p0: DatabaseError) {
+			// Error trying to verify if the user exists on Database.
+			Log.d(TAG, "Check if user exists on DB error: ${p0.message}")
+			listener?.onFail("ERROR_DB_1")
+		}
+
+		override fun onDataChange(p0: DataSnapshot) {
+			// If the user do not exists in database
+			if (!p0.exists()) {
+				// Remove listener to prevent double call when the user is added to Database.
+				FirebaseDatabase.getInstance().reference.child("users").child(userId)
+					.removeEventListener(this)
+				// Add user to "users" Database
+				FirebaseDatabase.getInstance().reference.child("users").child(userId)
+					.setValue(getUserFirebase())
+					.addOnCompleteListener(activity) { task ->
+						if (task.isSuccessful) {
+							Log.d(TAG, "success:$userId added to Database")
+							listener?.onSuccess()
+						} else {
+							Log.d(TAG, "fail:$userId not added to Database")
+							listener?.onFail("ERROR_DB_2")
+						}
+					}
+			} else {
+				Log.d(TAG, "neutral:$userId already exists in DB")
+				listener?.onSuccess()
+			}
+		}
 	}
 
 	/**

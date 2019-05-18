@@ -33,8 +33,10 @@ class InteractorModule {
 		SplashCheckNetworkInteractor(internetConnectivityManager)
 
 	@Provides
-	fun getSplashCheckCredentialsInteractor(context: Context): SplashCheckCredentialsInteractor =
-		SplashCheckCredentialsInteractor(context)
+	fun getSplashCheckCredentialsInteractor(
+		firebaseAuth: FirebaseAuth
+	): SplashCheckCredentialsInteractor =
+		SplashCheckCredentialsInteractor(firebaseAuth)
 
 	@Provides
 	fun getSignUpFetchCountryCodesInteractor(rootDatabaseReference: DatabaseReference): SignUpFetchCountryCodesInteractor =

@@ -26,13 +26,13 @@ class SignUpFetchCountryCodesInteractor(private var rootDatabaseReference: Datab
 
 				try {
 					for (ds in dataSnapshot.children) {
-
 						for (dsLanguage in ds.children) {
 							val languageSchema = CountryCodeSchema.LanguageSchema()
 							languageSchema.code = dsLanguage.key
 
 							for (dsCountry in dsLanguage.children) {
-								val countryScheme = dsCountry.getValue(CountryCodeSchema.CountrySchema::class.java)
+								val countryScheme =
+									dsCountry.getValue(CountryCodeSchema.CountrySchema::class.java)
 								if (countryScheme != null)
 									languageSchema.countrySchemaList.add(countryScheme)
 							}

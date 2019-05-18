@@ -2,7 +2,6 @@ package com.bluespark.raffleit.screens.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.bluespark.raffleit.screens.main.MainActivity
