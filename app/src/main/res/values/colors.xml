@@ -5,11 +5,36 @@
 	<color name="color_accent">#D81B60</color>
 
 	<color name="color_facebook">#3B5997</color>
-	<color name="color_login_btn_bgr">#f1c044</color>
-	<color name="color_sign_in_edit_text_bgr">#33FFFFFF</color>
-	<color name="color_sign_in_edit_text_stroke">#89ffffff</color>
-	<color name="color_sign_in_edit_text_hint">#b0ffffff</color>
+	<color name="color_login_btn_bgr">#FFD900</color>
+	<color name="color_loading_fragment_bgr">#ffffff</color>
+	<color name="color_sign_in_edit_text_bgr">#ffffff</color>
+	<color name="color_sign_in_edit_text_stroke_normal">#00FFFFFF</color>
+	<color name="color_sign_in_edit_text_stroke_error">#ed4a4a</color>
+	<color name="color_sign_in_edit_text_stroke_valid">#47c11d</color>
+	<color name="color_sign_in_edit_text_hint">#B0FFFFFF</color>
+
+
+	<color name="asdasdasdas">#4aedcf</color>
+
+	<!-- Check Box View -->
+	<color name="color_check_box_view_base_default">#FFD900</color>
+	<color name="color_check_box_view_tint_default">#787878</color>
 
 	<color name="color_transparent">#00000000</color>
 	<color name="color_white">#FFFFFFFF</color>
+	<color name="color_black">#FF000000</color>
+
+	<!-- Warning Dialog Fragment -->
+	<color name="btn_text_color">@color/color_primary</color>
+
+	<!-- Title Error Edit Text -->
+	<color name="color_title_error_edit_text_card_view_bgr">#FFFFFFFF</color>
+	<color name="color_title_error_edit_text_shape">#33000000</color>
+	<color name="color_title_error_edit_text_hint">@color/color_title_error_edit_text_shape</color>
+	<color name="color_title_error_edit_text_error">#ed4a4a</color>
+	<color name="color_title_error_edit_text_cursor">@color/color_primary_dark</color>
+
+	<color name="color_sign_up_fragments_bgr">#64ffffff</color>
+	<color name="label_flow_button_custom_view_default_color">#464646</color>
+	<color name="button_flow_button_custom_view_default_color">#ed4a4a</color>
 </resources>

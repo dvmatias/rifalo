@@ -3,14 +3,11 @@
 
 	<solid
 		android:width="@dimen/dimen_1dp"
-		android:color="@color/color_sign_in_edit_text_bgr" />
-	<stroke
-		android:width="1dp"
-		android:color="@color/color_sign_in_edit_text_stroke" />
+		android:color="@color/color_loading_fragment_bgr" />
 	<padding
 		android:bottom="@dimen/dimen_2dp"
 		android:left="@dimen/dimen_2dp"
 		android:right="@dimen/dimen_2dp"
 		android:top="@dimen/dimen_2dp" />
-	<corners android:radius="@dimen/dimen_sign_ing_components_corner_radius" />
+	<corners android:radius="@dimen/dimen_sign_in_components_corner_radius" />
 </shape>

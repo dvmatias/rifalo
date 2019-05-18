@@ -9,6 +9,9 @@ import com.bluespark.raffleit.common.injection.application.ApplicationComponent
 import com.bluespark.raffleit.common.injection.application.MyApplication
 import com.bluespark.raffleit.common.injection.presentation.PresentationComponent
 import com.bluespark.raffleit.common.injection.presentation.PresentationModule
+import com.bluespark.raffleit.common.utils.managers.DialogsManager
+import com.bluespark.raffleit.common.views.dialogs.LoadingDialogFragment
+import javax.inject.Inject
 
 /**
  * MVP - Base Activity.
@@ -21,6 +24,10 @@ import com.bluespark.raffleit.common.injection.presentation.PresentationModule
 abstract class BaseActivityImpl : AppCompatActivity(), BaseView {
 
 	private var isInjectorUsed: Boolean = false
+	@Inject
+	lateinit var dialogsManager: DialogsManager
+	@Inject
+	lateinit var loadingDialogFragment: LoadingDialogFragment
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -67,6 +74,17 @@ abstract class BaseActivityImpl : AppCompatActivity(), BaseView {
 
 	private fun getApplicationComponent(): ApplicationComponent {
 		return (application as MyApplication).getApplicationComponent()
+	}
+
+	protected fun showLoading(show: Boolean) {
+		if (show) {
+			dialogsManager.showRetainedDialogWithId(
+				loadingDialogFragment,
+				LoadingDialogFragment.TAG
+			)
+		} else {
+			dialogsManager.dismissLoadingDialog()
+		}
 	}
 
 }

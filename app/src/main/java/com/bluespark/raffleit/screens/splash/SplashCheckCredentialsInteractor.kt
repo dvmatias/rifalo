@@ -1,10 +1,11 @@
 package com.bluespark.raffleit.screens.splash
 
-import android.content.Context
 import android.util.Log
-import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.firebase.auth.FirebaseAuth
 
-class SplashCheckCredentialsInteractor(private var context: Context) {
+class SplashCheckCredentialsInteractor(
+	private var firebaseAuth: FirebaseAuth
+) {
 
 	interface Listener {
 		fun onUserSignedIn()
@@ -13,10 +14,9 @@ class SplashCheckCredentialsInteractor(private var context: Context) {
 
 	fun execute(listener: SplashCheckCredentialsInteractor.Listener) {
 		Log.d(TAG, "MABEL execute()")
-		// Check for existing Google Sign In account, if the user is already signed in
-		// the GoogleSignInAccount will be non-null.
-		val account = GoogleSignIn.getLastSignedInAccount(context)
-		if (account != null) listener.onUserSignedIn() else listener.onUserNotLoggedIn()
+		// Check for existing user, if the user is already signed in the user will be non-null.
+		val user = firebaseAuth.currentUser
+		if (user != null) listener.onUserSignedIn() else listener.onUserNotLoggedIn()
 	}
 
 	companion object {

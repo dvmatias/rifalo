@@ -12,14 +12,13 @@ class SplashCheckNetworkInteractor(var internetConnectivityManager: InternetConn
 	}
 
 	fun execute(listener: SplashCheckNetworkInteractor.Listener) {
-		Log.d(TAG, "MABEL execute()")
 		Handler().postDelayed({
 			val isInternetConnected = internetConnectivityManager.checkInternetConnectionStatus()
 			when(isInternetConnected) {
 				true -> listener.onInternetConnected()
 				false -> listener.onInternetNotConnected()
 			}
-		}, 1500)
+		}, 500)
 	}
 
 	companion object {

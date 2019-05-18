@@ -2,13 +2,85 @@
 
 	<string name="app_name">Rifalo</string>
 
+	<string name="title_sign_in_user_email">Email</string>
+	<string name="hint_sign_in_user_email">Enter your email</string>
+	<string name="title_sign_in_user_password">Password</string>
+	<string name="hint_sign_in_user_password">Enter your password</string>
 	<string name="text_sign_in_activity_get_help">Forgot your login details? <b>Get help</b></string>
-	<string name="hint_sign_in_username">USERNAME</string>
-	<string name="hint_sign_in_password">PASSWORD</string>
 	<string name="title_login_btn">LOGIN</string>
 	<string name="text_sign_in_activity_or">OR</string>
 	<string name="title_sign_in_facebook_btn">SIGN IN FACEBOOK</string>
 	<string name="title_sign_in_google_btn">SIGN IN WITH GOOGLE</string>
 	<string name="text_sign_in_activity_sign_up">Don´t have an account? <b>Sign up</b></string>
+	<string name="label_go_back_sign_up_activity_btn">GO BACK</string>
+	<string name="text_please_wait">Please wait…</string>
+
+	<!-- Sing In Activity -->
+	<string name="title_user_not_found_error_dialog">Something Went Wrong</string>
+	<string name="msg_user_not_found_error_dialog">The user does not exists. Please check that you entered your email correctly.</string>
+	<string name="btn_label_user_not_found_error_dialog">ok</string>
+	<string name="title_wrong_password_error_dialog">Wrong Password</string>
+	<string name="msg_wrong_password_error_dialog">Please check that you entered your password correctly.</string>
+	<string name="btn_label_wrong_password_error_dialog">ok</string>
+
+	<!-- Sign Up Activity -->
+	<string name="label_btn_next">next</string>
+	<string name="label_btn_validate_phone">validate phone</string>
+	<string name="label_btn_verify_phone">verify phone</string>
+	<string name="title_warning_agreement">Sorry!</string>
+	<string name="msg_warning_agreement">You must accept the Raffle !T agreement to continue with the registration. If you\'re agree with the terms and conditions and the private policy, please check the box.</string>
+	<string name="label_btn_warning_agreement">accept</string>
+	<string name="title_warning_email_verification">Email Verification</string>
+	<string name="msg_warning_email_verification">Your email address must be verified before you can sign in. You will receive an email to the email address provided. Please follow the instructions.</string>
+	<string name="label_btn_warning_email_verification">ok</string>
+
+	<!-- Fragment User Info -->
+	<string name="title_fragment_user_info_sign_up">Sign Up</string>
+	<string name="title_fragment_user_info_explanation">You’re about to register in Raffle !t. Please complete your information.</string>
+	<string name="title_user_first_name_etcv">First name</string>
+	<string name="hint_user_first_name_etcv">Enter your fist name</string>
+	<string name="title_user_last_name_etcv">Last name</string>
+	<string name="hint_user_last_name_etcv">Enter your fist name</string>
+	<string name="title_user_email_name_etcv">Email</string>
+	<string name="hint_user_email_name_etcv">Enter your email address</string>
+	<string name="title_user_password_name_etcv">Password</string>
+	<string name="hint_user_password_name_etcv">Enter your password</string>
+	<string name="hint_user_password_confirmation_name_etcv">Enter your password again</string>
+	<string name="title_user_password_confirmation_name_etcv">Confirm you password</string>
+	<string name="msg_empty_email_error">You must enter your email</string>
+	<string name="msg_invalid_email_error">Invalid email address</string>
+	<string name="msg_empty_password_error">You can\'t leave your password empty</string>
+	<string name="msg_invalid_password_error">Invalid password</string>
+	<string name="msg_empty_password_confirmation_error">You must enter a password confirmation</string>
+	<string name="msg_invalid_password_confirmation_error">The passwords does not match</string>
+
+	<!-- Fragment Phone Validation -->
+	<string name="title_fragment_phone_validation">Phone Validation</string>
+	<string name="explanation_fragment_phone_validation">Now we have to validate you phone. Please choose the region code an enter you phone number.</string>
+	<string name="title_input_box_phone">Enter your cellphone number</string>
+	<string name="default_dial_code">+0</string>
+	<string name="text_fragment_phone_validation_agreement">By checking the box I confirm that I am over 18 years old and that I have read and accept the Terms and Conditions and Private Policy.</string>
+	<string name="msg_error_country_and_number">You must pick a country and enter a valid number</string>
+	<string name="msg_error_country">You must pick a country</string>
+	<string name="msg_error_number">You must enter a valid number</string>
+
+	<!-- Fragment Phone Verification -->
+	<string name="title_fragment_phone_verification">Phone Verification</string>
+	<string name="explanation_fragment_phone_verification">Almost done! Now we are going to verify you cell phone number. You\'ll receive an SMS with the OTP code. Please introduce this code in the box. If the SMS has not arrived, please wait for a moment.</string>
+	<string name="title_input_box_otp">Enter the OTP code</string>
+	<string name="title_otp_etcv">OTP code</string>
+	<string name="hint_otp_etcv">Enter the 6 digits code</string>
+
+	<!-- Edit Text Custom View -->
+	<string name="title_custom_view_edit_text_default_string">Title</string>
+	<string name="title_custom_view_edit_default_color">#FF9800</string>
+	<string name="error_custom_view_edit_default_color">#ed4a4a</string>
+	<string name="hint_custom_view_edit_text_default_string">Hint</string>
+
+	<!-- Edit Text Custom View -->
+	<string name="label_flow_button_custom_view_default_string">button</string>
+
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

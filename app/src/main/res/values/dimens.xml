@@ -62,9 +62,22 @@
 	<dimen name="text_24sp">24sp</dimen>
 	<dimen name="text_26sp">26sp</dimen>
 
+	<!-- Custom View Edit Text -->
+	<dimen name="dimen_edit_text_stroke_width">1.5dp</dimen>
+
+	<!-- Custom View Flow Button  -->
+	<dimen name="dimen_flow_button_height">46dp</dimen>
+	<dimen name="dimen_flow_button_radius">23dp</dimen>
+	<dimen name="dimen_flow_button_elevation">1dp</dimen>
+	<dimen name="size_flow_button_label">18sp</dimen>
+
 	<!-- Sign In Activity -->
-	<dimen name="dimen_sign_ing_components_height">@dimen/dimen_46dp</dimen>
-	<dimen name="dimen_sign_ing_components_corner_radius">@dimen/dimen_23dp</dimen>
-	<dimen name="text_sign_ing_components">@dimen/text_18sp</dimen>
+	<dimen name="dimen_sign_in_logo_height">46dp</dimen>
+	<dimen name="dimen_sign_in_components_height">46dp</dimen>
+	<dimen name="dimen_sign_in_components_corner_radius">23dp</dimen>
+	<dimen name="text_sign_in_components">18sp</dimen>
+	<dimen name="title_warning_dialog_margin_top">16dp</dimen>
+	<dimen name="container_warning_dialog_padding_start">24dp</dimen>
+	<dimen name="container_warning_dialog_padding_end">24dp</dimen>
 
 </resources>

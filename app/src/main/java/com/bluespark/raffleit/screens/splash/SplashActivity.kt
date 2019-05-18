@@ -2,11 +2,10 @@ package com.bluespark.raffleit.screens.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.bluespark.raffleit.screens.main.MainActivity
-import com.bluespark.raffleit.screens.singin.SignInActivity
+import com.bluespark.raffleit.screens.signin.SignInActivity
 import javax.inject.Inject
 
 class SplashActivity : BaseActivityImpl(), SplashContract.View {
@@ -24,14 +23,6 @@ class SplashActivity : BaseActivityImpl(), SplashContract.View {
 		super.applyImmersiveFullScreen()
 		setContentView(R.layout.activity_splash)
 		getPresentationComponent().inject(this)
-		// Draw below status bar, android:statusBarColor attribute must be transparent.
-		// Hide navigation bar.
-		window.decorView.systemUiVisibility =
-			View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-					View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-					View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-					View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-					View.SYSTEM_UI_FLAG_IMMERSIVE
 
 	}
 
@@ -44,25 +35,25 @@ class SplashActivity : BaseActivityImpl(), SplashContract.View {
 	 * [SplashContract.View] implementation.
 	 */
 
-	override fun viewStartLoadingAnimation() {
+	override fun startLoadingAnimation() {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
-	override fun viewStopLoadingAnimation() {
+	override fun stopLoadingAnimation() {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
-	override fun viewShowNoInternetDialog() {
+	override fun showNoInternetDialog() {
 		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 	}
 
-	override fun flowGoToSignInScreen() {
+	override fun goToSignInScreen() {
 		val goToSignInScreenIntent = Intent(this, SignInActivity::class.java)
 		startActivity(goToSignInScreenIntent)
 		finish()
 	}
 
-	override fun flowGoToMainScreen() {
+	override fun goToMainScreen() {
 		val goToMainScreenIntent = Intent(this, MainActivity::class.java)
 		startActivity(goToMainScreenIntent)
 		finish()

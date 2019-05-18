@@ -5,15 +5,16 @@
 	android:layout_height="match_parent">
 
 	<android.support.v7.widget.CardView
+		android:id="@+id/sign_in_facebook_btn"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/dimen_sign_ing_components_height"
+		android:layout_height="@dimen/dimen_sign_in_components_height"
 		android:layout_margin="@dimen/dimen_8dp"
 		android:clickable="true"
 		android:focusable="true"
 		android:foreground="?android:attr/selectableItemBackground"
 		app:cardBackgroundColor="@color/color_facebook"
-		app:cardCornerRadius="@dimen/dimen_sign_ing_components_corner_radius"
-		app:cardElevation="@dimen/dimen_3dp">
+		app:cardCornerRadius="@dimen/dimen_sign_in_components_corner_radius"
+		app:cardElevation="@dimen/dimen_1dp">
 
 		<RelativeLayout
 			android:layout_width="match_parent"
@@ -39,7 +40,7 @@
 				android:text="@string/title_sign_in_facebook_btn"
 				android:textAlignment="center"
 				android:textColor="@color/color_white"
-				android:textSize="@dimen/text_sign_ing_components"
+				android:textSize="@dimen/text_sign_in_components"
 				android:textStyle="bold" />
 		</RelativeLayout>
 	</android.support.v7.widget.CardView>

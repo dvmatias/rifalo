@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@drawable/bgr_sign_in_activity"
-	tools:context=".screens.singin.SignInActivity">
+	android:background="@drawable/degrade_activity_bgr"
+	tools:context=".screens.signin.SignInActivity">
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -16,79 +17,88 @@
 		<FrameLayout
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
-			android:layout_weight="@integer/integer_one"
-			android:padding="@dimen/dimen_22dp">
+			android:layout_weight="0.5">
 
 			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="@dimen/dimen_sign_ing_components_height"
-				android:layout_gravity="bottom"
+				android:layout_width="wrap_content"
+				android:layout_height="@dimen/dimen_sign_in_logo_height"
+				android:layout_gravity="bottom|center_horizontal"
 				android:adjustViewBounds="true"
 				android:contentDescription="@null"
-				android:scaleType="center"
+				android:scaleType="centerInside"
 				android:src="@drawable/img_sign_in_app_name" />
 		</FrameLayout>
 
 		<!-- Container - Login -->
-		<RelativeLayout
+		<LinearLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="0dp"
+			android:layout_weight="@integer/integer_one"
+			android:orientation="vertical"
+			android:gravity="bottom|center_horizontal"
 			android:paddingStart="@dimen/dimen_28dp"
 			android:paddingEnd="@dimen/dimen_28dp">
 
-			<!-- User Name Input -->
-			<EditText
-				android:id="@+id/et_user_name"
-				style="@style/EditTextLoginTheme"
+			<LinearLayout
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/dimen_sign_ing_components_height"
-				android:hint="@string/hint_sign_in_username"
-				android:inputType="textPersonName"
-				tools:ignore="Autofill" />
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
 
-			<!-- User Password Input -->
-			<EditText
-				android:id="@+id/et_user_password"
-				style="@style/EditTextLoginTheme"
+				<!-- User Name Input -->
+				<com.bluespark.raffleit.common.views.TitleErrorEditText
+					android:id="@+id/etcv_user_email"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:imeOptions="actionNext"
+					android:inputType="text"
+					app:hintText="@string/hint_sign_in_user_email"
+					app:errorColorText="@color/color_white"
+					app:titleColor="@color/color_white"
+					app:titleText="@string/title_sign_in_user_email" />
+
+				<!-- User Password Input -->
+				<com.bluespark.raffleit.common.views.TitleErrorEditText
+					android:id="@+id/etcv_user_password"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:imeOptions="actionGo"
+					android:inputType="textPassword"
+					app:hintText="@string/hint_sign_in_user_password"
+					app:errorColorText="#FFFFFF"
+					app:titleColor="@color/color_white"
+					app:titleText="@string/title_sign_in_user_password" />
+			</LinearLayout>
+
+			<!-- Login Button -->
+			<com.bluespark.raffleit.common.views.FlowButtonCustomView
+				android:id="@+id/login_btn"
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/dimen_sign_ing_components_height"
-				android:layout_below="@id/et_user_name"
-				android:layout_marginTop="@dimen/dimen_14dp"
-				android:hint="@string/hint_sign_in_password"
-				android:inputType="textPassword"
-				tools:ignore="Autofill" />
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/dimen_24dp"
+				app:buttonColor="#ffd900"
+				app:labelText="@string/title_login_btn" />
 
 			<!-- Get Help Text Button -->
 			<TextView
 				android:id="@+id/tv_get_help"
-				android:layout_width="match_parent"
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_below="@id/et_user_password"
-				android:layout_marginTop="@dimen/dimen_10dp"
-				android:layout_marginBottom="@dimen/dimen_26dp"
+				android:layout_marginTop="@dimen/dimen_2dp"
 				android:padding="@dimen/dimen_4dp"
 				android:text="@string/text_sign_in_activity_get_help"
 				android:textAlignment="center"
 				android:textColor="@color/color_white"
-				android:textSize="@dimen/text_14sp" />
-
-			<!-- Login Button -->
-			<include
-				android:id="@+id/btn_login"
-				layout="@layout/view_login_btn"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/tv_get_help" />
-		</RelativeLayout>
+				android:textSize="@dimen/text_15sp" />
+		</LinearLayout>
 
 		<!-- "OR" Separator -->
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/dimen_36dp"
-			android:layout_marginTop="@dimen/dimen_16dp"
+			android:layout_marginTop="@dimen/dimen_8dp"
 			android:layout_marginEnd="@dimen/dimen_36dp"
-			android:layout_marginBottom="@dimen/dimen_16dp"
+			android:layout_marginBottom="@dimen/dimen_8dp"
 			android:gravity="center_vertical"
 			android:orientation="horizontal">
 
@@ -119,12 +129,13 @@
 		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/dimen_24dp"
 			android:paddingStart="@dimen/dimen_28dp"
 			android:paddingEnd="@dimen/dimen_28dp">
 
 			<!-- Facebook Sign In Button -->
 			<include
-				android:id="@+id/btn_sign_in_facebook"
+				android:id="@+id/facebook"
 				layout="@layout/view_sign_in_facebook_btn"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -132,18 +143,12 @@
 
 			<!-- Google Sign In Button -->
 			<include
-				android:id="@+id/btn_sign_in_google"
+				android:id="@+id/google"
 				layout="@layout/view_sign_in_google_btn"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_below="@id/btn_sign_in_facebook" />
+				android:layout_below="@id/facebook" />
 		</RelativeLayout>
-
-		<!-- Void (Transparent view to maintain separation according main parent height) -->
-		<View
-			android:layout_width="match_parent"
-			android:layout_height="0dp"
-			android:layout_weight="0.20" />
 
 		<View
 			android:layout_width="match_parent"
@@ -151,14 +156,20 @@
 			android:background="@color/color_white" />
 
 		<!-- Sign Up Text Button -->
-		<TextView
+		<FrameLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="@drawable/bgr_sign_up_btn_sign_in_activity"
-			android:padding="@dimen/dimen_16dp"
-			android:text="@string/text_sign_in_activity_sign_up"
-			android:textAlignment="center"
-			android:textColor="@color/color_white"
-			android:textSize="@dimen/text_14sp" />
+			android:background="@drawable/bgr_sign_up_btn_sign_in_activity">
+
+			<TextView
+				android:id="@+id/tv_sign_up"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:padding="@dimen/dimen_16dp"
+				android:text="@string/text_sign_in_activity_sign_up"
+				android:textColor="@color/color_white"
+				android:textSize="@dimen/text_15sp" />
+		</FrameLayout>
 	</LinearLayout>
 </android.support.constraint.ConstraintLayout>

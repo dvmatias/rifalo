@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:paddingStart="@dimen/dimen_32dp"
+	android:paddingEnd="@dimen/dimen_32dp">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_vertical"
+		android:background="@drawable/shape_fragment_user_info_bgr"
+		android:orientation="vertical"
+		android:paddingStart="@dimen/dimen_14dp"
+		android:paddingTop="@dimen/dimen_20dp"
+		android:paddingEnd="@dimen/dimen_14dp"
+		android:paddingBottom="@dimen/dimen_20dp"
+		tools:ignore="UselessParent">
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/title_fragment_phone_validation"
+			android:textAlignment="center"
+			android:textColor="@color/color_white"
+			android:textSize="@dimen/text_18sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dimen_12dp"
+			android:text="@string/explanation_fragment_phone_validation"
+			android:textAlignment="center"
+			android:textColor="@color/color_white"
+			android:textSize="@dimen/text_16sp" />
+
+		<com.bluespark.raffleit.common.views.CountryCodeSelector
+			android:id="@+id/v_country_code_selector"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" />
+
+		<com.bluespark.raffleit.common.views.AgreementView
+			android:id="@+id/v_agreement"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" />
+
+	</LinearLayout>
+</FrameLayout>
