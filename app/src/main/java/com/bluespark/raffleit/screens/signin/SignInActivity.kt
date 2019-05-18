@@ -2,13 +2,13 @@ package com.bluespark.raffleit.screens.signin
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import com.bluespark.raffleit.R
 import com.bluespark.raffleit.common.Constants
+import com.bluespark.raffleit.common.model.objects.UserFirebase
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.bluespark.raffleit.common.utils.UiHelper
 import com.bluespark.raffleit.common.utils.managers.FirebaseSignInGoogleManager
@@ -64,7 +64,7 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		facebook.sign_in_facebook_btn.setOnClickListener(this)
 		google.sign_in_google_btn.setOnClickListener(this)
 		tv_sign_up.setOnClickListener(this)
-		etcv_user_password.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+		etcv_user_password.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, _ ->
 			if (actionId == EditorInfo.IME_ACTION_GO) {
 				onLoginClick()
 				UiHelper.hideKeyboardFrom(this@SignInActivity, v)
@@ -105,8 +105,13 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 	}
 
 	override fun onLoginClick() {
+		// On "login" button click, clear errors.
+		etcv_user_email.setStatusNormal()
+		etcv_user_password.setStatusNormal()
+		// Set email and password entered.
 		val email: String = etcv_user_email.getText()
 		val password: String = etcv_user_password.getText()
+		// Validate email and password and trigger login process.
 		presenter.validateCredentials(email, password)
 	}
 
@@ -114,8 +119,13 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		val firebaseUser = firebaseAuth.currentUser
 		val isEmailVerified = (firebaseUser?.isEmailVerified)
 		if (firebaseUser != null && firebaseUser.isEmailVerified) {
-			goToMainScreen()
+			// Sign in success, update UI with the signed-in user's information
+			val user = firebaseAuth.currentUser
+			if (user != null) {
+				presenter.addUserToDatabase(user.uid)
+			}
 		} else if (isEmailVerified != null && !isEmailVerified) {
+			showLoading(Constants.HIDE_LOADING)
 			setEmailError("You must verify your email.")
 		}
 	}

@@ -2,7 +2,6 @@ package com.bluespark.raffleit.common.utils.managers
 
 import android.util.Log
 import com.bluespark.raffleit.common.Constants
-import com.bluespark.raffleit.common.model.objects.UserFirebase
 import com.bluespark.raffleit.common.mvp.BaseActivityImpl
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -51,27 +50,16 @@ class FirebaseSignInGoogleManager(
 		}
 	}
 
-	private fun firebaseSignInWithGoogle(activity: BaseActivityImpl, account: GoogleSignInAccount?) {
+	private fun firebaseSignInWithGoogle(
+		activity: BaseActivityImpl,
+		account: GoogleSignInAccount?
+	) {
 		val credential = GoogleAuthProvider.getCredential(account!!.idToken, null)
 		firebaseAuth.signInWithCredential(credential)
 			.addOnCompleteListener(
 				activity
 			) { task ->
 				if (task.isSuccessful) {
-					// Sign in success, update UI with the signed-in user's information
-					val user = firebaseAuth.currentUser
-					val userFirebase: UserFirebase
-					user?.let {
-						userFirebase = UserFirebase(
-							user.uid,
-							user.providers!![0],
-							user.displayName,
-							user.email,
-							user.photoUrl,
-							user.phoneNumber,
-							user.isEmailVerified
-						)
-					}
 					// TODO Store user data.
 					(activity as Listener).onGoogleSignInSuccess()
 				} else {
