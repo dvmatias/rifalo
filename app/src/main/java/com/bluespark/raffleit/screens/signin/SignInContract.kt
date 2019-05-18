@@ -1,5 +1,6 @@
 package com.bluespark.raffleit.screens.signin
 
+import com.bluespark.raffleit.common.model.objects.UserFirebase
 import com.bluespark.raffleit.common.mvp.BasePresenter
 import com.bluespark.raffleit.common.mvp.BaseView
 
@@ -34,6 +35,7 @@ interface SignInContract {
 		fun validateCredentials(email: String?, password: String?)
 		fun manageEmailError(errorMsg: String)
 		fun managePasswordError(errorMsg: String)
+		fun addUserToDatabase(userId: String)
 	}
 
 }

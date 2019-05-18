@@ -6,6 +6,7 @@ import com.bluespark.raffleit.common.utils.managers.FirebaseEmailPasswordManager
 import com.bluespark.raffleit.common.utils.managers.FirebaseSignInPhoneManager
 import com.bluespark.raffleit.common.utils.managers.FirebaseUserManager
 import com.bluespark.raffleit.common.utils.managers.InternetConnectivityManager
+import com.bluespark.raffleit.screens.signin.AddUserLogedInWithEmailAndPasswordToDatabaseInteractor
 import com.bluespark.raffleit.screens.signin.SignInWithEmailAnPasswordInteractor
 import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.CreatePhoneAuthCredentialInteractor
 import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.SendFirebaseOtpInteractor
@@ -18,6 +19,7 @@ import com.bluespark.raffleit.screens.signup.interactors.SignUpFetchCountryCodes
 import com.bluespark.raffleit.screens.signup.interactors.UpdatePhoneFirebaseUserInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckCredentialsInteractor
 import com.bluespark.raffleit.screens.splash.SplashCheckNetworkInteractor
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import dagger.Module
 import dagger.Provides
@@ -97,5 +99,12 @@ class InteractorModule {
 		firebaseEmailPasswordManager: FirebaseEmailPasswordManager
 	): SignInWithEmailAnPasswordInteractor =
 		SignInWithEmailAnPasswordInteractor(activity, firebaseEmailPasswordManager)
+
+	@Provides
+	fun getAddUserLogedInWithEmailAndPasswordToDatabaseInteractor(
+		activity: AppCompatActivity,
+		firebaseAuth: FirebaseAuth
+	): AddUserLogedInWithEmailAndPasswordToDatabaseInteractor =
+		AddUserLogedInWithEmailAndPasswordToDatabaseInteractor(activity, firebaseAuth)
 
 }

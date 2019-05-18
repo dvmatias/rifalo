@@ -10,7 +10,8 @@ class SignInPresenterImpl(
 	view: SignInContract.View?,
 	private var validateEmailInteractor: ValidateEmailInteractor,
 	private var validatePasswordInteractor: ValidatePasswordInteractor,
-	private var signInWithEmailAnPasswordInteractor: SignInWithEmailAnPasswordInteractor
+	private var signInWithEmailAnPasswordInteractor: SignInWithEmailAnPasswordInteractor,
+	private var addUserLogedInWithEmailAndPasswordToDatabaseInteractor: AddUserLogedInWithEmailAndPasswordToDatabaseInteractor
 ) : BasePresenterImpl<SignInContract.View>(),
 	SignInContract.Presenter, ValidateEmailInteractor.Listener,
 	ValidatePasswordInteractor.Listener {
@@ -66,6 +67,17 @@ class SignInPresenterImpl(
 	}
 
 	/**
+	 * If the recently logged in user doesn't exits in "users" database, this method creates a new
+	 * entry for this user.
+	 */
+	override fun addUserToDatabase(userId: String) {
+		addUserLogedInWithEmailAndPasswordToDatabaseInteractor.execute(
+			addUserToDatabaseInteractorListener,
+			userId
+		)
+	}
+
+	/**
 	 * [SignInWithEmailAnPasswordInteractor.Listener] implementation.
 	 */
 
@@ -73,7 +85,6 @@ class SignInPresenterImpl(
 		object : SignInWithEmailAnPasswordInteractor.Listener {
 			override fun onSuccess() {// Login successful.
 				view?.onSignInEmailPasswordSuccess()
-				view?.showLoadingDialog(Constants.HIDE_LOADING)
 			}
 
 			override fun onFail(errorCode: String) {
@@ -91,6 +102,24 @@ class SignInPresenterImpl(
 				}
 
 			}
+		}
+
+	/**
+	 * [AddUserLogedInWithEmailAndPasswordToDatabaseInteractor.Listener] implementation.
+	 */
+
+	private val addUserToDatabaseInteractorListener =
+		object : AddUserLogedInWithEmailAndPasswordToDatabaseInteractor.Listener {
+			override fun onSuccess() {
+				view?.showLoadingDialog(Constants.HIDE_LOADING)
+				view?.goToMainScreen()
+			}
+
+			override fun onFail(errorCode: String) {
+				view?.showLoadingDialog(Constants.HIDE_LOADING)
+				// TODO manage error (the app can't check if the user exits on DB or the app can't add the user to DB)
+			}
+
 		}
 
 	/**
