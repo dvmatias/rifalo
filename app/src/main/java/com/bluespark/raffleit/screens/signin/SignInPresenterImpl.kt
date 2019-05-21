@@ -11,6 +11,7 @@ class SignInPresenterImpl(
 	private var validateEmailInteractor: ValidateEmailInteractor,
 	private var validatePasswordInteractor: ValidatePasswordInteractor,
 	private var signInWithEmailAnPasswordInteractor: SignInWithEmailAnPasswordInteractor,
+	private var signInWithGoogleInteractor: SignInWithGoogleInteractor,
 	private var addUserLogedInWithEmailAndPasswordToDatabaseInteractor: AddUserLogedInWithEmailAndPasswordToDatabaseInteractor
 ) : BasePresenterImpl<SignInContract.View>(),
 	SignInContract.Presenter, ValidateEmailInteractor.Listener,
@@ -34,7 +35,7 @@ class SignInPresenterImpl(
 	}
 
 	override fun signInGoogle() {
-		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		signInWithGoogleInteractor.execute(signInWithGoogleInteractorListener)
 	}
 
 	override fun signInFacebook() {
@@ -80,10 +81,10 @@ class SignInPresenterImpl(
 	/**
 	 * [SignInWithEmailAnPasswordInteractor.Listener] implementation.
 	 */
-
 	private val signInWithEmailAnPasswordInteractorListener =
 		object : SignInWithEmailAnPasswordInteractor.Listener {
-			override fun onSuccess() {// Login successful.
+			override fun onSuccess() {
+				// Login successful.
 				view?.onSignInEmailPasswordSuccess()
 			}
 
@@ -105,9 +106,22 @@ class SignInPresenterImpl(
 		}
 
 	/**
+	 * [SignInWithGoogleInteractor.Listener] implementation
+	 */
+	private val signInWithGoogleInteractorListener: SignInWithGoogleInteractor.Listener =
+		object : SignInWithGoogleInteractor.Listener {
+			override fun onSuccess() {
+				view?.onSignInGoogleSuccess()
+			}
+
+			override fun onFail(errorCode: String) {
+				TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+			}
+		}
+
+	/**
 	 * [AddUserLogedInWithEmailAndPasswordToDatabaseInteractor.Listener] implementation.
 	 */
-
 	private val addUserToDatabaseInteractorListener =
 		object : AddUserLogedInWithEmailAndPasswordToDatabaseInteractor.Listener {
 			override fun onSuccess() {
@@ -125,7 +139,6 @@ class SignInPresenterImpl(
 	/**
 	 * [ValidateEmailInteractor.Listener] implementation.
 	 */
-
 	override fun onValidEmail() {
 		isValidEmail = true
 	}
@@ -138,7 +151,6 @@ class SignInPresenterImpl(
 	/**
 	 * [ValidatePasswordInteractor.Listener] implementation.
 	 */
-
 	override fun onValidPassword() {
 		isValidPassword = true
 	}

@@ -4,10 +4,7 @@ import com.bluespark.raffleit.common.mvp.BaseView
 import com.bluespark.raffleit.common.utils.managers.PhoneManager
 import com.bluespark.raffleit.screens.choosecountry.ChooseCountryContract
 import com.bluespark.raffleit.screens.choosecountry.ChooseCountryPresenterImpl
-import com.bluespark.raffleit.screens.signin.AddUserLogedInWithEmailAndPasswordToDatabaseInteractor
-import com.bluespark.raffleit.screens.signin.SignInContract
-import com.bluespark.raffleit.screens.signin.SignInPresenterImpl
-import com.bluespark.raffleit.screens.signin.SignInWithEmailAnPasswordInteractor
+import com.bluespark.raffleit.screens.signin.*
 import com.bluespark.raffleit.screens.signup.SignUpContract
 import com.bluespark.raffleit.screens.signup.SignUpPresenterImpl
 import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.CreatePhoneAuthCredentialInteractor
@@ -49,6 +46,7 @@ class PresenterModule {
 		validateEmailInteractor: ValidateEmailInteractor,
 		validatePasswordInteractor: ValidatePasswordInteractor,
 		signInWithEmailAnPasswordInteractor: SignInWithEmailAnPasswordInteractor,
+		signInWithGoogleInteractor: SignInWithGoogleInteractor,
 		addUserLogedInWithEmailAndPasswordToDatabaseInteractor: AddUserLogedInWithEmailAndPasswordToDatabaseInteractor
 	): SignInPresenterImpl =
 		SignInPresenterImpl(
@@ -56,6 +54,7 @@ class PresenterModule {
 			validateEmailInteractor,
 			validatePasswordInteractor,
 			signInWithEmailAnPasswordInteractor,
+			signInWithGoogleInteractor,
 			addUserLogedInWithEmailAndPasswordToDatabaseInteractor
 		)
 

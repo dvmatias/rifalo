@@ -2,12 +2,10 @@ package com.bluespark.raffleit.common.injection.presentation
 
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
-import com.bluespark.raffleit.common.utils.managers.FirebaseEmailPasswordManager
-import com.bluespark.raffleit.common.utils.managers.FirebaseSignInPhoneManager
-import com.bluespark.raffleit.common.utils.managers.FirebaseUserManager
-import com.bluespark.raffleit.common.utils.managers.InternetConnectivityManager
+import com.bluespark.raffleit.common.utils.managers.*
 import com.bluespark.raffleit.screens.signin.AddUserLogedInWithEmailAndPasswordToDatabaseInteractor
 import com.bluespark.raffleit.screens.signin.SignInWithEmailAnPasswordInteractor
+import com.bluespark.raffleit.screens.signin.SignInWithGoogleInteractor
 import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.CreatePhoneAuthCredentialInteractor
 import com.bluespark.raffleit.screens.signup.fragments.phoneregistration.SendFirebaseOtpInteractor
 import com.bluespark.raffleit.screens.signup.fragments.userinfo.ValidateEmailInteractor
@@ -101,6 +99,13 @@ class InteractorModule {
 		firebaseEmailPasswordManager: FirebaseEmailPasswordManager
 	): SignInWithEmailAnPasswordInteractor =
 		SignInWithEmailAnPasswordInteractor(activity, firebaseEmailPasswordManager)
+
+	@Provides
+	fun getSignInWithGoogleInteractor(
+		activity: AppCompatActivity,
+		firebaseSignInGoogleManager: FirebaseSignInGoogleManager
+	): SignInWithGoogleInteractor =
+		SignInWithGoogleInteractor(activity, firebaseSignInGoogleManager)
 
 	@Provides
 	fun getAddUserLogedInWithEmailAndPasswordToDatabaseInteractor(
