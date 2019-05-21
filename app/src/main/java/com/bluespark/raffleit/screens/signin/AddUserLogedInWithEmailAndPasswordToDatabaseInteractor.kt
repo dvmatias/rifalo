@@ -1,11 +1,13 @@
 package com.bluespark.raffleit.screens.signin
 
 import android.app.Activity
+import android.net.Uri
 import android.support.annotation.UiThread
 import android.util.Log
 import com.bluespark.raffleit.common.model.objects.UserFirebase
 import com.bluespark.raffleit.screens.signin.AddUserLogedInWithEmailAndPasswordToDatabaseInteractor.Listener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -107,14 +109,41 @@ class AddUserLogedInWithEmailAndPasswordToDatabaseInteractor(
 		user!!
 		return UserFirebase(
 			user.uid,
-			UserFirebase.Person("_name", "_lastName", "_birthDate", "_country"),
-			"_google",
+			UserFirebase.Person(
+				if (user.displayName.isNullOrEmpty()) "_displayName" else user.displayName!!,
+				"_birthDate",
+				"_country"
+			),
 			"_facebook",
-			if (user.email.isNullOrEmpty()) "_email" else user.email!!,
-			if (user.phoneNumber.isNullOrEmpty()) "_phoneNumber" else user.phoneNumber!!,
-			"_photoUrl",
+			getEmail(user),
+			getPhoneNumber(user),
+			getPhotoUrl(user),
 			user.providers!!
 		)
+	}
+
+	private fun getEmail(firebaseUser: FirebaseUser): String {
+		var email = "_email"
+		for (providerData in firebaseUser.providerData)
+			if (!providerData.email.isNullOrEmpty()) email = providerData.email!!
+
+		return email
+	}
+
+	private fun getPhotoUrl(firebaseUser: FirebaseUser): Uri {
+		var photoUrl = Uri.parse("_photoUrl")
+		for (providerData in firebaseUser.providerData)
+			if (!providerData.email.isNullOrEmpty()) photoUrl = providerData.photoUrl
+
+		return photoUrl
+	}
+
+	private fun getPhoneNumber(firebaseUser: FirebaseUser): String {
+		var phoneNumber = "_phoneNumber"
+		for (providerData in firebaseUser.providerData)
+			if (!providerData.email.isNullOrEmpty()) phoneNumber = providerData.phoneNumber!!
+
+		return phoneNumber
 	}
 
 }

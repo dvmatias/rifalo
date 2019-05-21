@@ -10,7 +10,6 @@ interface SignInContract {
 		// UI user actions
 		fun onGetHelpClick()
 		fun onLoginClick()
-		fun onSignInEmailPasswordSuccess()
 		fun onSignInFacebookClick()
 		fun onSignInGoogleClick()
 		fun onSignUpClick()
@@ -23,9 +22,10 @@ interface SignInContract {
 		// Flow
 		fun goToMainScreen()
 		fun goToSignUpScreen()
-		fun showLoadingDialog(show: Boolean) {
-
-		}
+		fun showLoadingDialog(show: Boolean)
+		// Results
+		fun onSignInEmailPasswordSuccess()
+		fun onSignInGoogleSuccess()
 	}
 
 	interface Presenter : BasePresenter<View> {

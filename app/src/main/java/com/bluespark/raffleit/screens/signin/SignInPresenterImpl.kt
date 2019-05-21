@@ -83,7 +83,8 @@ class SignInPresenterImpl(
 	 */
 	private val signInWithEmailAnPasswordInteractorListener =
 		object : SignInWithEmailAnPasswordInteractor.Listener {
-			override fun onSuccess() {// Login successful.
+			override fun onSuccess() {
+				// Login successful.
 				view?.onSignInEmailPasswordSuccess()
 			}
 
@@ -110,7 +111,7 @@ class SignInPresenterImpl(
 	private val signInWithGoogleInteractorListener: SignInWithGoogleInteractor.Listener =
 		object : SignInWithGoogleInteractor.Listener {
 			override fun onSuccess() {
-				view?.goToMainScreen()
+				view?.onSignInGoogleSuccess()
 			}
 
 			override fun onFail(errorCode: String) {

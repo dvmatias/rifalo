@@ -106,13 +106,17 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 		val isEmailVerified = (firebaseUser?.isEmailVerified)
 		if (firebaseUser != null && firebaseUser.isEmailVerified) {
 			// Sign in success, update UI with the signed-in user's information
-			val user = firebaseAuth.currentUser
-			if (user != null) {
-				presenter.addUserToDatabase(user.uid)
-			}
+			presenter.addUserToDatabase(firebaseUser.uid)
 		} else if (isEmailVerified != null && !isEmailVerified) {
 			showLoading(Constants.HIDE_LOADING)
 			setEmailError("You must verify your email.")
+		}
+	}
+
+	override fun onSignInGoogleSuccess() {
+		val firebaseUser = firebaseAuth.currentUser
+		if (firebaseUser != null) {
+			presenter.addUserToDatabase(firebaseUser.uid)
 		}
 	}
 
