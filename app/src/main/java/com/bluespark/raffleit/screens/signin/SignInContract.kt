@@ -1,6 +1,5 @@
 package com.bluespark.raffleit.screens.signin
 
-import com.bluespark.raffleit.common.model.objects.UserFirebase
 import com.bluespark.raffleit.common.mvp.BasePresenter
 import com.bluespark.raffleit.common.mvp.BaseView
 
@@ -15,16 +14,19 @@ interface SignInContract {
 		fun onSignUpClick()
 		// UI feedback
 		fun showNoInternetDialog(show: Boolean)
+
 		fun setEmailError(errorMsg: String)
 		fun setPasswordError(errorMsg: String)
 		fun showUserNotFoundErrorDialog()
 		fun showWrongPasswordErrorDialog()
 		// Flow
 		fun goToMainScreen()
+
 		fun goToSignUpScreen()
 		fun showLoadingDialog(show: Boolean)
 		// Results
 		fun onSignInEmailPasswordSuccess()
+
 		fun onSignInGoogleSuccess()
 	}
 

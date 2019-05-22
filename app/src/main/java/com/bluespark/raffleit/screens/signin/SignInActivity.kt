@@ -88,6 +88,7 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 	 */
 	override fun onGetHelpClick() {
 		Toast.makeText(this, "onGetHelpClick()", Toast.LENGTH_SHORT).show()
+		// TODO
 	}
 
 	override fun onLoginClick() {
@@ -122,6 +123,7 @@ class SignInActivity : BaseActivityImpl(), SignInContract.View, View.OnClickList
 
 	override fun onSignInFacebookClick() {
 		Toast.makeText(this, "onSignInFacebookClick()", Toast.LENGTH_SHORT).show()
+		// TODO
 	}
 
 	override fun onSignInGoogleClick() {
