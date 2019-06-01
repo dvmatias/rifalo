@@ -8,6 +8,15 @@
 		<item name="colorPrimaryDark">@color/color_primary_dark</item>
 	</style>
 
+	<style name="SelectableItemTheme">
+		<item name="colorControlHighlight">#E2E2E2</item>
+	</style>
+
+	<style name="SelectableItemBackground">
+		<item name="android:theme">@style/SelectableItemTheme</item>
+		<item name="android:background">?attr/selectableItemBackground</item>
+	</style>
+
 	<!-- Activity Splash Theme. -->
 	<style name="ActivitySplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
 		<item name="android:statusBarColor">@color/color_transparent</item>

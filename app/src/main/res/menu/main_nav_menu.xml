@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<item
+		android:id="@+id/a"
+		android:enabled="true"
+		android:icon="@drawable/main_nav_create_raffle_selector"
+		android:title="Recents"
+		app:showAsAction="always" />
+	<item
+		android:id="@+id/b"
+		android:enabled="true"
+		android:icon="@drawable/main_nav_saved_raffles_selector"
+		android:title="Recents"
+		app:showAsAction="always" />
+	<item
+		android:id="@+id/c"
+		android:enabled="true"
+		android:icon="@drawable/main_nav_raffles_selector"
+		android:title="Recents"
+		app:showAsAction="always" />
+	<item
+		android:id="@+id/d"
+		android:enabled="true"
+		android:icon="@drawable/main_nav_notifications_selector"
+		android:title="Favorites"
+		app:showAsAction="always" />
+	<item
+		android:id="@+id/e"
+		android:enabled="true"
+		android:icon="@drawable/main_nav_user_selector"
+		android:title="Nearby"
+		app:showAsAction="always" />
+</menu>

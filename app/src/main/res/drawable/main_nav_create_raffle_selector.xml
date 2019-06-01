@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:state_pressed="true"
+		android:state_selected="false"
+		android:drawable="@drawable/ic_create_raffle_pressed_main_nav_24dp"/>
+	<item
+		android:state_selected="true"
+		android:drawable="@drawable/ic_create_raffle_selected_main_nav_24dp"/>
+	<item
+		android:drawable="@drawable/ic_create_raffle_main_nav_24dp"/>
+</selector>

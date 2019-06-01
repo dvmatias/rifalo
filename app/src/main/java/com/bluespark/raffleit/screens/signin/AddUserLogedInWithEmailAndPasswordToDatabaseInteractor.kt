@@ -117,8 +117,7 @@ class AddUserLogedInWithEmailAndPasswordToDatabaseInteractor(
 			"_facebook",
 			getEmail(user),
 			getPhoneNumber(user),
-			getPhotoUrl(user),
-			user.providers!!
+			getPhotoUrl(user)
 		)
 	}
 

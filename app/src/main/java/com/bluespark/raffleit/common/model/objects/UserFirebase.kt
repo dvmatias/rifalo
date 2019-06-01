@@ -11,8 +11,7 @@ class UserFirebase(
 	var facebook: String,
 	var email: String,
 	var phone: String,
-	var photoUrl: Uri,
-	var providers: MutableList<String>
+	var photoUrl: Uri
 ) {
 
 	class Person(

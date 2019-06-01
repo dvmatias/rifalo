@@ -24,6 +24,8 @@ class MainActivity : BaseActivityImpl() {
 		// Inject this view.
 		getPresentationComponent().inject(this)
 
+		main_nav.itemIconTintList = null
+
 		btn_log_out.setOnClickListener {
 			FirebaseAuth.getInstance().signOut()
 
